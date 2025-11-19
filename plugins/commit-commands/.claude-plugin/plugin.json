@@ -1,0 +1,9 @@
+{
+  "name": "commit-commands",
+  "description": "使用簡單命令簡化您的 Git 工作流程，包括提交、推送和建立 Pull Request",
+  "version": "1.0.0",
+  "author": {
+    "name": "Anthropic (繁體中文版)",
+    "email": "support@anthropic.com"
+  }
+}

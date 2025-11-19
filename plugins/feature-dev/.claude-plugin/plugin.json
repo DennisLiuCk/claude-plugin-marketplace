@@ -1,0 +1,9 @@
+{
+  "name": "feature-dev",
+  "description": "包含專門代理的功能開發工作流程，用於程式碼庫探索、架構設計和程式碼審查",
+  "version": "1.0.0",
+  "author": {
+    "name": "David Dworken (繁體中文版)",
+    "email": "dworken@anthropic.com"
+  }
+}

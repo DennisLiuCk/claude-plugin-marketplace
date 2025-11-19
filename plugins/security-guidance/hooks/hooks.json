@@ -1,0 +1,7 @@
+{
+  "description": "安全提醒鉤子，在編輯檔案時警告潛在的安全問題",
+  "preToolUse": {
+    "matcher": "Edit|Write|MultiEdit",
+    "command": "python3 ${CLAUDE_PLUGIN_ROOT}/hooks/security_reminder_hook.py"
+  }
+}

@@ -1,0 +1,55 @@
+{
+  "name": "claude-plugin-marketplace-zh-tw",
+  "version": "1.0.0",
+  "description": "Claude Code 繁體中文插件市場 - 提供繁體中文版本的 Claude Code 插件，幫助華語使用者更容易學習和使用",
+  "author": {
+    "name": "Dennis Liu",
+    "email": "dennis@example.com"
+  },
+  "plugins": [
+    {
+      "name": "commit-commands",
+      "description": "使用簡單命令簡化您的 Git 工作流程，包括提交、推送和建立 Pull Request",
+      "version": "1.0.0",
+      "author": {
+        "name": "Anthropic (繁體中文版)",
+        "email": "support@anthropic.com"
+      },
+      "source": "plugins/commit-commands",
+      "category": "productivity"
+    },
+    {
+      "name": "security-guidance",
+      "description": "安全提醒鉤子，在編輯檔案時警告潛在的安全問題，包括命令注入、XSS 和不安全的程式碼模式",
+      "version": "1.0.0",
+      "author": {
+        "name": "David Dworken (繁體中文版)",
+        "email": "dworken@anthropic.com"
+      },
+      "source": "plugins/security-guidance",
+      "category": "security"
+    },
+    {
+      "name": "feature-dev",
+      "description": "包含專門代理的功能開發工作流程，用於程式碼庫探索、架構設計和程式碼審查",
+      "version": "1.0.0",
+      "author": {
+        "name": "David Dworken (繁體中文版)",
+        "email": "dworken@anthropic.com"
+      },
+      "source": "plugins/feature-dev",
+      "category": "development"
+    },
+    {
+      "name": "plugin-dev",
+      "description": "插件開發工具包，提供建立 Claude Code 插件的完整技能和工具",
+      "version": "0.1.0",
+      "author": {
+        "name": "Boris Cherny (繁體中文版)",
+        "email": "boris@anthropic.com"
+      },
+      "source": "plugins/plugin-dev",
+      "category": "development"
+    }
+  ]
+}

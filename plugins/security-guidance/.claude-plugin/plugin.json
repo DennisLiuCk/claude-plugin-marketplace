@@ -1,0 +1,9 @@
+{
+  "name": "security-guidance",
+  "description": "安全提醒鉤子，在編輯檔案時警告潛在的安全問題，包括命令注入、XSS 和不安全的程式碼模式",
+  "version": "1.0.0",
+  "author": {
+    "name": "David Dworken (繁體中文版)",
+    "email": "dworken@anthropic.com"
+  }
+}
