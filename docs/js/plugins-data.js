@@ -225,7 +225,7 @@ const pluginsData = {
             sourceType: "official",
             icon: PLUGIN_ICONS['learning-output-style'],
             githubUrl: "https://github.com/DennisLiuCk/claude-plugin-marketplace/tree/main/plugins/learning-output-style"
-        },
+        }
     ]
 };
 
