@@ -1,0 +1,9 @@
+{
+  "name": "plugin-dev",
+  "version": "1.0.0",
+  "description": "Claude Code 插件開發工具包",
+  "author": {
+    "name": "Ashwin Bhat",
+    "email": "ashwin@anthropic.com"
+  }
+}

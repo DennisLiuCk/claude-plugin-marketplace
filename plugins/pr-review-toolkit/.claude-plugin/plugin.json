@@ -1,0 +1,9 @@
+{
+  "name": "pr-review-toolkit",
+  "version": "1.0.0",
+  "description": "拉取請求審查工具包，包含專業審查代理",
+  "author": {
+    "name": "Daisy",
+    "email": "daisy@anthropic.com"
+  }
+}

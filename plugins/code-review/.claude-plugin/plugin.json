@@ -1,0 +1,9 @@
+{
+  "name": "code-review",
+  "description": "使用多個專業代理和基於置信度的評分對拉取請求進行自動化代碼審查",
+  "version": "1.0.0",
+  "author": {
+    "name": "Boris Cherny",
+    "email": "boris@anthropic.com"
+  }
+}

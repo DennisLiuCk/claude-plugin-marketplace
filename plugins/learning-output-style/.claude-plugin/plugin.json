@@ -1,0 +1,9 @@
+{
+  "name": "learning-output-style",
+  "version": "1.0.0",
+  "description": "在決策點請求有意義代碼貢獻的互動學習模式（模擬未發布的學習輸出風格）",
+  "author": {
+    "name": "Boris Cherny",
+    "email": "boris@anthropic.com"
+  }
+}

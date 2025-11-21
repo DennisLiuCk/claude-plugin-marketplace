@@ -1,0 +1,15 @@
+{
+  "description": "解釋性模式鉤子，添加教育性見解指令",
+  "hooks": {
+    "SessionStart": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "${CLAUDE_PLUGIN_ROOT}/hooks-handlers/session-start.sh"
+          }
+        ]
+      }
+    ]
+  }
+}

@@ -1,0 +1,15 @@
+{
+  "description": "Ralph Wiggum Stop 鉤子 - 攔截退出以創建自引用循環",
+  "hooks": {
+    "Stop": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "${CLAUDE_PLUGIN_ROOT}/hooks/stop-hook.sh"
+          }
+        ]
+      }
+    ]
+  }
+}
