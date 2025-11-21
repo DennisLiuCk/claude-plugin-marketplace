@@ -1,0 +1,9 @@
+{
+  "name": "hookify",
+  "version": "0.1.0",
+  "description": "通過分析對話模式輕鬆創建鉤子來防止不需要的行為",
+  "author": {
+    "name": "Daisy Hollman",
+    "email": "daisy@anthropic.com"
+  }
+}

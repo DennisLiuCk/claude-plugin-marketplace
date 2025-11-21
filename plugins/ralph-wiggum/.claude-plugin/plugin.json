@@ -1,0 +1,9 @@
+{
+  "name": "ralph-wiggum",
+  "version": "1.0.0",
+  "description": "Ralph Wiggum 技術的實現 - 用於互動迭代開發的連續自引用 AI 循環。在 while-true 循環中運行 Claude，使用相同的提示直到任務完成。",
+  "author": {
+    "name": "Daisy Hollman",
+    "email": "daisy@anthropic.com"
+  }
+}
