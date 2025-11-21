@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Claude Code 繁體中文插件市場 - 探索高品質的 Claude Code 插件，提供完整的繁體中文說明">
+    <meta name="keywords" content="Claude, Claude Code, Plugins, 插件, 繁體中文, AI, Development Tools">
+    <meta name="author" content="Dennis Liu">
+
+    <title>Claude Plugin Marketplace | 繁體中文插件市場</title>
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Space+Mono:wght@400;700&family=Manrope:wght@400;500;600&display=swap" rel="stylesheet">
+
+    <!-- Styles -->
+    <link rel="stylesheet" href="css/style.css">
+
+    <!-- Favicon (using SVG as text) -->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='0.9em' font-size='90'>🔌</text></svg>">
+</head>
+<body>
+    <!-- Background Effects -->
+    <div class="bg-grid"></div>
+    <div class="bg-gradient"></div>
+    <div class="bg-noise"></div>
+
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <span class="logo-icon">⚡</span>
+                    <div class="logo-text">
+                        <h1>Claude Plugin Marketplace</h1>
+                        <p class="logo-subtitle">繁體中文插件市場</p>
+                    </div>
+                </div>
+
+                <nav class="nav">
+                    <a href="https://github.com/DennisLiuCk/claude-plugin-marketplace" target="_blank" class="nav-link">
+                        <span class="nav-icon">🔗</span>
+                        GitHub
+                    </a>
+                    <a href="https://docs.claude.com/en/docs/claude-code" target="_blank" class="nav-link">
+                        <span class="nav-icon">📚</span>
+                        文件
+                    </a>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <div class="hero-badge">v1.0.0</div>
+                <h2 class="hero-title">
+                    探索<span class="highlight">高品質</span>的<br>
+                    Claude Code 插件
+                </h2>
+                <p class="hero-description">
+                    基於 Anthropic 官方插件的繁體中文翻譯版本，<br>
+                    幫助華語開發者更輕鬆地學習和使用 Claude Code
+                </p>
+
+                <div class="hero-stats">
+                    <div class="stat-item">
+                        <div class="stat-number" data-stat="plugins-count">12</div>
+                        <div class="stat-label">插件總數</div>
+                    </div>
+                    <div class="stat-divider"></div>
+                    <div class="stat-item">
+                        <div class="stat-number">4</div>
+                        <div class="stat-label">分類</div>
+                    </div>
+                    <div class="stat-divider"></div>
+                    <div class="stat-item">
+                        <div class="stat-number">100%</div>
+                        <div class="stat-label">繁體中文</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Filter Section -->
+    <section class="filters">
+        <div class="container">
+            <div class="filter-bar">
+                <div class="filter-group">
+                    <label class="filter-label">分類篩選</label>
+                    <div class="filter-buttons">
+                        <button class="filter-btn active" data-category="all">
+                            全部 <span class="filter-count">12</span>
+                        </button>
+                        <button class="filter-btn" data-category="development">
+                            開發工具 <span class="filter-count">5</span>
+                        </button>
+                        <button class="filter-btn" data-category="productivity">
+                            生產力 <span class="filter-count">4</span>
+                        </button>
+                        <button class="filter-btn" data-category="security">
+                            安全 <span class="filter-count">1</span>
+                        </button>
+                        <button class="filter-btn" data-category="learning">
+                            學習 <span class="filter-count">2</span>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="filter-group">
+                    <label class="filter-label">來源篩選</label>
+                    <div class="filter-buttons">
+                        <button class="filter-btn active" data-source="all">
+                            全部
+                        </button>
+                        <button class="filter-btn" data-source="official">
+                            官方 <span class="source-badge official">Anthropic</span>
+                        </button>
+                        <button class="filter-btn" data-source="community">
+                            社群 <span class="source-badge community">Community</span>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="search-box">
+                    <input type="text" id="search-input" placeholder="搜尋插件..." class="search-input">
+                    <span class="search-icon">🔍</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Plugins Grid -->
+    <section class="plugins">
+        <div class="container">
+            <div id="plugins-grid" class="plugins-grid">
+                <!-- Plugins will be dynamically inserted here -->
+            </div>
+
+            <div id="no-results" class="no-results" style="display: none;">
+                <div class="no-results-icon">🔍</div>
+                <h3>未找到匹配的插件</h3>
+                <p>試試其他關鍵字或調整篩選條件</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3 class="footer-title">關於本專案</h3>
+                    <p class="footer-text">
+                        本專案基於 Anthropic 官方的 Claude Code 插件，<br>
+                        提供完整的繁體中文翻譯，幫助華語開發者更好地使用 Claude Code。
+                    </p>
+                </div>
+
+                <div class="footer-section">
+                    <h3 class="footer-title">資源連結</h3>
+                    <ul class="footer-links">
+                        <li><a href="https://github.com/DennisLiuCk/claude-plugin-marketplace" target="_blank">GitHub Repository</a></li>
+                        <li><a href="https://github.com/anthropics/claude-code" target="_blank">Anthropic 官方插件</a></li>
+                        <li><a href="https://docs.claude.com/en/docs/claude-code" target="_blank">Claude Code 文件</a></li>
+                        <li><a href="https://docs.claude.com/en/api/agent-sdk/overview" target="_blank">Claude Agent SDK</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-section">
+                    <h3 class="footer-title">技術支援</h3>
+                    <p class="footer-text">
+                        遇到問題？歡迎在 GitHub 上提出 Issue<br>
+                        或參考 Claude Code 官方文件。
+                    </p>
+                    <div class="footer-badge">
+                        <span class="badge-label">維護者</span>
+                        <span class="badge-value">Dennis Liu</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <p>&copy; 2024 Claude Plugin Marketplace (繁體中文). Based on Anthropic's official plugins.</p>
+                <p class="footer-license">Licensed under respective plugin licenses. See individual plugin documentation for details.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="js/plugins-data.js"></script>
+    <script src="js/main.js"></script>
+</body>
+</html>
