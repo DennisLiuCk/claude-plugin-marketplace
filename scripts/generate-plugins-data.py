@@ -142,7 +142,9 @@ const pluginsData = {
 """
 
     # Add each plugin
-    for plugin in plugins:
+    for i, plugin in enumerate(plugins):
+        # Add comma only if not the last item
+        trailing_comma = "," if i < len(plugins) - 1 else ""
         js_content += f"""        {{
             name: "{plugin['name']}",
             displayName: "{plugin['displayName']}",
@@ -158,7 +160,7 @@ const pluginsData = {
             sourceType: "{plugin['sourceType']}",
             icon: PLUGIN_ICONS['{plugin['name']}'],
             githubUrl: "{plugin['githubUrl']}"
-        }},
+        }}{trailing_comma}
 """
 
     js_content += """    ]
