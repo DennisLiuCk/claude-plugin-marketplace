@@ -120,7 +120,7 @@ function filterPlugins() {
                 plugin.displayName,
                 plugin.description,
                 plugin.category,
-                CATEGORY_NAMES[plugin.category] || ''
+                window.CATEGORY_NAMES[plugin.category] || ''
             ].join(' ').toLowerCase();
 
             return searchableText.includes(state.searchQuery);
@@ -160,7 +160,7 @@ function createPluginCard(plugin, index) {
     card.className = 'plugin-card';
     card.style.animationDelay = `${index * 0.05}s`;
 
-    const categoryLabel = CATEGORY_NAMES[plugin.category] || plugin.category;
+    const categoryLabel = window.CATEGORY_NAMES[plugin.category] || plugin.category;
     const sourceLabel = plugin.sourceType === 'official' ? '官方' : '社群';
     const sourceClass = plugin.sourceType === 'official' ? 'official' : 'community';
 
