@@ -180,7 +180,7 @@ if (typeof window !== 'undefined') {
 def write_js_file(content):
     """Write the generated JavaScript content to file."""
     root_dir = Path(__file__).parent.parent
-    output_path = root_dir / 'docs' / 'js' / 'plugins-data.js'
+    output_path = root_dir / 'docs' / 'js' / 'data.js'
 
     # Ensure directory exists
     output_path.parent.mkdir(parents=True, exist_ok=True)
@@ -207,6 +207,13 @@ def main():
 
         print("💾 Writing to file...")
         output_path = write_js_file(js_content)
+
+        if output_path.exists():
+            size = output_path.stat().st_size
+            print(f"📄 Generated file size: {size} bytes")
+        else:
+            print("❌ Error: File was not created!")
+            exit(1)
 
         print(f"✅ Successfully generated: {output_path}")
         print(f"📊 Total plugins: {len(plugins)}")
