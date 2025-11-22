@@ -488,7 +488,7 @@ fetch API 呼叫未設定 timeout，導致當伺服器回應緩慢時，請求�
 
 ### 修復資訊
 - 提交：abc1234
-- 日期：2024-XX-XX
+- 日期：2025-XX-XX
 - 作者：John Doe
 - 提交訊息："Add timeout to order API calls"
 

@@ -42,7 +42,7 @@ cp -r claude-plugin-marketplace/plugins/[插件名稱] ~/.claude/plugins/
 
 ## 插件列表
 
-本專案提供 12 個插件，分為四大類別：
+本專案提供 13 個插件，分為四大類別：
 
 ### 開發工具（5 個）
 
@@ -54,7 +54,7 @@ cp -r claude-plugin-marketplace/plugins/[插件名稱] ~/.claude/plugins/
 | ralph-wiggum | 互動式迭代開發循環，自動重複執行直到完成任務 | `/ralph-loop`, `/cancel-ralph` |
 | plugin-dev | 插件開發工具包，包含 7 個專業技能模組 | `/create-plugin` |
 
-### 生產力工具（4 個）
+### 生產力工具（5 個）
 
 | 插件名稱 | 說明 | 主要命令 |
 |---------|------|---------|
@@ -62,6 +62,7 @@ cp -r claude-plugin-marketplace/plugins/[插件名稱] ~/.claude/plugins/
 | commit-commands | Git 工作流程簡化命令 | `/commit`, `/commit-push-pr`, `/clean_gone` |
 | code-review | 自動化程式碼審查，具備智慧過濾機制 | `/code-review` |
 | hookify | 自訂規則系統，可防止特定操作執行 | `/hookify`, `/list`, `/configure` |
+| issue-review | 專業的問題分析專家系統，深入分析問題並定位根本原因 | `/skill issue-review` |
 
 ### 安全工具（1 個）
 
@@ -117,6 +118,7 @@ claude-plugin-marketplace/
 │   ├── feature-dev/              # 功能開發
 │   ├── frontend-design/          # 前端設計
 │   ├── hookify/                  # 規則系統
+│   ├── issue-review/             # 問題分析（社群插件）
 │   ├── learning-output-style/    # 學習模式
 │   ├── plugin-dev/               # 插件開發
 │   ├── pr-review-toolkit/        # PR 審查
@@ -164,6 +166,12 @@ claude-plugin-marketplace/
 4. 參考官方 Claude Code 文件
 
 ## 更新紀錄
+
+### v1.1.0（2025-11-22）
+- 新增 Issue Review 插件（社群插件）
+- 修正所有文件中的年份錯誤（2024 → 2025）
+- 改進插件來源類型判斷機制（基於作者 email）
+- 更新文件以反映 13 個插件
 
 ### v1.0.0（2025-11-21）
 - 首次發布

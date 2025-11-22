@@ -545,7 +545,7 @@ await new Promise(resolve => setTimeout(resolve, 15000)); // 15 秒延遲
 
 ---
 
-**分析完成時間**：2024-XX-XX XX:XX:XX
+**分析完成時間**：2025-XX-XX XX:XX:XX
 **分析者**：Root Cause Finder Agent
 **確認等級**：High Confidence (96%)
 ```
@@ -582,7 +582,7 @@ await new Promise(resolve => setTimeout(resolve, 15000)); // 15 秒延遲
 
 ---
 
-**分析完成時間**：2024-XX-XX XX:XX:XX
+**分析完成時間**：2025-XX-XX XX:XX:XX
 **分析者**：Root Cause Finder Agent
 **確認等級**：Medium Confidence (XX%)
 ```
@@ -628,7 +628,7 @@ await new Promise(resolve => setTimeout(resolve, 15000)); // 15 秒延遲
 
 ---
 
-**分析完成時間**：2024-XX-XX XX:XX:XX
+**分析完成時間**：2025-XX-XX XX:XX:XX
 **分析者**：Root Cause Finder Agent
 **確認等級**：排除（High Confidence）
 ```
