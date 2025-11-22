@@ -13,7 +13,13 @@ import json
 import os
 from pathlib import Path
 
+# Default icon for plugins without custom icon mapping
+# 預設圖示：如果插件沒有在 PLUGIN_ICONS 中定義，將使用此圖示
+DEFAULT_PLUGIN_ICON = '🔌'
+
 # Define plugin icons mapping
+# 定義插件圖示映射：新增插件時，請在此處添加對應的圖示
+# 如果不添加，插件將顯示預設圖示 (🔌)
 PLUGIN_ICONS = {
     'agent-sdk-dev': '🔧',
     'feature-dev': '🚀',
@@ -67,14 +73,19 @@ def get_source_type(plugin):
 def generate_plugin_data(marketplace_data):
     """Generate plugin data structure."""
     plugins = []
+    plugins_with_default_icon = []
 
     github_base_url = "https://github.com/DennisLiuCk/claude-plugin-marketplace/tree/main"
 
     for plugin in marketplace_data.get('plugins', []):
         plugin_name = plugin['name']
         display_name = get_display_name(plugin_name)
-        icon = PLUGIN_ICONS.get(plugin_name, '🔌')
+        icon = PLUGIN_ICONS.get(plugin_name, DEFAULT_PLUGIN_ICON)
         source_type = get_source_type(plugin)
+
+        # Track plugins using default icon
+        if plugin_name not in PLUGIN_ICONS:
+            plugins_with_default_icon.append(plugin_name)
 
         # Extract author name without "(繁體中文版)" for cleaner display
         author_name = plugin['author']['name']
@@ -100,7 +111,7 @@ def generate_plugin_data(marketplace_data):
 
         plugins.append(plugin_data)
 
-    return plugins
+    return plugins, plugins_with_default_icon
 
 
 def generate_js_file(marketplace_data, plugins):
@@ -201,7 +212,15 @@ def main():
         print(f"📦 Found {len(marketplace_data['plugins'])} plugins")
 
         print("🔨 Generating plugin data...")
-        plugins = generate_plugin_data(marketplace_data)
+        plugins, plugins_with_default_icon = generate_plugin_data(marketplace_data)
+
+        # Show warning for plugins using default icon
+        if plugins_with_default_icon:
+            print(f"\n⚠️  Warning: {len(plugins_with_default_icon)} plugin(s) using default icon ({DEFAULT_PLUGIN_ICON}):")
+            for plugin_name in plugins_with_default_icon:
+                print(f"  - {plugin_name}")
+            print("  💡 Tip: Add custom icons in PLUGIN_ICONS dictionary (scripts/generate-plugins-data.py)")
+            print()
 
         print("📝 Generating JavaScript file...")
         js_content = generate_js_file(marketplace_data, plugins)

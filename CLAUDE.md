@@ -275,7 +275,9 @@ Follow this checklist:
 3. Create `README.md` with full documentation
 4. Add plugin components (commands, agents, hooks, skills)
 5. Update marketplace.json with plugin entry
-6. Update main README.md with plugin description
+6. **Add plugin icon** in `scripts/generate-plugins-data.py` (IMPORTANT - see "Managing Plugin Icons" section)
+7. Run `python3 scripts/generate-plugins-data.py` to regenerate data.js
+8. Update main README.md with plugin description
 
 #### 3. Modifying Existing Plugin
 1. Read current implementation first
@@ -449,6 +451,93 @@ When updating README files:
 3. Provide structured approach
 4. Include examples in the prompt
 
+### Managing Plugin Icons
+
+**IMPORTANT**: Every plugin should have a custom icon defined in the GitHub Pages data generation script.
+
+#### Location
+Plugin icons are defined in `scripts/generate-plugins-data.py` in the `PLUGIN_ICONS` dictionary (around line 23).
+
+#### Default Icon Behavior
+- If a plugin is NOT in the `PLUGIN_ICONS` dictionary, it will use the **default icon** (🔌)
+- The script will warn you during generation if any plugins are using the default icon
+- While functional, using the default icon reduces visual distinction and user experience
+
+#### Adding a Custom Icon
+
+**When creating a new plugin**, you MUST add a custom icon:
+
+1. **Choose an appropriate emoji** that represents the plugin's purpose:
+   - Development tools: 🔧, 🚀, 🎨, 📦, 🔄
+   - Productivity tools: 👀, 💾, 🔍, 🪝, 🔬
+   - Security tools: 🔒, 🛡️, 🔐
+   - Learning tools: 💡, 📚, 🎓
+
+2. **Add to PLUGIN_ICONS dictionary** in `scripts/generate-plugins-data.py`:
+   ```python
+   PLUGIN_ICONS = {
+       'existing-plugin': '🔧',
+       'your-new-plugin': '🎯',  # ← Add your plugin here
+   }
+   ```
+
+3. **Regenerate the data file**:
+   ```bash
+   python3 scripts/generate-plugins-data.py
+   ```
+
+4. **Verify the output**:
+   - Check that no warnings appear about using default icon
+   - Verify `docs/js/data.js` was updated
+   - The icon should appear correctly on GitHub Pages
+
+#### Best Practices
+
+1. **Choose meaningful icons**: The icon should visually represent the plugin's purpose
+2. **Avoid duplicates**: Try to use unique icons for different plugins
+3. **Test visibility**: Ensure the emoji renders well across different platforms
+4. **Document your choice**: Consider adding a comment explaining the icon choice if not obvious
+
+#### Example Workflow
+
+```bash
+# After creating a new plugin called "my-awesome-plugin"
+
+# 1. Edit the generation script
+vim scripts/generate-plugins-data.py
+
+# 2. Add icon to PLUGIN_ICONS:
+#    'my-awesome-plugin': '⚡'
+
+# 3. Generate data
+python3 scripts/generate-plugins-data.py
+
+# Expected output:
+# 🔄 Loading marketplace data...
+# 📦 Found 14 plugins
+# 🔨 Generating plugin data...
+# 📝 Generating JavaScript file...
+# ✅ Successfully generated: /home/user/claude-plugin-marketplace/docs/js/data.js
+
+# 4. Commit both files
+git add scripts/generate-plugins-data.py docs/js/data.js
+git commit -m "Add icon for my-awesome-plugin"
+```
+
+#### Troubleshooting
+
+**Icon shows as "undefined" on GitHub Pages:**
+- You forgot to add the plugin to `PLUGIN_ICONS` dictionary
+- Solution: Add the icon and regenerate `docs/js/data.js`
+
+**Icon shows as 🔌 (plug) on GitHub Pages:**
+- The plugin is using the default icon
+- Solution: Add a custom icon in `PLUGIN_ICONS` and regenerate
+
+**Changes not appearing after push:**
+- GitHub Pages may take 1-2 minutes to rebuild
+- Clear browser cache or try incognito mode
+
 ## Troubleshooting Common Issues
 
 ### Plugin Not Loading
@@ -524,5 +613,6 @@ When working with this repository:
 8. **Respect the structure** - Don't create unnecessary files
 9. **Test mentally** - Verify JSON, YAML, and markdown
 10. **Ask when uncertain** - Clarify requirements before proceeding
+11. **Remember plugin icons** - ALWAYS add custom icon when creating new plugins (see "Managing Plugin Icons")
 
 This repository serves the Traditional Chinese Claude Code community. Quality, accuracy, and consistency are paramount.
