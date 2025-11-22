@@ -218,62 +218,91 @@ git bisect (如果知道何時開始出問題)
 ## 🎯 根本原因
 
 ### 問題位置
-**檔案**：`src/services/orderService.ts`
-**行號**：第 34-42 行
-**函式**：`createOrder()`
+**檔案**：`com/example/service/impl/OrderServiceImpl.java`
+**行號**：第 120-200 行
+**方法**：`processOrder(OrderRequest request)`
 
 ### 問題描述
-API 請求使用 `fetch()` 時未設定 timeout，導致當伺服器回應緩慢或網路不穩定時，請求會無限期等待，使用者介面因此卡住無法操作。
+`@Transactional` 註解未設定 timeout，且事務中包含多個同步的耗時操作（庫存檢查、RabbitMQ 發送），導致當某個操作回應緩慢時，整個事務會長時間持有資料庫連線，最終導致請求超時或連線池耗盡。
 
 ### 程式碼分析
 
 **問題程式碼**：
-\```typescript
-// orderService.ts:34-42
-export const createOrder = async (orderData: OrderData) => {
-  const response = await fetch('/api/orders', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify(orderData),
-  });
-  // ❌ 缺少 timeout 設定
-  // ❌ 缺少錯誤處理
-  return response.json();
-};
+\```java
+// OrderServiceImpl.java:120-200
+@Service
+public class OrderServiceImpl implements OrderService {
+
+    @Autowired
+    private InventoryService inventoryService;
+
+    @Autowired
+    private RabbitTemplate rabbitTemplate;
+
+    @Override
+    @Transactional  // ❌ 缺少 timeout 設定
+    public OrderDTO processOrder(OrderRequest request) {
+        // 1. 驗證庫存（可能呼叫外部服務，耗時 1-5 秒）
+        inventoryService.checkStock(request.getItems());
+
+        // 2. 計算價格
+        BigDecimal totalPrice = calculatePrice(request);
+
+        // 3. 建立訂單
+        Order order = buildOrder(request, totalPrice);
+        orderRepository.save(order);
+
+        // 4. 扣除庫存（可能耗時 1-3 秒）
+        inventoryService.decrementStock(request.getItems());
+
+        // 5. 發送 RabbitMQ 訊息（同步發送）
+        rabbitTemplate.convertAndSend("order.exchange", "order.created", order);
+        // ❌ RabbitMQ 發送失敗會導致整個事務回滾
+        // ❌ 如果 RabbitMQ 連線慢，會阻塞整個事務
+
+        return convertToDTO(order);
+    }
+}
 \```
 
 **邏輯分析**：
-1. `fetch()` API 預設沒有 timeout 機制
-2. 如果伺服器回應超過預期時間，`await` 會一直等待
-3. 在等待期間，Promise 處於 pending 狀態
-4. 呼叫方（OrderForm 元件）也在等待此 Promise
-5. 元件狀態保持在 loading，UI 因此凍結
+1. `@Transactional` 預設沒有 timeout（Spring 預設不限制）
+2. 事務開啟後會從 HikariCP 取得一個資料庫連線
+3. 在整個方法執行期間（包含呼叫外部服務），連線一直被佔用
+4. 如果 inventoryService 或 RabbitMQ 回應慢（>10 秒），連線被長時間持有
+5. 高並發時，連線池（預設 10 個）很快耗盡
+6. 新請求等待連線超過 connection-timeout（30 秒）後拋出異常
 
 **觸發條件**：
-- 伺服器處理時間 > 正常時間（例如 >10 秒）
-- 網路連線不穩定或緩慢
-- 伺服器負載過高
+- 庫存服務回應緩慢（網路延遲、服務負載高）
+- RabbitMQ 連線不穩定或 exchange/queue 滿
+- 業務高峰期，併發請求數 > 連線池大小
+- MySQL 本身有慢查詢或鎖等待
 
 ## 🔗 完整因果鏈
 
 ```
 [根本原因]
-fetch() 未設定 timeout
+@Transactional 未設定 timeout，且包含多個同步耗時操作
   ↓ 導致
 [中間影響 1]
-當伺服器回應緩慢時，Promise 永遠不會 resolve 或 reject
+事務長時間持有資料庫連線（庫存檢查 2 秒 + 訂單建立 1 秒 + RabbitMQ 發送 3 秒 = 6+ 秒）
   ↓ 導致
 [中間影響 2]
-OrderForm 元件的 async 函式永遠不會完成
+高並發時，HikariCP 連線池（10 個連線）快速耗盡
+  ↓ 導致
+[中間影響 3]
+新請求等待連線，超過 connection-timeout（30 秒）
   ↓ 導致
 [直接原因]
-loading 狀態無法更新為 false
+拋出 SQLTransientConnectionException: Connection is not available
   ↓ 表現為
 [表面症狀 1]
-頁面卡住，使用者無法操作
+HTTP 請求超時，使用者看到頁面卡住（前端等待回應）
   ↓ 同時
 [表面症狀 2]
-有時訂單有建立（伺服器處理完成），有時沒有（超時前使用者離開）
+有時訂單有建立（事務提交成功但前端已超時）
+有時訂單沒有建立（事務因 RabbitMQ 發送失敗而回滾）
 ```
 
 ## 💡 為何確認這是 Root Cause
@@ -308,61 +337,128 @@ loading 狀態無法更新為 false
 ## 🔧 修復建議
 
 ### 修復方案
-\```typescript
-// orderService.ts:34-55
-export const createOrder = async (orderData: OrderData) => {
-  // 建立 AbortController 用於 timeout
-  const controller = new AbortController();
-  const timeoutId = setTimeout(() => controller.abort(), 10000); // 10 秒 timeout
+\```java
+// OrderServiceImpl.java（修復後）
+@Service
+public class OrderServiceImpl implements OrderService {
 
-  try {
-    const response = await fetch('/api/orders', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(orderData),
-      signal: controller.signal, // 連接 abort signal
-    });
+    @Autowired
+    private OrderRepository orderRepository;
 
-    clearTimeout(timeoutId); // 清除 timeout
+    @Autowired
+    private InventoryService inventoryService;
 
-    if (!response.ok) {
-      throw new Error(\`伺服器錯誤: \${response.status}\`);
+    @Autowired
+    private ApplicationEventPublisher eventPublisher;
+
+    @Override
+    @Transactional(timeout = 10)  // ✅ 設定 10 秒 timeout
+    public OrderDTO processOrder(OrderRequest request) {
+        // 1. 驗證庫存（加入超時控制）
+        inventoryService.checkStock(request.getItems());
+
+        // 2. 計算價格
+        BigDecimal totalPrice = calculatePrice(request);
+
+        // 3. 建立訂單
+        Order order = buildOrder(request, totalPrice);
+        orderRepository.save(order);
+
+        // 4. 扣除庫存
+        inventoryService.decrementStock(request.getItems());
+
+        // ✅ 使用 Spring Event 非同步處理訊息發送
+        // 不阻塞主事務，事務提交後才發送
+        eventPublisher.publishEvent(new OrderCreatedEvent(order));
+
+        return convertToDTO(order);
     }
 
-    return response.json();
-  } catch (error) {
-    clearTimeout(timeoutId);
-
-    // 處理 timeout 錯誤
-    if (error.name === 'AbortError') {
-      throw new Error('請求逾時，請稍後再試');
+    // ✅ 非同步處理 RabbitMQ 訊息發送
+    @Async("orderTaskExecutor")
+    @TransactionalEventListener(phase = TransactionPhase.AFTER_COMMIT)
+    public void handleOrderCreated(OrderCreatedEvent event) {
+        try {
+            rabbitTemplate.convertAndSend(
+                "order.exchange",
+                "order.created",
+                event.getOrder(),
+                message -> {
+                    // 設定訊息過期時間
+                    message.getMessageProperties().setExpiration("10000");
+                    return message;
+                }
+            );
+        } catch (Exception e) {
+            log.error("Failed to send order message to RabbitMQ", e);
+            // 重試邏輯或記錄到 Dead Letter Queue
+        }
     }
+}
+\```
 
-    // 處理其他錯誤
-    throw error;
-  }
-};
+### application.yml 配置優化
+\```yaml
+spring:
+  datasource:
+    hikari:
+      maximum-pool-size: 20  # ✅ 增加連線池大小
+      connection-timeout: 30000
+      max-lifetime: 1800000  # 30 分鐘
+      leak-detection-threshold: 60000  # ✅ 開啟連線洩漏偵測
+
+  task:
+    execution:
+      pool:
+        core-size: 10  # ✅ @Async 執行緒池配置
+        max-size: 20
+        queue-capacity: 100
+
+  rabbitmq:
+    connection-timeout: 5000  # ✅ RabbitMQ 連線超時 5 秒
+    template:
+      retry:
+        enabled: true
+        initial-interval: 1000
+        max-attempts: 3
 \```
 
 ### 修復說明
-1. **使用 AbortController**：標準的 fetch timeout 實作方式
-2. **10 秒 timeout**：合理的等待時間（可根據實際情況調整）
-3. **清除 timeout**：請求完成後清除 timer，避免記憶體洩漏
-4. **友好錯誤訊息**：區分 timeout 和其他錯誤
-5. **HTTP 狀態檢查**：檢查 response.ok，處理伺服器錯誤
+1. **@Transactional(timeout = 10)**：限制事務執行時間，超過 10 秒自動回滾
+2. **Spring Event 非同步處理**：將 RabbitMQ 發送移出事務，使用 @TransactionalEventListener
+3. **@Async 非阻塞**：訊息發送不會阻塞主流程
+4. **連線池優化**：
+   - 增加 maximum-pool-size 到 20
+   - 開啟 leak-detection-threshold 偵測連線洩漏
+5. **RabbitMQ 重試機制**：發送失敗時自動重試，最多 3 次
 
 ### 額外建議
-1. **前端 loading 狀態修復**（見原因 #2）
-   - 添加 finally 區塊確保 loading 重置
-   - 顯示錯誤訊息給使用者
+1. **為 InventoryService 添加超時控制**
+   \```java
+   @Service
+   public class InventoryServiceImpl {
+       @Autowired
+       private RestTemplate restTemplate;
 
-2. **後端處理優化**（見原因 #3）
-   - 將非關鍵操作（如發送通知）改為非同步處理
-   - 減少伺服器回應時間
+       public void checkStock(List<OrderItem> items) {
+           // 使用配置了 timeout 的 RestTemplate
+           // 在 RestTemplate Bean 配置中設定 connect-timeout 和 read-timeout
+       }
+   }
+   \```
 
-3. **防止重複提交**（見原因 #4）
-   - 在 loading 期間禁用按鈕
-   - 添加請求去重機制
+2. **監控和告警**
+   - 使用 Spring Boot Actuator 監控 HikariCP metrics
+   - 設定告警：當 active connections > 15 時告警
+   - 監控事務執行時間，P99 > 5 秒時告警
+
+3. **Redis 快取優化**（如果適用）
+   \```java
+   @Cacheable(value = "inventory", key = "#productId", unless = "#result == null")
+   public Inventory getInventory(Long productId) {
+       // 快取庫存資料，減少外部服務呼叫
+   }
+   \```
 
 ## ✔️ 驗證方法
 

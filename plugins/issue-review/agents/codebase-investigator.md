@@ -243,69 +243,77 @@ git blame path/to/file.ts
 ## 🗺️ 程式碼地圖
 
 ### 進入點
-**前端進入點**：
-- 檔案：`src/components/OrderForm.tsx:45`
-- 函式：`handleSubmit()`
-- 觸發條件：使用者點擊「送出訂單」按鈕
-
 **後端進入點**：
-- 檔案：`src/api/orders/orderController.ts:23`
+- 檔案：`com/example/controller/OrderController.java:45`
 - Endpoint：`POST /api/orders`
-- 處理函式：`createOrder()`
+- 處理方法：`createOrder(@RequestBody OrderRequest request)`
+- 註解：`@PostMapping("/orders")`
 
 ### 關鍵檔案列表
-1. `src/components/OrderForm.tsx` - 訂單表單元件
-2. `src/services/orderService.ts` - 訂單服務層
-3. `src/api/orders/orderController.ts` - 訂單控制器
-4. `src/api/orders/orderRepository.ts` - 訂單資料存取層
-5. `src/store/orderSlice.ts` - 訂單狀態管理
-6. `config/api.config.ts` - API 配置
+1. `OrderController.java` - 訂單控制器 (`com.example.controller`)
+2. `OrderService.java` - 訂單服務層 (`com.example.service`)
+3. `OrderServiceImpl.java` - 服務實作 (`com.example.service.impl`)
+4. `OrderRepository.java` - JPA Repository (`com.example.repository`)
+5. `Order.java` - 訂單實體 (`com.example.entity`)
+6. `OrderMapper.java` - MyBatis Mapper（如果使用 MyBatis）
+7. `application.yml` - Spring Boot 配置檔案
 
 ## 🔄 執行流程追蹤
 
 ### 完整流程
 \```
-1. [前端] 使用者點擊送出按鈕
-   ↓ OrderForm.tsx:45 handleSubmit()
+1. [HTTP] POST 請求到達 Spring Boot 應用
+   ↓ DispatcherServlet 路由
 
-2. [前端] 表單驗證
-   ↓ OrderForm.tsx:56 validateForm()
-   ⚠️ 潛在問題：驗證失敗時沒有顯示錯誤訊息
+2. [Interceptor] 請求攔截器鏈
+   ↓ AuthInterceptor, LogInterceptor
+   ⚠️ 潛在問題：攔截器處理時間過長
 
-3. [前端] 設定 loading 狀態
-   ↓ OrderForm.tsx:67 setLoading(true)
-   ⚠️ 潛在問題：如果後續失敗，loading 可能永遠不會重置
+3. [Controller] 請求到達 Controller
+   ↓ OrderController.java:45 createOrder()
+   ⚠️ 潛在問題：缺少 @Valid 驗證或驗證失敗處理
 
-4. [前端] 發送 API 請求
-   ↓ orderService.ts:34 createOrder()
-   ⚠️ 潛在問題：沒有設定 timeout
+4. [Validation] 參數驗證
+   ↓ @Valid OrderRequest
+   ⚠️ 潛在問題：驗證錯誤未正確處理
 
-5. [網路] HTTP POST /api/orders
-   ⚠️ 潛在問題：網路中斷或逾時未處理
+5. [Service] 呼叫服務層
+   ↓ OrderService.java:78 processOrder()
+   ⚠️ 潛在問題：@Transactional 事務未開啟或傳播設定錯誤
 
-6. [後端] 請求到達伺服器
-   ↓ orderController.ts:23 createOrder()
+6. [Business Logic] 業務處理
+   ↓ OrderServiceImpl.java:120-180
+   ⚠️ 潛在問題：
+      - 庫存檢查可能很慢（呼叫外部服務）
+      - 價格計算涉及複雜邏輯
+      - 優惠券驗證可能需要查詢多個表
 
-7. [後端] 驗證請求資料
-   ↓ orderController.ts:28 validateOrderData()
+7. [Repository] JPA 資料存取
+   ↓ OrderRepository.save()
+   ⚠️ 潛在問題：
+      - 未使用批次插入（如有多筆訂單明細）
+      - N+1 查詢問題
 
-8. [後端] 呼叫服務層
-   ↓ orderService.ts:45 processOrder()
-   ⚠️ 潛在問題：長時間執行的商業邏輯
+8. [Database] MySQL 資料庫操作
+   ↓ INSERT INTO orders ...
+   ⚠️ 潛在問題：
+      - 表鎖或行鎖等待
+      - 慢查詢
+      - 死鎖（Deadlock）
 
-9. [後端] 資料庫操作
-   ↓ orderRepository.ts:67 insertOrder()
-   ⚠️ 潛在問題：沒有事務保護
+9. [After Logic] 訂單建立後處理
+   ↓ OrderServiceImpl.java:200
+   ⚠️ 潛在問題：
+      - 發送 RabbitMQ 訊息可能阻塞
+      - 更新 Redis 快取可能超時
+      - 呼叫第三方通知服務可能很慢
 
-10. [後端] 返回回應
-    ↓ orderController.ts:45 return response
+10. [Response] 返回 HTTP 回應
+    ↓ OrderController.java:50 return ResponseEntity
 
-11. [前端] 處理回應
-    ↓ orderService.ts:78 .then()
-    ⚠️ 潛在問題：.catch() 可能缺失或不完整
-
-12. [前端] 更新 UI
-    ↓ OrderForm.tsx:89 onSuccess()
+11. [Exception Handling] 如果發生錯誤
+    ↓ @ControllerAdvice
+    ⚠️ 潛在問題：異常處理不完整，未捕獲特定異常
 \```
 
 ### 發現的問題點
@@ -313,102 +321,165 @@ git blame path/to/file.ts
 
 ## 🎯 可能原因分析
 
-### 原因 #1：API 請求未設定 timeout（可能性：85/100）
+### 原因 #1：資料庫事務處理時間過長，缺少 timeout 設定（可能性：85/100）
 
-**位置**：`src/services/orderService.ts:34`
+**位置**：`com/example/service/impl/OrderServiceImpl.java:120-200`
 
 **程式碼片段**：
-\```typescript
-// orderService.ts:34-42
-export const createOrder = async (orderData: OrderData) => {
-  const response = await fetch('/api/orders', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify(orderData),
-  });
-  // ⚠️ 沒有 timeout 設定
-  return response.json();
-};
+\```java
+// OrderServiceImpl.java:120-200
+@Service
+public class OrderServiceImpl implements OrderService {
+
+    @Autowired
+    private OrderRepository orderRepository;
+
+    @Autowired
+    private InventoryService inventoryService;
+
+    @Autowired
+    private RabbitTemplate rabbitTemplate;
+
+    @Override
+    @Transactional  // ⚠️ 沒有設定 timeout
+    public OrderDTO processOrder(OrderRequest request) {
+        // 1. 驗證庫存（可能呼叫外部服務，很慢）
+        inventoryService.checkStock(request.getItems());
+
+        // 2. 計算價格（可能涉及複雜計算）
+        BigDecimal totalPrice = calculatePrice(request);
+
+        // 3. 建立訂單
+        Order order = buildOrder(request, totalPrice);
+        orderRepository.save(order);
+
+        // 4. 扣除庫存（可能很慢）
+        inventoryService.decrementStock(request.getItems());
+
+        // 5. 發送訊息到 RabbitMQ（同步發送，可能阻塞）
+        rabbitTemplate.convertAndSend("order.exchange", "order.created", order);
+        // ⚠️ RabbitMQ 發送失敗會導致事務回滾，且沒有 timeout
+
+        return convertToDTO(order);
+    }
+}
 \```
 
 **問題描述**：
-fetch API 預設沒有 timeout，如果伺服器回應緩慢，請求會一直等待。這會導致使用者介面卡住。
+`@Transactional` 預設沒有 timeout 設定，如果事務中的某個操作（如庫存檢查、RabbitMQ 發送）耗時過長，會導致整個請求阻塞。且所有操作都在同一個事務中，如果 RabbitMQ 發送失敗或超時，會導致整個訂單建立失敗。
 
 **症狀匹配度**：30/30
-- ✅ 完全符合「頁面卡住」的症狀
+- ✅ 完全符合「請求阻塞」的症狀
 - ✅ 解釋了為何等待很長時間
-- ✅ 符合間歇性發生（網路狀況不穩定時）
+- ✅ 符合間歇性發生（外部服務不穩定時）
+- ✅ 解釋了為何有時訂單有建立，有時沒有（事務回滾）
 
 **程式碼邏輯分析**：30/30
-- ✅ 確定缺少 timeout 設定
-- ✅ 缺少錯誤處理
-- ✅ 沒有中斷機制
+- ✅ 確定缺少 `@Transactional(timeout = XX)` 設定
+- ✅ 多個同步操作在同一事務中，任一失敗都會回滾
+- ✅ RabbitMQ 同步發送可能阻塞
 
 **歷史證據**：15/20
-- ✅ 此檔案最近有修改（3 天前）
-- ❓ 無法確認是否有相關歷史問題
+- ✅ 此檔案最近有修改（3 天前，可能加入了 RabbitMQ 發送）
+- ❓ 需要查看 Git 歷史確認
 
-**環境/配置相關性**：10/20
-- ✅ 與網路環境相關
-- ❓ 可能與伺服器負載相關
+**環境/配置相關性**：15/20
+- ✅ 高度依賴外部服務（庫存服務、RabbitMQ）
+- ✅ 與 HikariCP 連線池配置相關
+- ✅ 與 RabbitMQ 連線超時相關
 
-**總分：85/100**
+**總分：90/100**
 
 **驗證方法**：
-1. 檢查伺服器日誌，查看 `/api/orders` 的回應時間
-2. 使用網路限速工具模擬慢速網路
-3. 添加 timeout 設定並測試
+1. 檢查 Spring Boot 應用日誌，搜尋 "OrderServiceImpl.processOrder" 和執行時間
+2. 查看 HikariCP 監控，確認是否有 connection timeout
+3. 檢查 RabbitMQ Management UI，查看 message publish 時間
+4. 使用 Spring Boot Actuator 的 /actuator/metrics/http.server.requests 查看 P95/P99 延遲
 
 **修復建議**：
-\```typescript
-export const createOrder = async (orderData: OrderData) => {
-  const controller = new AbortController();
-  const timeoutId = setTimeout(() => controller.abort(), 10000); // 10 秒 timeout
+\```java
+@Service
+public class OrderServiceImpl implements OrderService {
 
-  try {
-    const response = await fetch('/api/orders', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(orderData),
-      signal: controller.signal,
-    });
-    clearTimeout(timeoutId);
-    return response.json();
-  } catch (error) {
-    clearTimeout(timeoutId);
-    if (error.name === 'AbortError') {
-      throw new Error('請求逾時，請稍後再試');
+    @Autowired
+    private OrderRepository orderRepository;
+
+    @Autowired
+    private InventoryService inventoryService;
+
+    @Autowired
+    private RabbitTemplate rabbitTemplate;
+
+    @Autowired
+    private ApplicationEventPublisher eventPublisher;
+
+    @Override
+    @Transactional(timeout = 10)  // ✅ 設定 10 秒 timeout
+    public OrderDTO processOrder(OrderRequest request) {
+        // 1. 驗證庫存
+        inventoryService.checkStock(request.getItems());
+
+        // 2. 計算價格
+        BigDecimal totalPrice = calculatePrice(request);
+
+        // 3. 建立訂單
+        Order order = buildOrder(request, totalPrice);
+        orderRepository.save(order);
+
+        // 4. 扣除庫存
+        inventoryService.decrementStock(request.getItems());
+
+        // ✅ 使用 Spring Event 非同步發送訊息，不阻塞事務
+        eventPublisher.publishEvent(new OrderCreatedEvent(order));
+
+        return convertToDTO(order);
     }
-    throw error;
-  }
-};
+
+    // ✅ 非同步處理訊息發送
+    @Async
+    @TransactionalEventListener(phase = TransactionPhase.AFTER_COMMIT)
+    public void handleOrderCreated(OrderCreatedEvent event) {
+        try {
+            rabbitTemplate.convertAndSend("order.exchange", "order.created", event.getOrder());
+        } catch (Exception e) {
+            log.error("Failed to send order message to RabbitMQ", e);
+            // 可以重試或記錄到 dead letter queue
+        }
+    }
+}
 \```
 
 ---
 
-### 原因 #2：Loading 狀態未正確重置（可能性：80/100）
+### 原因 #2：HikariCP 連線池耗盡（可能性：78/100）
 
-**位置**：`src/components/OrderForm.tsx:67-89`
+**位置**：`application.yml` 和 `OrderServiceImpl.java`
+
+**配置片段**：
+\```yaml
+# application.yml
+spring:
+  datasource:
+    hikari:
+      maximum-pool-size: 10  # ⚠️ 連線池太小
+      connection-timeout: 30000  # 30 秒
+      # ⚠️ 缺少 leak-detection-threshold 設定
+\```
 
 **程式碼片段**：
-\```typescript
-// OrderForm.tsx:67-89
-const handleSubmit = async () => {
-  setLoading(true); // 設定 loading
-
-  try {
-    const result = await orderService.createOrder(formData);
-    onSuccess(result);
-  } catch (error) {
-    console.error(error);
-    // ⚠️ 錯誤處理不完整
-  }
-  // ⚠️ 沒有 finally 區塊確保 loading 重置
-};
+\```java
+// OrderServiceImpl.java - 可能存在連線洩漏
+@Override
+@Transactional
+public OrderDTO processOrder(OrderRequest request) {
+    // 長時間持有連線的事務
+    // ⚠️ 如果高並發，10 個連線很快就會耗盡
+    // ⚠️ 且沒有設定 leak-detection-threshold 無法偵測洩漏
+}
 \```
 
 **問題描述**：
-如果請求失敗或逾時，loading 狀態沒有被重置為 false，導致按鈕持續被禁用，使用者無法再次提交。
+在高並發情況下（如業務高峰期），HikariCP 連線池的 10 個連線可能很快耗盡。新的請求需要等待連線釋放，超過 `connection-timeout`（30秒）後會拋出 `SQLTransientConnectionException`。且沒有設定 `leak-detection-threshold` 無法偵測連線洩漏問題。
 
 **症狀匹配度**：28/30
 - ✅ 符合「頁面卡住」的症狀

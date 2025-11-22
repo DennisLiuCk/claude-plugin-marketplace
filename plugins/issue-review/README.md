@@ -690,36 +690,42 @@ export const createOrder = async (orderData) => {
 
 ## 📚 範例集錦
 
-### 範例 1：前端狀態管理問題
+### 範例 1：Spring Boot 事務超時問題
 
 **問題**：
 ```
-使用者資料頁面在快速切換分頁時，偶爾會看到上一個分頁的資料閃現。
-錯誤：Warning: Can't perform a React state update on an unmounted component
+訂單提交時頁面卡住，有時訂單有建立，有時沒有。
+業務高峰期更容易發生。
 ```
 
 **分析結果**：
 ```
-Root Cause：useEffect 缺少清理函式
-位置：UserProfilePage.tsx:34
-修復：添加 cleanup function 取消未完成的請求
+Root Cause：@Transactional 未設定 timeout，且包含多個同步耗時操作
+位置：OrderServiceImpl.java:120-200
+修復：
+  1. 添加 @Transactional(timeout = 10)
+  2. 使用 Spring Event 非同步處理 RabbitMQ 訊息發送
+  3. 優化 HikariCP 連線池配置
 ```
 
-### 範例 2：後端效能問題
+### 範例 2：MySQL N+1 查詢問題
 
 **問題**：
 ```
-某些使用者報告 API 回應很慢（>10 秒），但大部分使用者正常（<1 秒）。
+某些使用者報告訂單列表載入很慢（>10 秒），但大部分使用者正常（<1 秒）。
 ```
 
 **分析結果**：
 ```
-Root Cause：N+1 查詢問題
-位置：orderRepository.ts:45
-修復：使用 JOIN 或預先載入關聯資料
+Root Cause：JPA N+1 查詢問題
+位置：OrderRepository.findByUserId()
+修復：使用 @EntityGraph 或 JOIN FETCH 預先載入關聯資料
+```java
+@EntityGraph(attributePaths = {"items", "user"})
+List<Order> findByUserId(Long userId);
 ```
 
-### 範例 3：資料一致性問題
+### 範例 3：Redis 分散式鎖缺失導致重複訂單
 
 **問題**：
 ```
@@ -730,9 +736,12 @@ Root Cause：N+1 查詢問題
 ```
 Root Cause：缺少防重複提交機制
 位置：
-- 前端：OrderForm.tsx:67（未禁用按鈕）
-- 後端：orderController.ts:23（未檢查重複）
-修復：前端禁用按鈕 + 後端冪等性保護
+- Controller：OrderController.java:45（未使用 Redisson 鎖）
+- Service：OrderServiceImpl.java（未檢查訂單號唯一性）
+修復：
+  1. 使用 Redisson 分散式鎖防止並發
+  2. 資料庫添加 order_no 唯一索引
+  3. Controller 添加 @RequestLimit 防重複提交攔截器
 ```
 
 ---

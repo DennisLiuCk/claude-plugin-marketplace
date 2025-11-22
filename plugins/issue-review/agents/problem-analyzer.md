@@ -399,99 +399,127 @@ tools:
 - 有時訂單有建立，有時沒有（請求可能部分完成）
 
 **調查位置**：
-- 前端訂單提交處理：`components/OrderForm.tsx` 或類似檔案
-- API 請求設定：檢查 timeout 設定
-- 後端訂單 API：`/api/orders` 的處理邏輯
-- 訂單建立流程：資料庫事務處理
+- 後端訂單 Controller：`OrderController.java` in `com.example.controller`
+- 訂單服務層：`OrderService.java` in `com.example.service`
+- HTTP Client 設定：檢查 RestTemplate 或 WebClient 的 timeout 設定
+- 資料庫事務處理：`OrderRepository.java` 和 `@Transactional` 設定
+- 連線池設定：HikariCP 或 Tomcat JDBC Pool 配置
 
 **驗證方法**：
-1. 檢查前端程式碼的錯誤處理和 loading 狀態管理
-2. 檢查 API 請求的 timeout 設定
-3. 查看伺服器日誌，搜尋訂單提交請求的處理時間
-4. 檢查是否有長時間運行的資料庫查詢
+1. 檢查 Spring Boot 的 application.yml 或 application.properties 中的 timeout 設定
+2. 查看後端日誌（Logback/Log4j2），搜尋訂單提交請求的處理時間
+3. 檢查是否有長時間運行的資料庫查詢（MySQL slow query log）
+4. 檢查 HikariCP 連線池是否有 connection timeout 錯誤
 
 **如果確認**：
-- 應該在伺服器日誌中看到長時間的請求處理記錄
-- 前端程式碼中可能缺少 timeout 或 error 處理
+- 應該在應用日誌中看到長時間的請求處理記錄
+- Spring Boot actuator metrics 顯示高延遲
+- 可能缺少 @Async 處理或 timeout 設定
 
 **如果排除**：
 - 請求處理時間正常（< 5 秒）
-- 前端有完整的錯誤處理邏輯
+- 有完整的 try-catch 和 @ExceptionHandler 錯誤處理
 
 ---
 
-### 假設 2：重複點擊導致並發請求衝突 (可能性: 60%)
+### 假設 2：重複提交導致並發請求衝突 (可能性: 60%)
 
 **假設描述**：
-使用者在等待回應時多次點擊送出按鈕，導致多個並發請求發送到後端。後端或前端未正確處理並發情況，導致狀態不一致。
+使用者在等待回應時多次點擊送出按鈕，導致多個並發請求發送到後端。後端未正確處理並發情況，缺少冪等性保護，導致重複訂單或狀態不一致。
 
 **支持證據**：
 - 有時訂單有建立，有時沒有（並發衝突的典型表現）
-- 頁面無回應（可能是多個請求互相干擾）
+- 可能產生重複訂單記錄
 
 **調查位置**：
-- 前端按鈕禁用邏輯：檢查是否在請求期間禁用按鈕
-- 後端並發控制：檢查是否有冪等性保護
-- 資料庫並發控制：檢查樂觀鎖或悲觀鎖
+- Controller 層防重複提交：檢查是否有 @RequestLimit 或自定義 interceptor
+- 服務層冪等性：檢查是否使用 Redis 或資料庫唯一約束防止重複
+- 資料庫並發控制：檢查樂觀鎖（@Version）或悲觀鎖（SELECT ... FOR UPDATE）
+- Redis 分散式鎖：檢查是否使用 Redisson 或自定義鎖機制
 
 **驗證方法**：
-1. 檢查前端按鈕是否在請求期間被禁用
-2. 檢查後端是否有防重複提交機制（如 request ID）
-3. 嘗試重現：快速多次點擊送出按鈕
+1. 檢查 Controller 是否有防重複提交攔截器（Interceptor）
+2. 檢查是否使用 Redis SETNX 或 Redisson 分散式鎖
+3. 檢查資料庫是否有唯一索引（如 order_no）
+4. 嘗試重現：使用 JMeter 或 Postman 快速發送多個相同請求
 
 ---
 
-### 假設 3：前端狀態管理問題 (可能性: 45%)
+### 假設 3：資料庫連線池耗盡或事務死鎖 (可能性: 50%)
 
 **假設描述**：
-訂單提交過程涉及複雜的前端狀態更新，某個狀態更新失敗或進入死鎖狀態，導致 UI 無法更新。
+高並發情況下，HikariCP 連線池耗盡，新的請求無法獲取資料庫連線，導致請求阻塞。或者資料庫發生死鎖（Deadlock），導致事務回滾或等待。
 
 **支持證據**：
-- 頁面卡住（UI 狀態未更新）
+- 間歇性發生（高峰期更容易出現）
+- 有時訂單建立成功，有時失敗（資源競爭特徵）
 
 **調查位置**：
-- 狀態管理邏輯：Redux/Context/Zustand 等
-- 訂單提交的 action/reducer
-- React 元件生命週期
+- HikariCP 連線池配置：`application.yml` 中的 `spring.datasource.hikari.*`
+- 資料庫慢查詢日誌：MySQL slow query log
+- 資料庫死鎖日誌：`SHOW ENGINE INNODB STATUS`
+- 事務隔離級別：檢查是否使用了不適當的隔離級別
+
+**驗證方法**：
+1. 檢查 HikariCP 監控指標（active connections, pending threads）
+2. 查看 MySQL 死鎖日誌
+3. 檢查是否有長時間持有鎖的事務
+4. 調整連線池大小並測試
 
 ---
 
 ### 其他可能性 (可能性: <40%)
-- 瀏覽器快取或 Service Worker 問題
-- CSRF token 過期
-- 第三方支付整合問題（如果涉及支付）
-- 資料庫連線池耗盡
+- RabbitMQ 訊息積壓導致處理延遲
+- Redis 連線超時或記憶體不足
+- Spring Boot @Async 執行緒池耗盡
+- Tomcat 執行緒池耗盡（server.tomcat.threads.max）
+- 第三方支付 API 超時（如果涉及支付）
+- Nginx/Gateway 超時設定過短
 
 ## 🔧 技術調查清單
 
-### 前端調查
-- [ ] 檢查元件：`OrderForm` 或 `CheckoutPage` in `src/components/`
-- [ ] 檢查 API 呼叫：搜尋 `/api/orders` 或類似的 endpoint
-- [ ] 檢查錯誤處理：try-catch 或 .catch() 區塊
-- [ ] 檢查 loading 狀態：isSubmitting 或類似的狀態變數
-- [ ] 檢查按鈕禁用邏輯：disabled 屬性
+### Spring Boot 應用調查
+- [ ] 檢查 Controller：`OrderController.java` in `com.example.controller`
+- [ ] 檢查 Service：`OrderService.java` in `com.example.service`
+- [ ] 檢查 Repository：`OrderRepository.java` 和對應的 Entity
+- [ ] 檢查錯誤處理：@ControllerAdvice 和 @ExceptionHandler
+- [ ] 檢查事務管理：@Transactional 註解和傳播行為
+- [ ] 檢查並發控制：分散式鎖、樂觀鎖、防重複提交機制
 
-### 後端調查
-- [ ] 檢查 API：`POST /api/orders` in `controllers/orderController.ts`
-- [ ] 檢查處理時間：API 日誌中的回應時間
-- [ ] 檢查錯誤日誌：搜尋關鍵字 "order" 和 "error"
-- [ ] 檢查資料庫事務：訂單建立的事務邏輯
-- [ ] 檢查並發控制：是否有防重複提交機制
+### 資料庫（MySQL）調查
+- [ ] 檢查資料表：`orders` 表的結構、索引、唯一約束
+- [ ] 檢查慢查詢日誌：MySQL slow query log
+- [ ] 檢查死鎖日誌：`SHOW ENGINE INNODB STATUS`
+- [ ] 檢查連線池：HikariCP metrics（active, idle, waiting connections）
+- [ ] 檢查事務隔離級別：是否適當（READ_COMMITTED vs REPEATABLE_READ）
 
-### 資料庫調查
-- [ ] 檢查資料表：`orders` 表的結構和索引
-- [ ] 檢查慢查詢日誌：與訂單相關的慢查詢
-- [ ] 檢查死鎖日誌：是否有事務死鎖
+### Redis 調查
+- [ ] 檢查 Redis 連線：是否有連線超時錯誤
+- [ ] 檢查快取邏輯：@Cacheable 註解和 cache key 設計
+- [ ] 檢查分散式鎖：Redisson lock 或 SETNX 實作
+- [ ] 檢查 Redis 記憶體：是否接近 maxmemory 限制
+- [ ] 檢查 Key 過期策略：TTL 設定是否合理
+
+### RabbitMQ 調查（如果使用）
+- [ ] 檢查訊息發送：是否使用 @RabbitListener 或 RabbitTemplate
+- [ ] 檢查 Queue 積壓：Management UI 查看 message count
+- [ ] 檢查 Consumer：消費者是否正常處理訊息
+- [ ] 檢查 Dead Letter Queue：是否有失敗訊息
 
 ### 日誌調查
-- [ ] 應用日誌：搜尋 "POST /api/orders" 和回應時間
-- [ ] 錯誤日誌：搜尋 "timeout", "error", "exception"
-- [ ] Nginx/負載平衡器日誌：檢查是否有 504 Gateway Timeout
+- [ ] 應用日誌（Logback/Log4j2）：搜尋 "OrderController" 和回應時間
+- [ ] 錯誤日誌：搜尋 "SQLException", "TimeoutException", "RedisException"
+- [ ] Spring Boot Actuator：/actuator/metrics 查看效能指標
+- [ ] Nginx/Gateway 日誌：檢查是否有 504 Gateway Timeout
 
 ### 配置調查
-- [ ] API timeout 設定：前端和後端的 timeout 配置
-- [ ] 資料庫連線設定：連線池大小和 timeout
-- [ ] 負載平衡器設定：timeout 和 keep-alive 設定
+- [ ] `application.yml` 或 `application.properties`：
+  - spring.datasource.hikari.* (連線池配置)
+  - spring.data.redis.timeout (Redis 超時)
+  - server.tomcat.threads.* (執行緒池配置)
+  - spring.rabbitmq.* (RabbitMQ 配置)
+- [ ] Nginx/Gateway timeout 設定
+- [ ] JVM 參數：-Xmx, -Xms, GC 配置
 
 ## 📝 初步發現
 
@@ -499,9 +527,15 @@ tools:
 
 ## ✅ 下一步建議
 
-1. **優先執行**：使用 codebase-investigator 調查前端訂單提交邏輯和後端訂單 API
-2. **並行調查**：查看伺服器日誌，搜尋相關的錯誤和超時記錄
-3. **需要確認**：請使用者提供瀏覽器開發者工具的網路面板截圖
+1. **優先執行**：使用 codebase-investigator 調查 OrderController 和 OrderService 的處理邏輯
+2. **並行調查**：
+   - 查看 Spring Boot 應用日誌（Logback），搜尋 timeout 和 SQLException
+   - 檢查 HikariCP 連線池監控指標
+   - 查看 MySQL slow query log
+3. **需要確認**：
+   - 問題發生的時間段（是否在業務高峰期）
+   - 資料庫連線池配置（hikari.maximum-pool-size）
+   - 是否有使用 Redis 或 RabbitMQ
 
 ---
 
