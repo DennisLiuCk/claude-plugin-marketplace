@@ -753,6 +753,392 @@ body {
 }
 
 /* ==========================================
+   Plugin Install Actions
+   ========================================== */
+.plugin-actions {
+    display: flex;
+    gap: var(--spacing-sm);
+    margin: var(--spacing-md) 0;
+}
+
+/* Install Button - Main CTA */
+.install-btn {
+    flex: 1;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--spacing-xs);
+    padding: 0.75rem var(--spacing-md);
+    background: var(--gradient-primary);
+    border: none;
+    border-radius: var(--radius-md);
+    color: var(--color-bg-primary);
+    font-family: var(--font-mono);
+    font-size: 0.9rem;
+    font-weight: 600;
+    cursor: pointer;
+    overflow: hidden;
+    transition: all var(--transition-base);
+    box-shadow: 0 4px 12px rgba(0, 212, 170, 0.2);
+}
+
+.install-btn::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+    transition: left 0.5s ease;
+}
+
+.install-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--glow-primary), 0 6px 20px rgba(0, 212, 170, 0.3);
+}
+
+.install-btn:hover::before {
+    left: 100%;
+}
+
+.install-btn:active {
+    transform: translateY(0);
+}
+
+.install-btn-icon {
+    font-size: 1.1rem;
+    display: inline-block;
+    transition: transform var(--transition-base);
+}
+
+.install-btn:hover .install-btn-icon {
+    transform: scale(1.2) rotate(10deg);
+}
+
+.install-btn-copied {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--gradient-primary);
+    opacity: 0;
+    pointer-events: none;
+    transform: scale(0.8);
+    transition: all var(--transition-base);
+}
+
+.install-btn.copied .install-btn-text,
+.install-btn.copied .install-btn-icon {
+    opacity: 0;
+}
+
+.install-btn.copied .install-btn-copied {
+    opacity: 1;
+    transform: scale(1);
+}
+
+/* Details Toggle Button */
+.install-details-toggle {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 0.75rem var(--spacing-md);
+    background: var(--color-bg-tertiary);
+    border: 1px solid var(--color-border-highlight);
+    border-radius: var(--radius-md);
+    color: var(--color-text-secondary);
+    font-family: var(--font-body);
+    font-size: 0.85rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all var(--transition-base);
+    white-space: nowrap;
+}
+
+.install-details-toggle:hover {
+    background: var(--color-bg-elevated);
+    border-color: var(--color-accent-primary);
+    color: var(--color-text-primary);
+}
+
+.install-details-toggle.active {
+    background: var(--color-bg-elevated);
+    border-color: var(--color-accent-primary);
+    color: var(--color-accent-primary);
+}
+
+.toggle-icon {
+    font-size: 1rem;
+    transition: transform var(--transition-base);
+}
+
+.install-details-toggle.active .toggle-icon {
+    transform: rotate(180deg);
+}
+
+/* Install Details Panel */
+.install-details {
+    max-height: 0;
+    overflow: hidden;
+    opacity: 0;
+    transition: max-height 0.4s ease, opacity 0.3s ease, margin 0.3s ease;
+    margin: 0;
+}
+
+.install-details.expanded {
+    max-height: 600px;
+    opacity: 1;
+    margin: var(--spacing-md) 0;
+}
+
+.install-method {
+    background: var(--color-bg-tertiary);
+    border: 1px solid var(--color-border-highlight);
+    border-radius: var(--radius-md);
+    padding: var(--spacing-md);
+    margin-bottom: var(--spacing-sm);
+}
+
+.install-method:last-child {
+    margin-bottom: 0;
+}
+
+.method-header {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-sm);
+    margin-bottom: var(--spacing-sm);
+}
+
+.method-icon {
+    font-size: 1.3rem;
+}
+
+.method-title {
+    font-family: var(--font-primary);
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: var(--color-text-primary);
+    margin: 0;
+}
+
+.code-block {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-sm);
+    background: var(--color-bg-primary);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-sm);
+    padding: var(--spacing-sm) var(--spacing-md);
+}
+
+.install-command {
+    flex: 1;
+    font-family: var(--font-mono);
+    font-size: 0.85rem;
+    color: var(--color-accent-primary);
+    overflow-x: auto;
+    white-space: nowrap;
+}
+
+.install-command::-webkit-scrollbar {
+    height: 4px;
+}
+
+.install-command::-webkit-scrollbar-thumb {
+    background: var(--color-border-highlight);
+    border-radius: 2px;
+}
+
+.copy-code-btn {
+    flex-shrink: 0;
+    padding: 6px 10px;
+    background: transparent;
+    border: 1px solid var(--color-border-highlight);
+    border-radius: var(--radius-sm);
+    color: var(--color-text-tertiary);
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: all var(--transition-fast);
+}
+
+.copy-code-btn:hover {
+    background: var(--color-bg-elevated);
+    border-color: var(--color-accent-primary);
+    color: var(--color-accent-primary);
+}
+
+.copy-code-btn.copied {
+    background: var(--color-accent-primary);
+    border-color: var(--color-accent-primary);
+    color: var(--color-bg-primary);
+}
+
+.copy-icon {
+    display: inline-block;
+    transition: transform var(--transition-fast);
+}
+
+.copy-code-btn:hover .copy-icon {
+    transform: scale(1.1);
+}
+
+/* Command Tooltip */
+.command-tooltip {
+    position: fixed;
+    z-index: 10000;
+    background: var(--color-bg-primary);
+    border: 1px solid var(--color-accent-primary);
+    border-radius: var(--radius-md);
+    padding: var(--spacing-sm) var(--spacing-md);
+    box-shadow: var(--shadow-lg), var(--glow-primary);
+    opacity: 0;
+    transform: translateY(5px);
+    transition: all var(--transition-base);
+    pointer-events: none;
+    max-width: 600px;
+}
+
+.command-tooltip.show {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.tooltip-header {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-xs);
+    margin-bottom: 6px;
+}
+
+.tooltip-icon {
+    color: var(--color-accent-primary);
+    font-family: var(--font-mono);
+    font-weight: 700;
+}
+
+.tooltip-title {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    color: var(--color-text-tertiary);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.tooltip-command {
+    display: block;
+    font-family: var(--font-mono);
+    font-size: 0.85rem;
+    color: var(--color-accent-primary);
+    white-space: nowrap;
+    overflow-x: auto;
+    max-width: 550px;
+}
+
+.tooltip-command::-webkit-scrollbar {
+    height: 4px;
+}
+
+.tooltip-command::-webkit-scrollbar-thumb {
+    background: var(--color-accent-primary);
+    border-radius: 2px;
+}
+
+/* Copy Success Notification */
+.copy-notification {
+    position: fixed;
+    top: 100px;
+    right: -400px;
+    z-index: 10000;
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-md);
+    background: var(--color-bg-elevated);
+    border: 1px solid var(--color-accent-primary);
+    border-radius: var(--radius-lg);
+    padding: var(--spacing-md) var(--spacing-lg);
+    box-shadow: var(--shadow-lg), var(--glow-primary);
+    min-width: 320px;
+    transition: right 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+}
+
+.copy-notification.show {
+    right: var(--spacing-lg);
+}
+
+.notification-icon {
+    flex-shrink: 0;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--gradient-primary);
+    border-radius: 50%;
+    color: var(--color-bg-primary);
+    font-size: 1.3rem;
+    font-weight: 700;
+    animation: checkmark 0.5s ease;
+}
+
+@keyframes checkmark {
+    0% {
+        transform: scale(0) rotate(-180deg);
+    }
+    50% {
+        transform: scale(1.2) rotate(10deg);
+    }
+    100% {
+        transform: scale(1) rotate(0);
+    }
+}
+
+.notification-content {
+    flex: 1;
+}
+
+.notification-title {
+    font-family: var(--font-primary);
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--color-text-primary);
+    margin-bottom: 4px;
+}
+
+.notification-message {
+    font-size: 0.85rem;
+    color: var(--color-text-secondary);
+}
+
+/* Copy Particles Effect */
+.copy-particle {
+    position: fixed;
+    z-index: 10000;
+    font-size: 1.2rem;
+    pointer-events: none;
+    animation: particle-burst 1s ease-out forwards;
+}
+
+@keyframes particle-burst {
+    0% {
+        transform: translate(0, 0) scale(1);
+        opacity: 1;
+    }
+    50% {
+        transform: translate(var(--tx), var(--ty)) scale(1.2);
+        opacity: 0.8;
+    }
+    100% {
+        transform: translate(var(--tx), calc(var(--ty) + 20px)) scale(0.5);
+        opacity: 0;
+    }
+}
+
+/* ==========================================
    Responsive Design
    ========================================== */
 @media (max-width: 1024px) {
@@ -823,6 +1209,36 @@ body {
     .filter-btn {
         flex: 1 1 auto;
         justify-content: center;
+    }
+
+    /* Install actions responsive */
+    .plugin-actions {
+        flex-direction: column;
+    }
+
+    .install-btn,
+    .install-details-toggle {
+        width: 100%;
+    }
+
+    .copy-notification {
+        min-width: 280px;
+        left: var(--spacing-md);
+        right: var(--spacing-md);
+    }
+
+    .copy-notification.show {
+        right: var(--spacing-md);
+    }
+
+    .command-tooltip {
+        max-width: calc(100vw - 2rem);
+        left: var(--spacing-md) !important;
+        right: var(--spacing-md);
+    }
+
+    .tooltip-command {
+        max-width: calc(100vw - 6rem);
     }
 }
 

@@ -164,6 +164,9 @@ function createPluginCard(plugin, index) {
     const sourceLabel = plugin.sourceType === 'official' ? '官方' : '社群';
     const sourceClass = plugin.sourceType === 'official' ? 'official' : 'community';
 
+    // Generate install command
+    const installCommand = `claude plugin install github:DennisLiuCk/claude-plugin-marketplace/plugins/${plugin.name}`;
+
     card.innerHTML = `
         <div class="plugin-header">
             <div class="plugin-icon">${plugin.icon}</div>
@@ -176,6 +179,59 @@ function createPluginCard(plugin, index) {
         <h3 class="plugin-title">${plugin.displayName}</h3>
         <p class="plugin-description">${plugin.description}</p>
 
+        <div class="plugin-actions">
+            <button class="install-btn" data-command="${installCommand}" data-plugin-name="${plugin.displayName}">
+                <span class="install-btn-icon">⚡</span>
+                <span class="install-btn-text">一鍵安裝</span>
+                <span class="install-btn-copied">已複製！</span>
+            </button>
+            <button class="install-details-toggle" data-plugin-name="${plugin.name}">
+                <span class="toggle-icon">📋</span>
+                詳細說明
+            </button>
+        </div>
+
+        <div class="install-details" data-plugin="${plugin.name}">
+            <div class="install-method">
+                <div class="method-header">
+                    <span class="method-icon">💻</span>
+                    <h4 class="method-title">CLI 安裝（推薦）</h4>
+                </div>
+                <div class="code-block">
+                    <code class="install-command">${installCommand}</code>
+                    <button class="copy-code-btn" data-command="${installCommand}">
+                        <span class="copy-icon">📋</span>
+                    </button>
+                </div>
+            </div>
+
+            <div class="install-method">
+                <div class="method-header">
+                    <span class="method-icon">📁</span>
+                    <h4 class="method-title">手動安裝（專案層級）</h4>
+                </div>
+                <div class="code-block">
+                    <code class="install-command">cp -r plugins/${plugin.name} ./.claude/plugins/</code>
+                    <button class="copy-code-btn" data-command="cp -r plugins/${plugin.name} ./.claude/plugins/">
+                        <span class="copy-icon">📋</span>
+                    </button>
+                </div>
+            </div>
+
+            <div class="install-method">
+                <div class="method-header">
+                    <span class="method-icon">🌐</span>
+                    <h4 class="method-title">手動安裝（全域）</h4>
+                </div>
+                <div class="code-block">
+                    <code class="install-command">cp -r plugins/${plugin.name} ~/.claude/plugins/</code>
+                    <button class="copy-code-btn" data-command="cp -r plugins/${plugin.name} ~/.claude/plugins/">
+                        <span class="copy-icon">📋</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+
         <div class="plugin-footer">
             <span class="plugin-version">v${plugin.version}</span>
             <a href="${plugin.githubUrl}" target="_blank" class="plugin-link">
@@ -183,6 +239,9 @@ function createPluginCard(plugin, index) {
             </a>
         </div>
     `;
+
+    // Add event listeners after creating the card
+    setupCardEventListeners(card, plugin);
 
     return card;
 }
@@ -258,13 +317,221 @@ document.addEventListener('keydown', (e) => {
     }
 });
 
+// Setup event listeners for plugin card
+function setupCardEventListeners(card, plugin) {
+    // Install button click handler
+    const installBtn = card.querySelector('.install-btn');
+    if (installBtn) {
+        installBtn.addEventListener('click', function(e) {
+            e.preventDefault();
+            const command = this.dataset.command;
+            const pluginName = this.dataset.pluginName;
+            copyToClipboard(command, this, pluginName);
+        });
+
+        // Add hover tooltip
+        installBtn.addEventListener('mouseenter', function() {
+            showCommandTooltip(this, this.dataset.command);
+        });
+
+        installBtn.addEventListener('mouseleave', function() {
+            hideCommandTooltip();
+        });
+    }
+
+    // Details toggle button
+    const toggleBtn = card.querySelector('.install-details-toggle');
+    const detailsPanel = card.querySelector('.install-details');
+    if (toggleBtn && detailsPanel) {
+        toggleBtn.addEventListener('click', function() {
+            const isExpanded = detailsPanel.classList.contains('expanded');
+
+            // Close all other panels first
+            document.querySelectorAll('.install-details.expanded').forEach(panel => {
+                panel.classList.remove('expanded');
+            });
+            document.querySelectorAll('.install-details-toggle.active').forEach(btn => {
+                btn.classList.remove('active');
+            });
+
+            // Toggle current panel
+            if (!isExpanded) {
+                detailsPanel.classList.add('expanded');
+                this.classList.add('active');
+            }
+        });
+    }
+
+    // Copy buttons in details panel
+    const copyBtns = card.querySelectorAll('.copy-code-btn');
+    copyBtns.forEach(btn => {
+        btn.addEventListener('click', function() {
+            const command = this.dataset.command;
+            copyToClipboard(command, this);
+        });
+    });
+}
+
+// Copy to clipboard with visual feedback
+async function copyToClipboard(text, button, pluginName = null) {
+    try {
+        await navigator.clipboard.writeText(text);
+
+        // Create success particles effect
+        createCopyParticles(button);
+
+        // Add copied state to button
+        button.classList.add('copied');
+
+        // Show global notification
+        if (pluginName) {
+            showCopyNotification(pluginName);
+        }
+
+        // Reset button state after animation
+        setTimeout(() => {
+            button.classList.remove('copied');
+        }, 2000);
+
+    } catch (err) {
+        console.error('Failed to copy:', err);
+        // Fallback for older browsers
+        fallbackCopy(text, button);
+    }
+}
+
+// Fallback copy method for older browsers
+function fallbackCopy(text, button) {
+    const textArea = document.createElement('textarea');
+    textArea.value = text;
+    textArea.style.position = 'fixed';
+    textArea.style.left = '-999999px';
+    document.body.appendChild(textArea);
+    textArea.select();
+
+    try {
+        document.execCommand('copy');
+        button.classList.add('copied');
+        setTimeout(() => button.classList.remove('copied'), 2000);
+    } catch (err) {
+        console.error('Fallback copy failed:', err);
+    }
+
+    document.body.removeChild(textArea);
+}
+
+// Create particle effect on copy
+function createCopyParticles(button) {
+    const rect = button.getBoundingClientRect();
+    const centerX = rect.left + rect.width / 2;
+    const centerY = rect.top + rect.height / 2;
+
+    // Create 8 particles
+    for (let i = 0; i < 8; i++) {
+        const particle = document.createElement('div');
+        particle.className = 'copy-particle';
+        particle.textContent = '✨';
+
+        // Position at button center
+        particle.style.left = centerX + 'px';
+        particle.style.top = centerY + 'px';
+
+        // Calculate random direction
+        const angle = (Math.PI * 2 * i) / 8;
+        const distance = 50 + Math.random() * 30;
+        const tx = Math.cos(angle) * distance;
+        const ty = Math.sin(angle) * distance;
+
+        particle.style.setProperty('--tx', `${tx}px`);
+        particle.style.setProperty('--ty', `${ty}px`);
+
+        document.body.appendChild(particle);
+
+        // Remove after animation
+        setTimeout(() => {
+            particle.remove();
+        }, 1000);
+    }
+}
+
+// Show copy success notification
+function showCopyNotification(pluginName) {
+    // Remove existing notification if any
+    const existing = document.querySelector('.copy-notification');
+    if (existing) existing.remove();
+
+    const notification = document.createElement('div');
+    notification.className = 'copy-notification';
+    notification.innerHTML = `
+        <div class="notification-icon">✓</div>
+        <div class="notification-content">
+            <div class="notification-title">安裝命令已複製</div>
+            <div class="notification-message">${pluginName} 可在終端機中執行安裝</div>
+        </div>
+    `;
+
+    document.body.appendChild(notification);
+
+    // Trigger animation
+    setTimeout(() => notification.classList.add('show'), 10);
+
+    // Auto remove after 3 seconds
+    setTimeout(() => {
+        notification.classList.remove('show');
+        setTimeout(() => notification.remove(), 300);
+    }, 3000);
+}
+
+// Show command tooltip on hover
+let currentTooltip = null;
+
+function showCommandTooltip(button, command) {
+    // Remove existing tooltip
+    hideCommandTooltip();
+
+    const tooltip = document.createElement('div');
+    tooltip.className = 'command-tooltip';
+    tooltip.innerHTML = `
+        <div class="tooltip-header">
+            <span class="tooltip-icon">$</span>
+            <span class="tooltip-title">安裝命令</span>
+        </div>
+        <code class="tooltip-command">${command}</code>
+    `;
+
+    document.body.appendChild(tooltip);
+    currentTooltip = tooltip;
+
+    // Position tooltip above button
+    const rect = button.getBoundingClientRect();
+    const tooltipRect = tooltip.getBoundingClientRect();
+
+    tooltip.style.left = rect.left + (rect.width / 2) - (tooltipRect.width / 2) + 'px';
+    tooltip.style.top = rect.top - tooltipRect.height - 10 + 'px';
+
+    // Show tooltip
+    setTimeout(() => tooltip.classList.add('show'), 10);
+}
+
+function hideCommandTooltip() {
+    if (currentTooltip) {
+        currentTooltip.classList.remove('show');
+        setTimeout(() => {
+            if (currentTooltip) {
+                currentTooltip.remove();
+                currentTooltip = null;
+            }
+        }, 200);
+    }
+}
+
 // Console welcome message
 console.log(
     '%c🚀 Claude Plugin Marketplace',
     'font-size: 20px; font-weight: bold; color: #00d4aa;'
 );
 console.log(
-    '%c繁體中文插件市場 v1.0.0',
+    '%c繁體中文插件市場 v1.1.0',
     'font-size: 14px; color: #9ca3b5;'
 );
 console.log(
