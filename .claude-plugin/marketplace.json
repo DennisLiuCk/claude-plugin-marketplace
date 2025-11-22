@@ -139,6 +139,17 @@
       },
       "source": "plugins/learning-output-style",
       "category": "learning"
+    },
+    {
+      "name": "issue-review",
+      "description": "專業的問題分析專家系統，能夠深入分析各類問題、調查程式碼庫、定位根本原因並提供解決方案",
+      "version": "1.0.0",
+      "author": {
+        "name": "Dennis Liu (繁體中文版)",
+        "email": "dennisliuck@gmail.com"
+      },
+      "source": "plugins/issue-review",
+      "category": "productivity"
     }
   ]
 }
