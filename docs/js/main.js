@@ -210,11 +210,17 @@ function createPluginCard(plugin, index) {
                     <span class="method-icon">📁</span>
                     <h4 class="method-title">手動安裝（專案層級）</h4>
                 </div>
-                <div class="code-block">
-                    <code class="install-command">cp -r plugins/${plugin.name} ./.claude/plugins/</code>
-                    <button class="copy-code-btn" data-command="cp -r plugins/${plugin.name} ./.claude/plugins/">
+                <div class="install-note">
+                    需要先 clone 儲存庫到本機，然後在儲存庫目錄內執行：
+                </div>
+                <div class="code-block multi-step">
+                    <code class="install-command">git clone https://github.com/DennisLiuCk/claude-plugin-marketplace.git && cd claude-plugin-marketplace && cp -r plugins/${plugin.name} YOUR_PROJECT/.claude/plugins/</code>
+                    <button class="copy-code-btn" data-command="git clone https://github.com/DennisLiuCk/claude-plugin-marketplace.git && cd claude-plugin-marketplace && cp -r plugins/${plugin.name} YOUR_PROJECT/.claude/plugins/">
                         <span class="copy-icon">📋</span>
                     </button>
+                </div>
+                <div class="install-hint">
+                    💡 請將 <code>YOUR_PROJECT</code> 替換為你的專案路徑
                 </div>
             </div>
 
@@ -223,11 +229,17 @@ function createPluginCard(plugin, index) {
                     <span class="method-icon">🌐</span>
                     <h4 class="method-title">手動安裝（全域）</h4>
                 </div>
-                <div class="code-block">
-                    <code class="install-command">cp -r plugins/${plugin.name} ~/.claude/plugins/</code>
-                    <button class="copy-code-btn" data-command="cp -r plugins/${plugin.name} ~/.claude/plugins/">
+                <div class="install-note">
+                    需要先 clone 儲存庫到本機，然後在儲存庫目錄內執行：
+                </div>
+                <div class="code-block multi-step">
+                    <code class="install-command">git clone https://github.com/DennisLiuCk/claude-plugin-marketplace.git && cd claude-plugin-marketplace && cp -r plugins/${plugin.name} ~/.claude/plugins/</code>
+                    <button class="copy-code-btn" data-command="git clone https://github.com/DennisLiuCk/claude-plugin-marketplace.git && cd claude-plugin-marketplace && cp -r plugins/${plugin.name} ~/.claude/plugins/">
                         <span class="copy-icon">📋</span>
                     </button>
+                </div>
+                <div class="install-hint">
+                    💡 此插件將在所有專案中可用
                 </div>
             </div>
         </div>
