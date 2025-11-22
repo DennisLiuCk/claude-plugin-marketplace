@@ -14,6 +14,7 @@ const PLUGIN_ICONS = {
     'security-guidance': '🔒',
     'explanatory-output-style': '💡',
     'learning-output-style': '📚',
+    'issue-review': '🔬',
 };
 
 const CATEGORY_NAMES = {
@@ -225,6 +226,22 @@ const pluginsData = {
             sourceType: "official",
             icon: PLUGIN_ICONS['learning-output-style'],
             githubUrl: "https://github.com/DennisLiuCk/claude-plugin-marketplace/tree/main/plugins/learning-output-style"
+        },
+        {
+            name: "issue-review",
+            displayName: "Issue Review",
+            description: "專業的問題分析專家系統，能夠深入分析各類問題、調查程式碼庫、定位根本原因並提供解決方案",
+            version: "1.0.0",
+            author: {
+                name: "Dennis Liu",
+                chineseName: "繁體中文版",
+                email: "dennisliuck@gmail.com"
+            },
+            source: "plugins/issue-review",
+            category: "productivity",
+            sourceType: "official",
+            icon: PLUGIN_ICONS['issue-review'],
+            githubUrl: "https://github.com/DennisLiuCk/claude-plugin-marketplace/tree/main/plugins/issue-review"
         }
     ]
 };

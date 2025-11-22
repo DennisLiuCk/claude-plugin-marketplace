@@ -26,7 +26,8 @@ PLUGIN_ICONS = {
     'hookify': '🪝',
     'security-guidance': '🔒',
     'explanatory-output-style': '💡',
-    'learning-output-style': '📚'
+    'learning-output-style': '📚',
+    'issue-review': '🔬'
 }
 
 CATEGORY_NAMES = {
