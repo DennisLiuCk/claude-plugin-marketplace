@@ -65,9 +65,14 @@ def get_display_name(plugin_name):
 
 def get_source_type(plugin):
     """Determine if plugin is official or community."""
-    # For now, all plugins are official
-    # In the future, this can be extended to check for community plugins
-    return "official"
+    # Check author email to determine source type
+    # Official: email contains @anthropic.com
+    # Community: all other emails
+    author_email = plugin['author'].get('email', '')
+    if '@anthropic.com' in author_email:
+        return "official"
+    else:
+        return "community"
 
 
 def generate_plugin_data(marketplace_data):

@@ -371,7 +371,7 @@ GET /api/notifications?page=1&limit=20&unread=true
       "title": "新訊息",
       "content": "您有一則新訊息",
       "readAt": null,
-      "createdAt": "2024-01-01T10:00:00Z"
+      "createdAt": "2025-01-01T10:00:00Z"
     }
   ],
   "total": 100,

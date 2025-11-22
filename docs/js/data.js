@@ -27,7 +27,7 @@ const CATEGORY_NAMES = {
 const pluginsData = {
     marketplace: {
         name: "claude-plugin-marketplace-zh-tw",
-        version: "1.0.0",
+        version: "1.1.0",
         description: "Claude Code 繁體中文插件市場 - 提供繁體中文版本的 Claude Code 插件，幫助華語使用者更容易學習和使用",
         owner: {
             name: "Dennis Liu",
@@ -239,7 +239,7 @@ const pluginsData = {
             },
             source: "plugins/issue-review",
             category: "productivity",
-            sourceType: "official",
+            sourceType: "community",
             icon: PLUGIN_ICONS['issue-review'],
             githubUrl: "https://github.com/DennisLiuCk/claude-plugin-marketplace/tree/main/plugins/issue-review"
         }

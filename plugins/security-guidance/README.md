@@ -361,7 +361,7 @@ rm ~/.claude/security_warnings_state_*.json
 
 - **版本**：1.0.0
 - **作者**：David Dworken (繁體中文版)
-- **最後更新**：2024
+- **最後更新**：2025
 
 ## 相關資源
 
