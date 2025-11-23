@@ -502,47 +502,47 @@ jwt:
 
 ### 架構特點
 
-✅ **標準的三層架構**
+**標準的三層架構**
 - Controller 負責 HTTP 請求處理
 - Service 負責業務邏輯
 - Repository 負責資料存取
 - 符合關注點分離原則
 
-✅ **DTO 模式**
+**DTO 模式**
 - 將內部 Entity 與外部 API 分離
 - 分為 Request DTO 和 Response DTO
 - 提高安全性，避免過度暴露資料
 
-✅ **統一異常處理**
+**統一異常處理**
 - GlobalExceptionHandler 集中處理異常
 - 提供一致的錯誤響應格式
 
-✅ **JWT 無狀態認證**
+**JWT 無狀態認證**
 - 適合分散式系統
 - 無需 session 管理
 
 ### 值得關注的技術點
 
-🔍 **Spring Data JPA**
+**Spring Data JPA**
 - 使用 JpaRepository 介面
 - 支援自動查詢方法生成
 - 減少 SQL 編寫
 
-🔍 **Spring Security + JWT**
+**Spring Security + JWT**
 - Filter chain 進行請求攔截
 - Token 驗證和授權
 
-🔍 **Bean Validation**
+**Bean Validation**
 - 使用 @Valid 和 @Validated 進行輸入驗證
 - 自定義驗證註解
 
 ### 潛在關注點
 
-⚠️ **快取策略**
+**快取策略**
 - 目前使用簡單的 ConcurrentHashMap
 - 考慮升級到 Redis 以支援分散式快取
 
-⚠️ **資料庫遷移**
+**資料庫遷移**
 - 使用 Flyway 或 Liquibase 進行版本控制
 - 目前 `ddl-auto: validate` 需手動管理 schema
 
