@@ -427,7 +427,7 @@ public class OrderResponse {
 
 ### 可能的異常
 
-1. **ResourceNotFoundException** (404)
+1. **ResourceNotFoundException**(404)
    - **觸發條件**：訂單 ID 不存在
    - **拋出位置**：OrderService.java:72
    - **響應範例**：
@@ -440,7 +440,7 @@ public class OrderResponse {
      }
      ```
 
-2. **UnauthorizedException** (403)
+2. **UnauthorizedException**(403)
    - **觸發條件**：使用者嘗試查看他人的訂單
    - **拋出位置**：OrderService.java:78
    - **響應範例**：
@@ -453,7 +453,7 @@ public class OrderResponse {
      }
      ```
 
-3. **AuthenticationException** (401)
+3. **AuthenticationException**(401)
    - **觸發條件**：JWT Token 無效或過期
    - **處理位置**：JwtAuthenticationFilter.java
    - **響應範例**：
@@ -641,13 +641,7 @@ WHERE o.id = 123;
 
 對於新進工程師，理解這個端點需要掌握：
 
-1. **Spring MVC 請求處理流程**
-2. **Spring Security 認證和授權機制**
-3. **JPA Entity 和關聯映射**
-4. **DTO 模式的使用場景**
-5. **異常處理最佳實踐**
-
-### 改進建議
+1. **Spring MVC 請求處理流程**2. **Spring Security 認證和授權機制**3. **JPA Entity 和關聯映射**4. **DTO 模式的使用場景**5. **異常處理最佳實踐**### 改進建議
 
 1. **快取**：對頻繁查詢的訂單資料加入快取（Redis）
 2. **分頁**：如果 OrderItems 很多，考慮分頁載入
