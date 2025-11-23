@@ -471,125 +471,110 @@ jwt:
 ## 技術棧摘要
 
 ### 後端框架
-- **Spring Boot 2.7.12** - 主框架
-- **Spring MVC** - Web 層處理 HTTP 請求
-- **Spring Data JPA** - 資料持久化，簡化資料庫操作
-- **Spring Security** - 安全認證和授權
-- **Spring Cache** - 快取抽象層
+- **Spring Boot 2.7.12**- 主框架
+- **Spring MVC**- Web 層處理 HTTP 請求
+- **Spring Data JPA**- 資料持久化，簡化資料庫操作
+- **Spring Security**- 安全認證和授權
+- **Spring Cache**- 快取抽象層
 
 ### 資料庫與 ORM
-- **MySQL 8.0** - 關聯式資料庫
-- **Hibernate** - JPA 實現，ORM 框架
-- **HikariCP** - 高效能資料庫連接池
+- **MySQL 8.0**- 關聯式資料庫
+- **Hibernate**- JPA 實現，ORM 框架
+- **HikariCP**- 高效能資料庫連接池
 
 ### 安全認證
-- **Spring Security** - 安全框架
-- **JWT (JSON Web Token)** - 無狀態認證
-- **BCrypt** - 密碼加密演算法
+- **Spring Security**- 安全框架
+- **JWT (JSON Web Token)**- 無狀態認證
+- **BCrypt**- 密碼加密演算法
 
 ### 其他技術
-- **Lombok** - 減少 boilerplate 代碼（@Data, @Builder 等）
-- **Jackson** - JSON 序列化和反序列化
-- **Swagger/OpenAPI** - 自動生成 API 文件
-- **Bean Validation** - JSR-303 輸入驗證
+- **Lombok**- 減少 boilerplate 代碼（@Data, @Builder 等）
+- **Jackson**- JSON 序列化和反序列化
+- **Swagger/OpenAPI**- 自動生成 API 文件
+- **Bean Validation**- JSR-303 輸入驗證
 
 ### 開發工具
-- **Maven** - 專案建構和依賴管理
-- **JUnit 5** - 單元測試框架
-- **H2 Database** - 內存資料庫（測試環境）
+- **Maven**- 專案建構和依賴管理
+- **JUnit 5**- 單元測試框架
+- **H2 Database**- 內存資料庫（測試環境）
 
 ## 重點發現
 
 ### 架構特點
 
-**標準的三層架構**
-- Controller 負責 HTTP 請求處理
+**標準的三層架構**- Controller 負責 HTTP 請求處理
 - Service 負責業務邏輯
 - Repository 負責資料存取
 - 符合關注點分離原則
 
-**DTO 模式**
-- 將內部 Entity 與外部 API 分離
+**DTO 模式**- 將內部 Entity 與外部 API 分離
 - 分為 Request DTO 和 Response DTO
 - 提高安全性，避免過度暴露資料
 
-**統一異常處理**
-- GlobalExceptionHandler 集中處理異常
+**統一異常處理**- GlobalExceptionHandler 集中處理異常
 - 提供一致的錯誤響應格式
 
-**JWT 無狀態認證**
-- 適合分散式系統
+**JWT 無狀態認證**- 適合分散式系統
 - 無需 session 管理
 
 ### 值得關注的技術點
 
-**Spring Data JPA**
-- 使用 JpaRepository 介面
+**Spring Data JPA**- 使用 JpaRepository 介面
 - 支援自動查詢方法生成
 - 減少 SQL 編寫
 
-**Spring Security + JWT**
-- Filter chain 進行請求攔截
+**Spring Security + JWT**- Filter chain 進行請求攔截
 - Token 驗證和授權
 
-**Bean Validation**
-- 使用 @Valid 和 @Validated 進行輸入驗證
+**Bean Validation**- 使用 @Valid 和 @Validated 進行輸入驗證
 - 自定義驗證註解
 
 ### 潛在關注點
 
-**快取策略**
-- 目前使用簡單的 ConcurrentHashMap
+**快取策略**- 目前使用簡單的 ConcurrentHashMap
 - 考慮升級到 Redis 以支援分散式快取
 
-**資料庫遷移**
-- 使用 Flyway 或 Liquibase 進行版本控制
+**資料庫遷移**- 使用 Flyway 或 Liquibase 進行版本控制
 - 目前 `ddl-auto: validate` 需手動管理 schema
 
 ## 下一步建議
 
 ### 可深入分析的 API 端點
 
-1. **UserController** - 使用者管理
+1. **UserController**- 使用者管理
    - 註冊、登入、個人資料管理
 
-2. **OrderController** - 訂單管理
+2. **OrderController**- 訂單管理
    - 創建訂單、查詢訂單、訂單狀態更新
    - 涉及複雜的業務流程
 
-3. **ProductController** - 商品管理
+3. **ProductController**- 商品管理
    - 商品 CRUD、庫存管理
 
 ### 可深入分析的業務流程
 
-1. **訂單處理流程**
-   - OrderService → InventoryService → PaymentService
+1. **訂單處理流程**- OrderService → InventoryService → PaymentService
    - 涉及事務管理、庫存扣減、支付處理
 
-2. **使用者認證流程**
-   - AuthController → AuthService → JwtTokenProvider
+2. **使用者認證流程**- AuthController → AuthService → JwtTokenProvider
    - Spring Security 過濾器鏈
 
-3. **購物車到訂單轉換**
-   - CartService → OrderService
+3. **購物車到訂單轉換**- CartService → OrderService
    - 資料轉換和驗證
 
 ### 可深入分析的資料模型
 
-1. **Order 和 OrderItem**
-   - 一對多關聯
+1. **Order 和 OrderItem**- 一對多關聯
    - 訂單狀態管理
 
-2. **User 和 Role**
-   - 角色權限設計
+2. **User 和 Role**- 角色權限設計
    - 多對多關聯
 
-3. **Product 和 Category**
-   - 商品分類層級結構
+3. **Product 和 Category**- 商品分類層級結構
 
 ---
 
-**掃描完成！** 專案結構清晰，採用標準的 Spring Boot 最佳實踐。可以根據需求選擇特定的端點、服務或實體進行深入分析。
+**掃描完成！**專案結構清晰，採用標準的 Spring Boot 最佳實踐。可以根據需求選擇特定的端點、服務或實體進行深入分析。
 ```
 
 ## 重要原則
