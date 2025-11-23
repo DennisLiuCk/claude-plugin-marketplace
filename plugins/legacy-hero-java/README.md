@@ -61,10 +61,11 @@ Legacy Hero Java 是專為分析 Java Spring Boot 遺留專案設計的綜合性
    - 解釋 Java annotations
    - 提供設計模式說明
 
-6. **documentation-writer** (藍綠色)
-   - 撰寫結構化的教學文件
-   - 生成流程圖和架構圖
-   - 提供代碼片段說明
+6. **documentation-writer** (藍綠色) - **已優化！**
+   - 優先生成結構化的 Markdown 文件（.md）
+   - 使用 Mermaid 語法繪製專業流程圖和序列圖
+   - 提供完整的代碼片段和詳細說明
+   - 文件保存在 `docs/` 目錄，便於版本控制
 
 7. **documentation-reviewer** (紅色) - **關鍵！**
    - 嚴格審核文件正確性
@@ -174,7 +175,9 @@ Claude：
 
 階段五：文件撰寫
 [啟動 documentation-writer agent...]
-- 生成完整分析報告
+- 生成 Markdown 文件：docs/api-create-order-analysis.md
+- 使用 Mermaid 繪製序列圖和流程圖
+- 包含完整的代碼追蹤和說明
 
 階段六：品質審核
 [啟動 documentation-reviewer agent...]
@@ -244,9 +247,11 @@ Claude：
 - 提供領域知識
 
 ### 階段五：文件撰寫
-- 生成結構化的教學文件
-- 包含流程圖、架構圖
-- 提供代碼片段和詳細說明
+- **生成結構化的 Markdown 文件**（優先使用 Write 工具創建 .md 文件）
+- 文件保存在 `docs/` 目錄下，遵循命名規範
+- 使用 Mermaid 語法繪製流程圖、序列圖和架構圖
+- 提供完整的代碼片段、行號引用和詳細說明
+- 包含表情符號增強可讀性
 
 ### 階段六：品質審核（關鍵！）
 - 嚴格審核文件正確性
@@ -394,9 +399,11 @@ src/main/java/
 
 ### 3. 保存分析報告
 
-- 將生成的分析報告保存為文件
-- 作為專案文件的一部分
-- 幫助其他團隊成員理解
+- documentation-writer 會自動生成 Markdown 文件到 `docs/` 目錄
+- 這些文件可以直接提交到版本控制系統（Git）
+- 作為專案文件的一部分，幫助其他團隊成員理解
+- Markdown 格式便於在 GitHub/GitLab 上直接查看
+- 支援 Mermaid 圖表，無需額外工具即可渲染
 
 ### 4. 結合實際調試
 
