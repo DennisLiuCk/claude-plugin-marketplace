@@ -33,7 +33,8 @@ PLUGIN_ICONS = {
     'security-guidance': '🔒',
     'explanatory-output-style': '💡',
     'learning-output-style': '📚',
-    'issue-review': '🔬'
+    'issue-review': '🔬',
+    'legacy-hero-java': '☕'
 }
 
 CATEGORY_NAMES = {

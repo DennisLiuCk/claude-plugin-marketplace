@@ -15,6 +15,7 @@ const PLUGIN_ICONS = {
     'explanatory-output-style': '💡',
     'learning-output-style': '📚',
     'issue-review': '🔬',
+    'legacy-hero-java': '☕',
 };
 
 const CATEGORY_NAMES = {
@@ -45,11 +46,11 @@ const pluginsData = {
                 chineseName: "繁體中文版",
                 email: "ashwin@anthropic.com"
             },
-            source: "plugins/agent-sdk-dev",
+            source: "./plugins/agent-sdk-dev",
             category: "development",
             sourceType: "official",
             icon: PLUGIN_ICONS['agent-sdk-dev'],
-            githubUrl: "https://github.com/DennisLiuCk/claude-plugin-marketplace/tree/main/plugins/agent-sdk-dev"
+            githubUrl: "https://github.com/DennisLiuCk/claude-plugin-marketplace/tree/main/./plugins/agent-sdk-dev"
         },
         {
             name: "feature-dev",
@@ -61,11 +62,11 @@ const pluginsData = {
                 chineseName: "繁體中文版",
                 email: "sbidasaria@anthropic.com"
             },
-            source: "plugins/feature-dev",
+            source: "./plugins/feature-dev",
             category: "development",
             sourceType: "official",
             icon: PLUGIN_ICONS['feature-dev'],
-            githubUrl: "https://github.com/DennisLiuCk/claude-plugin-marketplace/tree/main/plugins/feature-dev"
+            githubUrl: "https://github.com/DennisLiuCk/claude-plugin-marketplace/tree/main/./plugins/feature-dev"
         },
         {
             name: "frontend-design",
@@ -77,11 +78,11 @@ const pluginsData = {
                 chineseName: "繁體中文版",
                 email: "prithvi@anthropic.com"
             },
-            source: "plugins/frontend-design",
+            source: "./plugins/frontend-design",
             category: "development",
             sourceType: "official",
             icon: PLUGIN_ICONS['frontend-design'],
-            githubUrl: "https://github.com/DennisLiuCk/claude-plugin-marketplace/tree/main/plugins/frontend-design"
+            githubUrl: "https://github.com/DennisLiuCk/claude-plugin-marketplace/tree/main/./plugins/frontend-design"
         },
         {
             name: "ralph-wiggum",
@@ -93,11 +94,11 @@ const pluginsData = {
                 chineseName: "繁體中文版",
                 email: "daisy@anthropic.com"
             },
-            source: "plugins/ralph-wiggum",
+            source: "./plugins/ralph-wiggum",
             category: "development",
             sourceType: "official",
             icon: PLUGIN_ICONS['ralph-wiggum'],
-            githubUrl: "https://github.com/DennisLiuCk/claude-plugin-marketplace/tree/main/plugins/ralph-wiggum"
+            githubUrl: "https://github.com/DennisLiuCk/claude-plugin-marketplace/tree/main/./plugins/ralph-wiggum"
         },
         {
             name: "plugin-dev",
@@ -109,11 +110,11 @@ const pluginsData = {
                 chineseName: "繁體中文版",
                 email: "daisy@anthropic.com"
             },
-            source: "plugins/plugin-dev",
+            source: "./plugins/plugin-dev",
             category: "development",
             sourceType: "official",
             icon: PLUGIN_ICONS['plugin-dev'],
-            githubUrl: "https://github.com/DennisLiuCk/claude-plugin-marketplace/tree/main/plugins/plugin-dev"
+            githubUrl: "https://github.com/DennisLiuCk/claude-plugin-marketplace/tree/main/./plugins/plugin-dev"
         },
         {
             name: "pr-review-toolkit",
@@ -125,11 +126,11 @@ const pluginsData = {
                 chineseName: "繁體中文版",
                 email: "daisy@anthropic.com"
             },
-            source: "plugins/pr-review-toolkit",
+            source: "./plugins/pr-review-toolkit",
             category: "productivity",
             sourceType: "official",
             icon: PLUGIN_ICONS['pr-review-toolkit'],
-            githubUrl: "https://github.com/DennisLiuCk/claude-plugin-marketplace/tree/main/plugins/pr-review-toolkit"
+            githubUrl: "https://github.com/DennisLiuCk/claude-plugin-marketplace/tree/main/./plugins/pr-review-toolkit"
         },
         {
             name: "commit-commands",
@@ -141,11 +142,11 @@ const pluginsData = {
                 chineseName: "繁體中文版",
                 email: "support@anthropic.com"
             },
-            source: "plugins/commit-commands",
+            source: "./plugins/commit-commands",
             category: "productivity",
             sourceType: "official",
             icon: PLUGIN_ICONS['commit-commands'],
-            githubUrl: "https://github.com/DennisLiuCk/claude-plugin-marketplace/tree/main/plugins/commit-commands"
+            githubUrl: "https://github.com/DennisLiuCk/claude-plugin-marketplace/tree/main/./plugins/commit-commands"
         },
         {
             name: "code-review",
@@ -157,11 +158,11 @@ const pluginsData = {
                 chineseName: "繁體中文版",
                 email: "boris@anthropic.com"
             },
-            source: "plugins/code-review",
+            source: "./plugins/code-review",
             category: "productivity",
             sourceType: "official",
             icon: PLUGIN_ICONS['code-review'],
-            githubUrl: "https://github.com/DennisLiuCk/claude-plugin-marketplace/tree/main/plugins/code-review"
+            githubUrl: "https://github.com/DennisLiuCk/claude-plugin-marketplace/tree/main/./plugins/code-review"
         },
         {
             name: "hookify",
@@ -173,11 +174,11 @@ const pluginsData = {
                 chineseName: "繁體中文版",
                 email: "daisy@anthropic.com"
             },
-            source: "plugins/hookify",
+            source: "./plugins/hookify",
             category: "productivity",
             sourceType: "official",
             icon: PLUGIN_ICONS['hookify'],
-            githubUrl: "https://github.com/DennisLiuCk/claude-plugin-marketplace/tree/main/plugins/hookify"
+            githubUrl: "https://github.com/DennisLiuCk/claude-plugin-marketplace/tree/main/./plugins/hookify"
         },
         {
             name: "security-guidance",
@@ -189,11 +190,11 @@ const pluginsData = {
                 chineseName: "繁體中文版",
                 email: "dworken@anthropic.com"
             },
-            source: "plugins/security-guidance",
+            source: "./plugins/security-guidance",
             category: "security",
             sourceType: "official",
             icon: PLUGIN_ICONS['security-guidance'],
-            githubUrl: "https://github.com/DennisLiuCk/claude-plugin-marketplace/tree/main/plugins/security-guidance"
+            githubUrl: "https://github.com/DennisLiuCk/claude-plugin-marketplace/tree/main/./plugins/security-guidance"
         },
         {
             name: "explanatory-output-style",
@@ -205,11 +206,11 @@ const pluginsData = {
                 chineseName: "繁體中文版",
                 email: "dickson@anthropic.com"
             },
-            source: "plugins/explanatory-output-style",
+            source: "./plugins/explanatory-output-style",
             category: "learning",
             sourceType: "official",
             icon: PLUGIN_ICONS['explanatory-output-style'],
-            githubUrl: "https://github.com/DennisLiuCk/claude-plugin-marketplace/tree/main/plugins/explanatory-output-style"
+            githubUrl: "https://github.com/DennisLiuCk/claude-plugin-marketplace/tree/main/./plugins/explanatory-output-style"
         },
         {
             name: "learning-output-style",
@@ -221,11 +222,11 @@ const pluginsData = {
                 chineseName: "繁體中文版",
                 email: "boris@anthropic.com"
             },
-            source: "plugins/learning-output-style",
+            source: "./plugins/learning-output-style",
             category: "learning",
             sourceType: "official",
             icon: PLUGIN_ICONS['learning-output-style'],
-            githubUrl: "https://github.com/DennisLiuCk/claude-plugin-marketplace/tree/main/plugins/learning-output-style"
+            githubUrl: "https://github.com/DennisLiuCk/claude-plugin-marketplace/tree/main/./plugins/learning-output-style"
         },
         {
             name: "issue-review",
@@ -237,11 +238,27 @@ const pluginsData = {
                 chineseName: "繁體中文版",
                 email: "dennisliuck@gmail.com"
             },
-            source: "plugins/issue-review",
+            source: "./plugins/issue-review",
             category: "productivity",
             sourceType: "community",
             icon: PLUGIN_ICONS['issue-review'],
-            githubUrl: "https://github.com/DennisLiuCk/claude-plugin-marketplace/tree/main/plugins/issue-review"
+            githubUrl: "https://github.com/DennisLiuCk/claude-plugin-marketplace/tree/main/./plugins/issue-review"
+        },
+        {
+            name: "legacy-hero-java",
+            displayName: "Legacy Hero Java",
+            description: "深度分析 Java Spring Boot 遺留專案的專業工具，為新進工程師提供詳盡的代碼教學文件，包含文件審核機制確保正確性",
+            version: "1.0.0",
+            author: {
+                name: "Dennis Liu",
+                chineseName: "繁體中文版",
+                email: "dennisliuck@gmail.com"
+            },
+            source: "./plugins/legacy-hero-java",
+            category: "development",
+            sourceType: "community",
+            icon: PLUGIN_ICONS['legacy-hero-java'],
+            githubUrl: "https://github.com/DennisLiuCk/claude-plugin-marketplace/tree/main/./plugins/legacy-hero-java"
         }
     ]
 };
