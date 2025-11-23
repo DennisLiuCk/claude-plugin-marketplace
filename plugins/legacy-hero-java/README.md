@@ -149,7 +149,7 @@ cp -r claude-plugin-marketplace/plugins/legacy-hero-java ~/.claude/plugins/
 Claude：
 [啟動 legacy-orchestrator]
 
-階段一：理解需求 ✓
+階段一：理解需求
 - 目標：分析創建訂單 API endpoint
 - URL: POST /api/orders
 
@@ -195,7 +195,7 @@ Claude：
 Claude：
 [啟動 legacy-orchestrator]
 
-階段一：理解需求 ✓
+階段一：理解需求
 - 目標：分析訂單處理業務流程
 - 範圍：從創建訂單到訂單完成
 
