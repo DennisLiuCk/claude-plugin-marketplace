@@ -16,7 +16,7 @@
         "name": "Ashwin Bhat (繁體中文版)",
         "email": "ashwin@anthropic.com"
       },
-      "source": "plugins/agent-sdk-dev",
+      "source": "./plugins/agent-sdk-dev",
       "category": "development"
     },
     {
@@ -27,7 +27,7 @@
         "name": "Siddharth Bidasaria (繁體中文版)",
         "email": "sbidasaria@anthropic.com"
       },
-      "source": "plugins/feature-dev",
+      "source": "./plugins/feature-dev",
       "category": "development"
     },
     {
@@ -38,7 +38,7 @@
         "name": "Prithvi Rajasekaran & Alexander Bricken (繁體中文版)",
         "email": "prithvi@anthropic.com"
       },
-      "source": "plugins/frontend-design",
+      "source": "./plugins/frontend-design",
       "category": "development"
     },
     {
@@ -49,7 +49,7 @@
         "name": "Daisy Hollman (繁體中文版)",
         "email": "daisy@anthropic.com"
       },
-      "source": "plugins/ralph-wiggum",
+      "source": "./plugins/ralph-wiggum",
       "category": "development"
     },
     {
@@ -60,7 +60,7 @@
         "name": "Daisy Hollman (繁體中文版)",
         "email": "daisy@anthropic.com"
       },
-      "source": "plugins/plugin-dev",
+      "source": "./plugins/plugin-dev",
       "category": "development"
     },
     {
@@ -71,7 +71,7 @@
         "name": "Daisy (繁體中文版)",
         "email": "daisy@anthropic.com"
       },
-      "source": "plugins/pr-review-toolkit",
+      "source": "./plugins/pr-review-toolkit",
       "category": "productivity"
     },
     {
@@ -82,7 +82,7 @@
         "name": "Anthropic (繁體中文版)",
         "email": "support@anthropic.com"
       },
-      "source": "plugins/commit-commands",
+      "source": "./plugins/commit-commands",
       "category": "productivity"
     },
     {
@@ -93,7 +93,7 @@
         "name": "Boris Cherny (繁體中文版)",
         "email": "boris@anthropic.com"
       },
-      "source": "plugins/code-review",
+      "source": "./plugins/code-review",
       "category": "productivity"
     },
     {
@@ -104,7 +104,7 @@
         "name": "Daisy Hollman (繁體中文版)",
         "email": "daisy@anthropic.com"
       },
-      "source": "plugins/hookify",
+      "source": "./plugins/hookify",
       "category": "productivity"
     },
     {
@@ -115,7 +115,7 @@
         "name": "David Dworken (繁體中文版)",
         "email": "dworken@anthropic.com"
       },
-      "source": "plugins/security-guidance",
+      "source": "./plugins/security-guidance",
       "category": "security"
     },
     {
@@ -126,7 +126,7 @@
         "name": "Dickson Tsai (繁體中文版)",
         "email": "dickson@anthropic.com"
       },
-      "source": "plugins/explanatory-output-style",
+      "source": "./plugins/explanatory-output-style",
       "category": "learning"
     },
     {
@@ -137,7 +137,7 @@
         "name": "Boris Cherny (繁體中文版)",
         "email": "boris@anthropic.com"
       },
-      "source": "plugins/learning-output-style",
+      "source": "./plugins/learning-output-style",
       "category": "learning"
     },
     {
@@ -148,7 +148,7 @@
         "name": "Dennis Liu (繁體中文版)",
         "email": "dennisliuck@gmail.com"
       },
-      "source": "plugins/issue-review",
+      "source": "./plugins/issue-review",
       "category": "productivity"
     }
   ]
