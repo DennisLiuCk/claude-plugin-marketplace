@@ -16,6 +16,7 @@ const PLUGIN_ICONS = {
     'learning-output-style': '📚',
     'issue-review': '🔬',
     'legacy-hero-java': '☕',
+    'legacy-hero-java-v2': '⚡',
 };
 
 const CATEGORY_NAMES = {
@@ -259,6 +260,22 @@ const pluginsData = {
             sourceType: "community",
             icon: PLUGIN_ICONS['legacy-hero-java'],
             githubUrl: "https://github.com/DennisLiuCk/claude-plugin-marketplace/tree/main/./plugins/legacy-hero-java"
+        },
+        {
+            name: "legacy-hero-java-v2",
+            displayName: "Legacy Hero Java V2",
+            description: "Legacy Hero Java v2.0 - 全新架構解決文件持久化問題、消除幻覺、階段性用戶確認、並行分析加速。深度分析 Java Spring Boot 遺留專案的進階工具",
+            version: "2.0.0",
+            author: {
+                name: "Dennis Liu",
+                chineseName: "繁體中文版",
+                email: "dennisliuck@gmail.com"
+            },
+            source: "./plugins/legacy-hero-java-v2",
+            category: "development",
+            sourceType: "community",
+            icon: PLUGIN_ICONS['legacy-hero-java-v2'],
+            githubUrl: "https://github.com/DennisLiuCk/claude-plugin-marketplace/tree/main/./plugins/legacy-hero-java-v2"
         }
     ]
 };

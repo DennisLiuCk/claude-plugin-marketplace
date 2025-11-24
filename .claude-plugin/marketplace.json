@@ -161,6 +161,17 @@
       },
       "source": "./plugins/legacy-hero-java",
       "category": "development"
+    },
+    {
+      "name": "legacy-hero-java-v2",
+      "description": "Legacy Hero Java v2.0 - 全新架構解決文件持久化問題、消除幻覺、階段性用戶確認、並行分析加速。深度分析 Java Spring Boot 遺留專案的進階工具",
+      "version": "2.0.0",
+      "author": {
+        "name": "Dennis Liu (繁體中文版)",
+        "email": "dennisliuck@gmail.com"
+      },
+      "source": "./plugins/legacy-hero-java-v2",
+      "category": "development"
     }
   ]
 }
