@@ -1,0 +1,9 @@
+{
+  "name": "legacy-hero-java-v2",
+  "description": "深度分析 Java Spring Boot 遺留專案的進階工具 v2.0。採用全新架構：主 session 文件管理、階段性用戶確認、並行分析、防幻覺驗證機制，確保分析結果 100% 準確且可持久化",
+  "version": "2.0.0",
+  "author": {
+    "name": "Dennis Liu (繁體中文版)",
+    "email": "dennis@example.com"
+  }
+}

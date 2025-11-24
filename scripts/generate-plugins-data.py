@@ -34,7 +34,8 @@ PLUGIN_ICONS = {
     'explanatory-output-style': '💡',
     'learning-output-style': '📚',
     'issue-review': '🔬',
-    'legacy-hero-java': '☕'
+    'legacy-hero-java': '☕',
+    'legacy-hero-java-v2': '⚡'  # v2: 更快、更強、更可靠
 }
 
 CATEGORY_NAMES = {
