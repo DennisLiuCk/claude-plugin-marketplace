@@ -5,7 +5,7 @@
   "description": "Claude Code 繁體中文插件市場 - 提供繁體中文版本的 Claude Code 插件，幫助華語使用者更容易學習和使用",
   "owner": {
     "name": "Dennis Liu",
-    "email": "dennis@example.com"
+    "email": "nossi1970@hotmail.com"
   },
   "plugins": [
     {
@@ -145,8 +145,8 @@
       "description": "專業的問題分析專家系統，能夠深入分析各類問題、調查程式碼庫、定位根本原因並提供解決方案",
       "version": "1.0.0",
       "author": {
-        "name": "Dennis Liu (繁體中文版)",
-        "email": "dennisliuck@gmail.com"
+        "name": "Dennis Liu",
+        "email": "nossi1970@hotmail.com"
       },
       "source": "./plugins/issue-review",
       "category": "productivity"
@@ -156,8 +156,8 @@
       "description": "深度分析 Java Spring Boot 遺留專案的專業工具，為新進工程師提供詳盡的代碼教學文件，包含文件審核機制確保正確性",
       "version": "1.0.0",
       "author": {
-        "name": "Dennis Liu (繁體中文版)",
-        "email": "dennisliuck@gmail.com"
+        "name": "Dennis Liu",
+        "email": "nossi1970@hotmail.com"
       },
       "source": "./plugins/legacy-hero-java",
       "category": "development"
@@ -167,10 +167,21 @@
       "description": "Legacy Hero Java v2.0 - 全新架構解決文件持久化問題、消除幻覺、階段性用戶確認、並行分析加速。深度分析 Java Spring Boot 遺留專案的進階工具",
       "version": "2.0.0",
       "author": {
-        "name": "Dennis Liu (繁體中文版)",
-        "email": "dennisliuck@gmail.com"
+        "name": "Dennis Liu",
+        "email": "nossi1970@hotmail.com"
       },
       "source": "./plugins/legacy-hero-java-v2",
+      "category": "development"
+    },
+    {
+      "name": "legacy-analyzer",
+      "description": "Using multiple specialized agents with confidence-based scoring to analyze Legacy Java Spring Boot project and generate high-quality teaching documents",
+      "version": "1.0.0",
+      "author": {
+        "name": "Dennis Liu",
+        "email": "nossi1970@hotmail.com"
+      },
+      "source": "./plugins/legacy-analyzer",
       "category": "development"
     }
   ]
