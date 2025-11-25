@@ -9,7 +9,7 @@
 **專案特點**
 - 完整繁體中文介面與說明文件
 - 基於 Anthropic 官方插件翻譯而成
-- 涵蓋 12 個精選插件，支援完整開發流程
+- 涵蓋 14 個精選插件，支援完整開發流程
 - 持續更新，跟隨官方版本同步
 
 ## 安裝方式
@@ -42,9 +42,9 @@ cp -r claude-plugin-marketplace/plugins/[插件名稱] ~/.claude/plugins/
 
 ## 插件列表
 
-本專案提供 13 個插件，分為四大類別：
+本專案提供 14 個插件，分為四大類別：
 
-### 開發工具（5 個）
+### 開發工具（6 個）
 
 | 插件名稱 | 說明 | 主要命令 |
 |---------|------|---------|
@@ -53,6 +53,7 @@ cp -r claude-plugin-marketplace/plugins/[插件名稱] ~/.claude/plugins/
 | frontend-design | 前端介面設計指引，提供專業的設計建議 | 自動啟用 |
 | ralph-wiggum | 互動式迭代開發循環，自動重複執行直到完成任務 | `/ralph-loop`, `/cancel-ralph` |
 | plugin-dev | 插件開發工具包，包含 7 個專業技能模組 | `/create-plugin` |
+| legacy-analyzer | 遺留專案分析工具，使用多代理置信度評分分析 Java Spring Boot 專案 | `/analyze-java-domain` |
 
 ### 生產力工具（5 個）
 
@@ -120,6 +121,7 @@ claude-plugin-marketplace/
 │   ├── hookify/                  # 規則系統
 │   ├── issue-review/             # 問題分析（社群插件）
 │   ├── learning-output-style/    # 學習模式
+│   ├── legacy-analyzer/          # 遺留專案分析（社群插件）
 │   ├── plugin-dev/               # 插件開發
 │   ├── pr-review-toolkit/        # PR 審查
 │   ├── ralph-wiggum/             # 迭代開發
@@ -166,6 +168,11 @@ claude-plugin-marketplace/
 4. 參考官方 Claude Code 文件
 
 ## 更新紀錄
+
+### v1.5.0（2025-11-25）
+- 移除已棄用插件：legacy-hero-java、legacy-hero-java-v2
+- 上述插件已由 legacy-analyzer 取代
+- 更新文件以反映 14 個插件
 
 ### v1.1.0（2025-11-22）
 - 新增 Issue Review 插件（社群插件）

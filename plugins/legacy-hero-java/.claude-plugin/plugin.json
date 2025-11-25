@@ -1,9 +1,0 @@
-{
-  "name": "legacy-hero-java",
-  "description": "深度分析 Java Spring Boot 遺留專案的專業工具，為新進工程師提供詳盡的代碼教學文件。v1.1.0 新增：檔案持久化系統，避免 subagent 輸出截斷",
-  "version": "1.1.0",
-  "author": {
-    "name": "Dennis Liu (繁體中文版)",
-    "email": "dennis@example.com"
-  }
-}

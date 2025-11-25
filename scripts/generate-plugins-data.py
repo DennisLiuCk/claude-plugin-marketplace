@@ -34,8 +34,6 @@ PLUGIN_ICONS = {
     'explanatory-output-style': '💡',
     'learning-output-style': '📚',
     'issue-review': '🔬',
-    'legacy-hero-java': '☕',
-    'legacy-hero-java-v2': '⚡',  # v2: 更快、更強、更可靠
     'legacy-analyzer': '🎯'  # 基於 code-review 方法論：精準的置信度過濾分析
 }
 
