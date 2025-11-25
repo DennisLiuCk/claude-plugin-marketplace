@@ -412,6 +412,41 @@ Grep: pattern="關鍵字" （會搜尋所有檔案）
 
 ⚠️ **重要：為避免單一文件過大導致 token 限制問題，採用分檔策略**
 
+### 文件撰寫原則（核心守則）
+
+**文件目的**：幫助工程師/開發者/新人理解現有專案的 domain know-how 與 project design。
+
+**必須刪除的內容類型**：
+- ❌ 改善建議、優化建議（如「建議實作快取」、「未來可以加入 A/B Testing」）
+- ❌ 效能優化策略（如「平行處理」、「批次查詢」建議）
+- ❌ 測試代碼範例（測試應該在測試檔案本身查看）
+- ❌ 假設性/範例性程式碼（只保留實際程式碼引用）
+- ❌ 「應該」「建議」「優化」「未來」字眼的段落
+- ❌ 監控與告警建議（如「應該實作的監控指標」）
+
+**必須保留的內容類型**：
+- ✅ 現有程式碼的結構與邏輯說明
+- ✅ 實際的業務規則（從程式碼中提取）
+- ✅ 資料模型與關聯關係
+- ✅ 調用鏈與流程圖
+- ✅ 錯誤訊息對照表（現有的）
+- ✅ 檔案位置速查
+
+**程式碼引用原則**：
+- 只保留 5-15 行的關鍵邏輯片段
+- 必須標註檔案路徑和行號（如 `ProductService.java:45-60`）
+- 完整代碼應引導讀者查看原始檔案
+- 禁止假設性或簡化範例程式碼
+
+**避免重複原則**：
+- API 端點列表只在 00-INDEX.md
+- DTO 欄位說明只在 03-data-model.md
+- 業務規則只在 04-business-rules.md
+- 錯誤碼對照只在 04-business-rules.md
+- 常數定義只在 03-data-model.md
+
+---
+
 16. **依章節分檔生成**，每個章節由獨立的 **Sonnet 代理**生成：
 
     **輸入**（所有代理共用）：
@@ -422,25 +457,35 @@ Grep: pattern="關鍵字" （會搜尋所有檔案）
 
     ---
 
-    ### 文件 1: 索引頁 (00-INDEX.md)
+    ### 文件 1: 索引頁 (00-INDEX.md) - 目標 ~50 行
 
     由主 session 直接生成，內容：
-    - 領域名稱和簡介
+    - 領域名稱和簡介（2-3 句話）
     - 文件清單與連結
-    - 快速導覽
+    - API 端點總覽表格（唯一出現位置）
+    - 快速統計
 
     ```markdown
     # {領域名稱} 領域分析
 
+    > 本文件幫助你理解 {領域名稱} 的現有實作，不包含改善建議。
+
+    ## API 端點總覽
+
+    | HTTP 方法 | 路徑 | Controller 方法 | 用途 |
+    |-----------|------|----------------|------|
+    | POST | /api/products | createProduct | 建立商品 |
+    | GET | /api/products/{id} | getProduct | 查詢商品 |
+
     ## 文件索引
 
-    | 文件 | 說明 |
-    |------|------|
-    | [01-概述與流程圖](./01-overview.md) | 領域概述、API 端點、核心流程圖 |
-    | [02-調用鏈詳解](./02-call-chains.md) | 每條調用鏈的詳細說明與程式碼 |
-    | [03-資料模型](./03-data-model.md) | Entity 關係圖、欄位說明 |
-    | [04-業務規則與異常](./04-business-rules.md) | 業務規則、驗證、異常處理 |
-    | [05-新手指南](./05-guide.md) | 修改指南、檔案清單、測試方式 |
+    | 文件 | 說明 | 目標讀者 |
+    |------|------|----------|
+    | [01-概述](./01-overview.md) | 領域概念、架構全貌 | 新人、PM |
+    | [02-調用鏈](./02-call-chains.md) | 程式碼導覽、呼叫路徑 | 開發者 |
+    | [03-資料模型](./03-data-model.md) | DTO/Entity/Enum 參考 | 開發者 |
+    | [04-業務規則](./04-business-rules.md) | 業務邏輯、錯誤碼 | 開發者、QA |
+    | [05-檔案索引](./05-guide.md) | 檔案位置速查 | 開發者 |
 
     ## 快速統計
 
@@ -451,142 +496,222 @@ Grep: pattern="關鍵字" （會搜尋所有檔案）
 
     ---
 
-    ### 文件 2: 概述與流程圖 (01-overview.md)
+    ### 文件 2: 概述 (01-overview.md) - 目標 ~150 行
 
-    **代理任務**：生成領域概述和核心流程圖
+    **代理任務**：生成領域概述和架構圖
 
-    內容：
-    - 領域名稱和簡介
-    - 涉及的主要功能
-    - 相關 API 端點列表（表格形式）
-    - 整體架構流程圖（Mermaid flowchart）
-    - 每個主要 API 的序列圖（Mermaid sequenceDiagram）
+    **保留內容**：
+    - 簡介（3-5 句話）
+    - 核心功能列表（bullet points）
+    - 技術特色（使用了什麼框架/模式）
+    - 系統架構圖（單一 Mermaid flowchart）
+    - 核心類別說明表格（類別名、檔案路徑、職責）
 
-    範例序列圖：
-    ```mermaid
-    sequenceDiagram
-        participant Client as 客戶端
-        participant Controller as ProductController
-        participant Service as ProductService
-        participant Repository as ProductRepository
-        participant DB as 資料庫
+    **刪除內容**：
+    - ❌ 效能考量/優化策略
+    - ❌ 未來擴展方向
+    - ❌ 測試策略
+    - ❌ 詳細 DTO 設計（移到 03-data-model.md）
+    - ❌ API 端點列表（已在 00-INDEX.md）
+    - ❌ 多個序列圖（只保留一個最重要的）
 
-        Client->>Controller: POST /api/products
-        Controller->>Controller: @Valid 驗證 ProductDTO
-        Controller->>Service: createProduct(dto)
-        Service->>Service: 檢查商品名稱是否重複
-        Service->>Repository: existsByName(name)
-        Repository->>DB: SELECT
-        DB-->>Repository: false
-        Service->>Repository: save(product)
-        Repository->>DB: INSERT
-        DB-->>Repository: Product
-        Repository-->>Service: Product
-        Service-->>Controller: Product
-        Controller-->>Client: 201 Created
+    **Mermaid 圖表限制**：
+    - 只使用一個整體架構 flowchart
+    - 只保留一個最重要 API 的序列圖
+    - 序列圖不超過 15 行
+
+    ---
+
+    ### 文件 3: 調用鏈詳解 (02-call-chains.md) - 目標 ~200 行
+
+    **代理任務**：說明程式碼呼叫路徑
+
+    **保留內容**：
+    - 調用鏈概覽表格（入口點、涉及類別、主要功能）
+    - 架構分層說明（Controller → Service → Repository）
+    - 每條調用鏈的層級結構（精簡版）：
+      - 類別和方法名稱
+      - 檔案路徑:行號
+      - 3-5 句功能說明
+      - 重要註解（@Transactional, @Valid）
+    - 共用元件說明
+
+    **刪除內容**：
+    - ❌ 效能瓶頸分析
+    - ❌ 優化策略建議
+    - ❌ 冗長的程式碼區塊（每個不超過 10 行）
+    - ❌ 重複的 Kutt API 整合說明（整合至此文件一次）
+
+    **程式碼片段限制**：
+    - 每個方法只保留關鍵 5-10 行
+    - 必須標註 `檔案名:行號`
+    - 以 `// ... 完整實作請見原始檔案` 結尾
+
+    **調用鏈呈現格式**（精簡版）：
+    ```markdown
+    ### 調用鏈 1: 建立商品
+
+    | 層級 | 類別.方法 | 檔案位置 | 說明 |
+    |------|----------|----------|------|
+    | 0 | ProductController.createProduct | ProductController.java:67 | 接收請求 |
+    | 1 | ProductService.createProduct | ProductServiceImpl.java:45 | 業務邏輯 |
+    | 2 | ProductRepository.save | ProductRepository.java:12 | 資料存取 |
+
+    **關鍵邏輯** (`ProductServiceImpl.java:50-55`):
+    ```java
+    if (productRepository.existsByName(dto.getName())) {
+        throw new ProductAlreadyExistsException();
+    }
+    return productRepository.save(product);
+    // ... 完整實作請見原始檔案
+    ```
     ```
 
     ---
 
-    ### 文件 3: 調用鏈詳解 (02-call-chains.md)
+    ### 文件 4: 資料模型 (03-data-model.md) - 目標 ~200 行
 
-    **代理任務**：詳細說明每條調用鏈
+    **代理任務**：說明資料結構（唯一來源）
 
-    對於每條調用鏈，包含：
-    - 調用鏈標題和用途
-    - 每一層調用的詳細說明：
-      - 類別和方法名稱
-      - 檔案路徑（可點擊連結）
-      - 程式碼片段（關鍵部分）
-      - 功能說明
-      - 重要註解（@Transactional, @Valid 等）
-    - 調用關係圖（簡化版 Mermaid）
+    **保留內容**：
+    - DTO/Entity 關係圖（Mermaid erDiagram）
+    - Entity 欄位說明表格（類別、欄位、型別、說明）
+    - DTO 欄位說明表格
+    - Enum 定義表格
+    - 常數定義表格（唯一位置）
+    - 資料流轉說明（簡短）
 
-    **如果調用鏈超過 3 條**：
-    - 每條調用鏈生成獨立小節
-    - 使用折疊區塊（details/summary）減少視覺壓力
+    **刪除內容**：
+    - ❌ 效能考量
+    - ❌ 測試資料範例
+    - ❌ 假設性的表結構
+    - ❌ 簡化範例 DTO 程式碼
 
-    ---
+    **表格格式範例**：
+    ```markdown
+    ## Entity: Product (`ProductEntity.java:15`)
 
-    ### 文件 4: 資料模型 (03-data-model.md)
-
-    **代理任務**：說明涉及的 Entity 和資料結構
-
-    內容：
-    - Entity 關係圖（Mermaid erDiagram）
-    - 對於每個 Entity：
-      - 類別名稱和資料表名稱
-      - 主要欄位說明（表格形式）
-      - JPA 註解解釋
-      - 關聯關係說明
-    - DTO 類別說明（如果有）
-    - 資料流轉說明
+    | 欄位 | 型別 | 對應資料表欄位 | 說明 |
+    |------|------|---------------|------|
+    | id | Long | product_id | 主鍵 |
+    | name | String | product_name | 商品名稱 |
+    ```
 
     ---
 
-    ### 文件 5: 業務規則與異常 (04-business-rules.md)
+    ### 文件 5: 業務規則與異常 (04-business-rules.md) - 目標 ~150 行
 
-    **代理任務**：整理業務規則和異常處理
+    **代理任務**：整理現有業務規則（唯一來源）
 
-    內容：
-    - 業務規則清單
-      - 每條規則的描述
-      - 程式碼位置（檔案路徑:行號）
-      - 驗證方式
-    - 異常處理
-      - 可能拋出的異常類別
-      - 異常觸發條件
-      - 錯誤響應格式
-    - 驗證邏輯
-      - @Valid 驗證
-      - 自定義驗證
+    **保留內容**：
+    - 業務規則清單表格（規則、程式碼位置、說明）
+    - 錯誤碼/錯誤訊息對照表（唯一位置）
+    - 異常類別列表（類別名、觸發條件、HTTP 狀態碼）
+    - 驗證邏輯摘要（@Valid 欄位、自定義驗證）
+
+    **刪除內容**：
+    - ❌ 測試覆蓋建議
+    - ❌ 效能考量
+    - ❌ 修改指南
+    - ❌ 測試 SQL 範例
+
+    **表格格式範例**：
+    ```markdown
+    ## 業務規則
+
+    | 規則 | 程式碼位置 | 說明 |
+    |------|-----------|------|
+    | 商品名稱不可重複 | ProductServiceImpl.java:48 | 建立前檢查 |
+    | 價格必須大於 0 | ProductDTO.java:23 | @Min(1) 驗證 |
+
+    ## 錯誤碼對照
+
+    | 錯誤碼 | HTTP 狀態 | 訊息 | 觸發條件 |
+    |--------|----------|------|----------|
+    | PRODUCT_001 | 409 | 商品名稱已存在 | 名稱重複 |
+    ```
 
     ---
 
-    ### 文件 6: 新手指南 (05-guide.md)
+    ### 文件 6: 檔案索引 (05-guide.md) - 目標 ~100 行
 
-    **代理任務**：提供新手友善的入門指南
+    **代理任務**：提供檔案位置速查（最有價值的參考）
 
-    內容：
-    - 如何修改此流程
-      - 常見修改場景和步驟
-    - 相關檔案清單
-      - 按類型分類的檔案路徑索引
-    - 測試此功能的方式
-      - API 測試範例（curl 或 Postman）
-      - 單元測試位置（如果有）
-    - 除錯技巧
-      - 常見問題和解決方式
+    **保留內容**：
+    - 相關檔案清單（按類型分類）
+      - Controllers
+      - Services
+      - Repositories
+      - Entities
+      - DTOs
+      - Mappers (MyBatis XML)
+      - 測試檔案位置（僅列出路徑，不詳述）
+    - 常見問題列表（僅標題和 1 句說明，不詳述解法）
+
+    **刪除內容**：
+    - ❌ 如何修改此流程（改善建議）
+    - ❌ 效能優化建議
+    - ❌ 測試策略詳述
+    - ❌ 部署與配置詳述
+    - ❌ API 測試範例（curl/Postman）
+    - ❌ 除錯技巧詳述
+
+    **檔案清單格式**：
+    ```markdown
+    ## 相關檔案
+
+    ### Controllers
+    - `src/main/java/.../ProductController.java` - 商品 API 入口
+
+    ### Services
+    - `src/main/java/.../ProductService.java` - 介面
+    - `src/main/java/.../ProductServiceImpl.java` - 實作
+
+    ### Tests
+    - `src/test/java/.../ProductServiceTest.java`
+    - `src/test/java/.../ProductControllerTest.java`
+
+    ## 常見問題
+
+    | 問題 | 相關檔案 |
+    |------|----------|
+    | 商品建立失敗 | ProductServiceImpl.java:48 |
+    | 價格驗證錯誤 | ProductDTO.java:23 |
+    ```
 
     ---
 
     **撰寫風格**（所有文件通用）：
     - 使用繁體中文
     - 假設讀者不了解此專案
-    - 大量使用圖表和表格
-    - 所有程式碼引用必須有檔案路徑
+    - 優先使用表格呈現結構化資訊
+    - 所有程式碼引用必須有 `檔案名:行號`
     - 每個文件開頭包含返回索引的連結
+    - 每個資訊只出現在一個文件中（避免重複）
+    - **禁止使用「建議」「應該」「優化」「未來」等字眼**
 
 17. **並行生成文件**：
 
     啟動 **4 個 Sonnet 代理**並行生成文件 2-5：
-    - 代理 A: 生成 `01-overview.md`
-    - 代理 B: 生成 `02-call-chains.md`
-    - 代理 C: 生成 `03-data-model.md`
-    - 代理 D: 生成 `04-business-rules.md` + `05-guide.md`（這兩個通常較短，可合併）
+    - 代理 A: 生成 `01-overview.md`（目標 ~150 行）
+    - 代理 B: 生成 `02-call-chains.md`（目標 ~200 行）
+    - 代理 C: 生成 `03-data-model.md`（目標 ~200 行）
+    - 代理 D: 生成 `04-business-rules.md`（~150 行）+ `05-guide.md`（~100 行）
 
-    主 session 同時生成 `00-INDEX.md`
+    主 session 同時生成 `00-INDEX.md`（目標 ~50 行）
+
+    **預期總行數**：約 850 行（相比原本 4000+ 行減少約 80%）
 
 18. 將所有文件寫入：`.legacy-analysis/domain-{keyword}-{timestamp}/docs/`
 
     ```
     docs/
-    ├── 00-INDEX.md           # 索引頁
-    ├── 01-overview.md        # 概述與流程圖
-    ├── 02-call-chains.md     # 調用鏈詳解
-    ├── 03-data-model.md      # 資料模型
-    ├── 04-business-rules.md  # 業務規則與異常
-    └── 05-guide.md           # 新手指南
+    ├── 00-INDEX.md           # 索引頁 (~50 行)
+    ├── 01-overview.md        # 概述 (~150 行)
+    ├── 02-call-chains.md     # 調用鏈 (~200 行)
+    ├── 03-data-model.md      # 資料模型 (~200 行)
+    ├── 04-business-rules.md  # 業務規則 (~150 行)
+    └── 05-guide.md           # 檔案索引 (~100 行)
     ```
 
 ---
@@ -609,37 +734,34 @@ Grep: pattern="關鍵字" （會搜尋所有檔案）
       ├─ 02-call-chains.json       (調用鏈 {M} 條)
       ├─ 03-scores.json            (評分結果)
       ├─ 04-structured.json        (結構化發現 {K} 個)
-      └─ docs/                     (領域分析文件) ⭐
-          ├─ 00-INDEX.md           (索引頁)
-          ├─ 01-overview.md        (概述與流程圖)
-          ├─ 02-call-chains.md     (調用鏈詳解)
-          ├─ 03-data-model.md      (資料模型)
-          ├─ 04-business-rules.md  (業務規則與異常)
-          └─ 05-guide.md           (新手指南)
+      └─ docs/                     (領域分析文件 - 精簡版) ⭐
+          ├─ 00-INDEX.md           (~50 行) 索引與 API 總覽
+          ├─ 01-overview.md        (~150 行) 概述與架構圖
+          ├─ 02-call-chains.md     (~200 行) 調用鏈詳解
+          ├─ 03-data-model.md      (~200 行) 資料模型
+          ├─ 04-business-rules.md  (~150 行) 業務規則
+          └─ 05-guide.md           (~100 行) 檔案索引
 
     📊 分析統計:
       - 總執行時間: {X} 分 {Y} 秒
       - 追蹤的調用鏈: {M} 條
-      - 發現總數: {N} 個
-      - 高質量發現: {K} 個
+      - 文件總行數: ~850 行（精簡版）
       - 平均置信度: {score}
 
     🔗 主要入口點:
       1. POST /api/products → ProductController.createProduct
       2. ...
 
-    🎯 下一步建議:
-      1. 從索引頁開始閱讀: docs/00-INDEX.md
-      2. 依需求閱讀各章節文件
-      3. 對照程式碼理解完整流程
-      4. 如需分析其他領域，再次執行此命令
-      5. 如需全專案分析，使用 /legacy-analyzer:analyze-java
+    📖 閱讀指南:
+      - 新人/PM: 從 00-INDEX.md → 01-overview.md
+      - 開發者: 02-call-chains.md → 03-data-model.md
+      - QA: 04-business-rules.md
 
-    💡 提示:
-      - 本文件專注於「{領域關鍵字}」相關邏輯
-      - 所有檔案路徑都已驗證存在
-      - 調用鏈已追蹤到 Repository 層
-      - 分檔設計避免單一文件過大
+    💡 文件特色:
+      - 專注於「理解現有專案」，不含改善建議
+      - 每個資訊只出現一次，無重複內容
+      - 所有程式碼引用包含檔案路徑和行號
+      - 總計約 850 行（相比完整版減少 80%）
     ```
 
 ---
@@ -651,11 +773,12 @@ Grep: pattern="關鍵字" （會搜尋所有檔案）
   - 階段 3 的評分代理全部並行啟動
   - 階段 5 的文件生成代理（4 個）並行啟動
 
-- **分檔策略**（避免 token 限制問題）：
-  - 採用 6 個獨立文件而非單一大文件
-  - 每個文件專注於特定主題，避免內容過長
-  - 索引頁提供快速導覽
-  - 並行生成提高效率
+- **精簡文件策略**：
+  - 採用 6 個精簡文件（總計 ~850 行）
+  - 每個文件有明確的目標行數限制
+  - 禁止「建議」「應該」「優化」「未來」字眼
+  - 每個資訊只出現在一個文件中（避免重複）
+  - 程式碼片段限制 5-15 行，引導讀者看原始檔案
 
 - **與 analyze-java 的互補性**：
   - 先用 `analyze-java-domain` 理解特定功能
@@ -677,5 +800,5 @@ Grep: pattern="關鍵字" （會搜尋所有檔案）
   - 階段 2: 約 2-3 分鐘（Sonnet 深度追蹤，最多 3 條鏈）
   - 階段 3: 約 10-20 秒（Haiku 評分）
   - 階段 4: 約 10 秒（主 session 處理）
-  - 階段 5: 約 1-2 分鐘（4 個 Sonnet 並行生成 6 個文件）
+  - 階段 5: 約 1-2 分鐘（4 個 Sonnet 並行生成精簡文件）
   - **總計: 約 4-6 分鐘**
