@@ -9,8 +9,8 @@ This repository is the **Claude Code Traditional Chinese Plugin Marketplace** (c
 - **Owner**: Dennis Liu
 - **Base**: Anthropic official plugins (translated)
 - **Language**: Traditional Chinese (繁體中文)
-- **Version**: 1.0.0
-- **Total Plugins**: 12 plugins across 4 categories
+- **Version**: 1.5.0
+- **Total Plugins**: 14 plugins across 4 categories
 
 ## Repository Structure
 
@@ -46,7 +46,9 @@ claude-plugin-marketplace/
 │   ├── feature-dev/              # Development: Feature development workflow
 │   ├── frontend-design/          # Development: Frontend design guidance
 │   ├── hookify/                  # Productivity: Custom hook creator
+│   ├── issue-review/             # Productivity: Issue analysis expert system
 │   ├── learning-output-style/    # Learning: Interactive learning mode
+│   ├── legacy-analyzer/          # Development: Legacy project analysis
 │   ├── plugin-dev/               # Development: Plugin development toolkit
 │   ├── pr-review-toolkit/        # Productivity: PR review agents
 │   ├── ralph-wiggum/             # Development: Iterative development loop
@@ -58,18 +60,20 @@ claude-plugin-marketplace/
 
 ## Plugin Categories and Inventory
 
-### Development Tools (5 plugins)
+### Development Tools (6 plugins)
 1. **agent-sdk-dev**: Claude Agent SDK development toolkit for Python and TypeScript
 2. **feature-dev**: Seven-stage feature development workflow with specialized agents
 3. **frontend-design**: Production-grade frontend interface design guidance
 4. **ralph-wiggum**: Interactive self-referential AI loop for iterative development
 5. **plugin-dev**: Comprehensive Claude Code plugin development toolkit
+6. **legacy-analyzer**: Multi-agent confidence-based legacy Java project analysis
 
-### Productivity Tools (4 plugins)
+### Productivity Tools (5 plugins)
 1. **pr-review-toolkit**: Comprehensive PR review agents for code quality
 2. **commit-commands**: Simplified Git workflow commands
 3. **code-review**: Automated code review with confidence-based scoring
 4. **hookify**: Custom hook creator for preventing unwanted behaviors
+5. **issue-review**: Professional issue analysis expert system
 
 ### Security Tools (1 plugin)
 1. **security-guidance**: Security reminder hook for file edits

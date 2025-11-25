@@ -5,6 +5,31 @@
 格式基於 [Keep a Changelog](https://keepachangelog.com/zh-TW/1.0.0/)，
 版本號遵循 [語意化版本](https://semver.org/lang/zh-TW/)。
 
+## [1.5.0] - 2025-11-25
+
+### 移除
+- **legacy-hero-java 插件**（已棄用）
+  - 深度分析 Java Spring Boot 遺留專案的原始版本
+  - 此插件已被 legacy-analyzer 完全取代
+- **legacy-hero-java-v2 插件**（已棄用）
+  - legacy-hero-java 的改進版本
+  - 此插件已被 legacy-analyzer 完全取代
+
+### 改進
+- **文件更新**
+  - README.md 更新插件總數（13 → 14）
+  - 新增 legacy-analyzer 插件到開發工具分類
+  - 更新目錄結構，移除已棄用插件
+  - scripts/generate-plugins-data.py 移除已棄用插件的圖示定義
+
+### 技術細節
+- marketplace.json 版本升級：1.1.0 → 1.5.0
+- docs/js/data.js 重新生成，移除已棄用插件資料
+- 插件總數：16 → 14
+
+### 說明
+legacy-hero-java 和 legacy-hero-java-v2 是早期開發的遺留專案分析工具。隨著 legacy-analyzer 插件的推出，這兩個插件已不再需要。legacy-analyzer 採用了更先進的多代理架構和置信度評分系統，提供更準確、更可靠的分析結果。
+
 ## [1.1.0] - 2025-11-22
 
 ### 新增
@@ -85,6 +110,16 @@
 ---
 
 ## 版本說明
+
+### [1.5.0] 主要亮點
+
+此版本主要移除了兩個已棄用的插件 **legacy-hero-java** 和 **legacy-hero-java-v2**，這兩個插件已被更先進的 **legacy-analyzer** 完全取代。
+
+**移除原因**：
+- legacy-analyzer 採用多代理架構，分析更全面
+- 置信度評分系統能有效過濾誤報
+- 更好的文件持久化機制
+- 階段性用戶確認流程更加完善
 
 ### [1.1.0] 主要亮點
 
