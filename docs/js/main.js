@@ -5,7 +5,8 @@ let state = {
     currentCategory: 'all',
     currentSource: 'all',
     searchQuery: '',
-    plugins: []
+    plugins: [],
+    readmeCache: {} // Cache for README content
 };
 
 // DOM elements
@@ -15,9 +16,23 @@ let searchInput;
 let categoryButtons;
 let sourceButtons;
 
+// Modal elements
+let modal;
+let modalTitle;
+let modalIcon;
+let modalMeta;
+let modalContent;
+let modalLoading;
+let modalError;
+let modalGithubBtn;
+let modalGithubLink;
+let modalInstallBtn;
+let modalClose;
+
 // Initialize on DOM ready
 document.addEventListener('DOMContentLoaded', () => {
     initializeElements();
+    initializeModal();
     loadPlugins();
     setupEventListeners();
     renderPlugins();
@@ -30,6 +45,49 @@ function initializeElements() {
     searchInput = document.getElementById('search-input');
     categoryButtons = document.querySelectorAll('[data-category]');
     sourceButtons = document.querySelectorAll('[data-source]');
+}
+
+// Initialize Modal elements
+function initializeModal() {
+    modal = document.getElementById('plugin-modal');
+    modalTitle = document.getElementById('modal-title');
+    modalIcon = document.getElementById('modal-icon');
+    modalMeta = document.getElementById('modal-meta');
+    modalContent = document.getElementById('modal-content');
+    modalLoading = document.getElementById('modal-loading');
+    modalError = document.getElementById('modal-error');
+    modalGithubBtn = document.getElementById('modal-github-btn');
+    modalGithubLink = document.getElementById('modal-github-link');
+    modalInstallBtn = document.getElementById('modal-install-btn');
+    modalClose = document.getElementById('modal-close');
+
+    // Setup modal event listeners
+    if (modal) {
+        // Close button
+        modalClose.addEventListener('click', closeModal);
+
+        // Click outside to close
+        modal.addEventListener('click', (e) => {
+            if (e.target === modal) {
+                closeModal();
+            }
+        });
+
+        // ESC key to close
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && modal.classList.contains('show')) {
+                closeModal();
+            }
+        });
+
+        // Install button in modal
+        modalInstallBtn.addEventListener('click', function() {
+            const command = this.dataset.command;
+            if (command) {
+                copyToClipboard(command, this, '插件');
+            }
+        });
+    }
 }
 
 // Load plugins data
@@ -246,9 +304,9 @@ function createPluginCard(plugin, index) {
 
         <div class="plugin-footer">
             <span class="plugin-version">v${plugin.version}</span>
-            <a href="${plugin.githubUrl}" target="_blank" class="plugin-link">
-                查看詳情 →
-            </a>
+            <button class="plugin-readme-btn" data-plugin-name="${plugin.name}">
+                📖 查看說明
+            </button>
         </div>
     `;
 
@@ -382,6 +440,14 @@ function setupCardEventListeners(card, plugin) {
             copyToClipboard(command, this);
         });
     });
+
+    // README button click handler
+    const readmeBtn = card.querySelector('.plugin-readme-btn');
+    if (readmeBtn) {
+        readmeBtn.addEventListener('click', function() {
+            openPluginModal(plugin);
+        });
+    }
 }
 
 // Copy to clipboard with visual feedback
@@ -550,3 +616,107 @@ console.log(
     '%c查看源碼: https://github.com/DennisLiuCk/claude-plugin-marketplace',
     'font-size: 12px; color: #6b7280;'
 );
+
+// ==========================================
+// Modal Functions
+// ==========================================
+
+// Open plugin detail modal
+async function openPluginModal(plugin) {
+    if (!modal) return;
+
+    const categoryLabel = window.CATEGORY_NAMES[plugin.category] || plugin.category;
+    const sourceLabel = plugin.sourceType === 'official' ? '官方' : '社群';
+    const sourceClass = plugin.sourceType === 'official' ? 'official' : 'community';
+    const installCommand = `claude plugin install github:DennisLiuCk/claude-plugin-marketplace/plugins/${plugin.name}`;
+
+    // Set modal content
+    modalIcon.textContent = plugin.icon;
+    modalTitle.textContent = plugin.displayName;
+    modalMeta.innerHTML = `
+        <span class="modal-category ${plugin.category}">${categoryLabel}</span>
+        <span class="modal-source ${sourceClass}">${sourceLabel}</span>
+        <span class="modal-version">v${plugin.version}</span>
+    `;
+
+    // Set button links
+    modalGithubBtn.href = plugin.githubUrl;
+    modalGithubLink.href = plugin.githubUrl;
+    modalInstallBtn.dataset.command = installCommand;
+
+    // Reset modal state
+    modalLoading.style.display = 'flex';
+    modalContent.style.display = 'none';
+    modalContent.innerHTML = '';
+    modalError.style.display = 'none';
+
+    // Show modal
+    modal.classList.add('show');
+    document.body.style.overflow = 'hidden';
+
+    // Fetch README content
+    try {
+        const readmeContent = await fetchPluginReadme(plugin.name);
+        if (readmeContent) {
+            // Configure marked options
+            if (typeof marked !== 'undefined') {
+                marked.setOptions({
+                    breaks: true,
+                    gfm: true,
+                    headerIds: true,
+                    mangle: false
+                });
+                modalContent.innerHTML = marked.parse(readmeContent);
+            } else {
+                // Fallback: display as preformatted text
+                modalContent.innerHTML = `<pre>${escapeHtml(readmeContent)}</pre>`;
+            }
+            modalLoading.style.display = 'none';
+            modalContent.style.display = 'block';
+        } else {
+            throw new Error('No content');
+        }
+    } catch (error) {
+        console.error('Failed to load README:', error);
+        modalLoading.style.display = 'none';
+        modalError.style.display = 'flex';
+    }
+}
+
+// Close modal
+function closeModal() {
+    if (!modal) return;
+    modal.classList.remove('show');
+    document.body.style.overflow = '';
+}
+
+// Fetch README from GitHub
+async function fetchPluginReadme(pluginName) {
+    // Check cache first
+    if (state.readmeCache[pluginName]) {
+        return state.readmeCache[pluginName];
+    }
+
+    const rawUrl = `https://raw.githubusercontent.com/DennisLiuCk/claude-plugin-marketplace/main/plugins/${pluginName}/README.md`;
+
+    try {
+        const response = await fetch(rawUrl);
+        if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        const content = await response.text();
+        // Cache the content
+        state.readmeCache[pluginName] = content;
+        return content;
+    } catch (error) {
+        console.error('Error fetching README:', error);
+        return null;
+    }
+}
+
+// Escape HTML for safe display
+function escapeHtml(text) {
+    const div = document.createElement('div');
+    div.textContent = text;
+    return div.innerHTML;
+}

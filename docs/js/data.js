@@ -29,7 +29,7 @@ const pluginsData = {
     marketplace: {
         name: "claude-plugin-marketplace-zh-tw",
         version: "1.5.0",
-        description: "Claude Code 繁體中文插件市場 - 提供繁體中文版本的 Claude Code 插件，幫助華語使用者更容易學習和使用",
+        description: "Claude Code 繁體中文插件市場 - 提供繁體中文版本的 Claude Code 插件，幫助中文使用者更容易學習和使用",
         owner: {
             name: "Dennis Liu",
             email: "nossi1970@hotmail.com"
