@@ -1,9 +1,9 @@
 {
   "name": "pr-review-toolkit",
   "version": "1.0.0",
-  "description": "拉取請求審查工具包，包含專業審查代理",
+  "description": "綜合 PR 審查代理，專精於程式碼註解、測試、錯誤處理、類型設計、程式碼品質和程式碼簡化",
   "author": {
-    "name": "Daisy",
+    "name": "Daisy (繁體中文版)",
     "email": "daisy@anthropic.com"
   }
 }

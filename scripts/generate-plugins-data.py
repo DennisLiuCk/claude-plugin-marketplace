@@ -112,7 +112,7 @@ def generate_plugin_data(marketplace_data):
             'category': plugin['category'],
             'sourceType': source_type,
             'icon': icon,
-            'githubUrl': f"{github_base_url}/{plugin['source']}"
+            'githubUrl': f"{github_base_url}/{plugin['source'].lstrip('./')}"
         }
 
         plugins.append(plugin_data)

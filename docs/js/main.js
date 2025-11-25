@@ -543,7 +543,7 @@ console.log(
     'font-size: 20px; font-weight: bold; color: #00d4aa;'
 );
 console.log(
-    '%c繁體中文插件市場 v1.1.0',
+    '%c繁體中文插件市場 v1.5.0',
     'font-size: 14px; color: #9ca3b5;'
 );
 console.log(
