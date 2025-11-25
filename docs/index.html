@@ -63,7 +63,7 @@
                 </h2>
                 <p class="hero-description">
                     基於 Anthropic 官方插件的繁體中文翻譯版本，<br>
-                    幫助華語開發者更輕鬆地學習和使用 Claude Code
+                    幫助中文開發者更輕鬆地學習和使用 Claude Code
                 </p>
 
                 <div class="hero-stats">
@@ -157,7 +157,7 @@
                     <h3 class="footer-title">關於本專案</h3>
                     <p class="footer-text">
                         本專案基於 Anthropic 官方的 Claude Code 插件，<br>
-                        提供完整的繁體中文翻譯，幫助華語開發者更好地使用 Claude Code。
+                        提供完整的繁體中文翻譯，幫助中文開發者更好地使用 Claude Code。
                     </p>
                 </div>
 
@@ -190,6 +190,47 @@
             </div>
         </div>
     </footer>
+
+    <!-- Plugin Detail Modal -->
+    <div id="plugin-modal" class="modal-overlay">
+        <div class="modal-container">
+            <div class="modal-header">
+                <div class="modal-title-section">
+                    <span id="modal-icon" class="modal-icon"></span>
+                    <div class="modal-title-text">
+                        <h2 id="modal-title"></h2>
+                        <div id="modal-meta" class="modal-meta"></div>
+                    </div>
+                </div>
+                <button id="modal-close" class="modal-close" aria-label="關閉">
+                    <span>&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div id="modal-loading" class="modal-loading">
+                    <div class="loading-spinner"></div>
+                    <p>正在載入插件說明...</p>
+                </div>
+                <div id="modal-content" class="modal-content markdown-body"></div>
+                <div id="modal-error" class="modal-error" style="display: none;">
+                    <span class="error-icon">⚠️</span>
+                    <p>無法載入插件說明，請稍後再試或直接訪問 GitHub 頁面。</p>
+                    <a id="modal-github-link" href="#" target="_blank" class="error-link">前往 GitHub 查看 →</a>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <a id="modal-github-btn" href="#" target="_blank" class="modal-btn secondary">
+                    <span>📂</span> 在 GitHub 查看
+                </a>
+                <button id="modal-install-btn" class="modal-btn primary" data-command="">
+                    <span>⚡</span> 複製安裝指令
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Marked.js for Markdown parsing -->
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
 
     <!-- Scripts -->
     <script src="js/data.js"></script>
