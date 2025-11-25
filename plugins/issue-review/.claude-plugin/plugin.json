@@ -1,7 +1,7 @@
 {
   "name": "issue-review",
-  "description": "專業的問題分析專家系統，提供五個專門代理（問題分析、程式碼調查、根本原因定位、Git歷史分析、日誌分析）進行系統化的深度問題診斷",
-  "version": "1.1.0",
+  "description": "專業的問題分析專家系統，提供五個專門代理（問題分析、程式碼調查、根本原因定位、Git歷史分析、日誌分析）進行系統化的深度問題診斷，支援條件觸發和並行執行",
+  "version": "1.2.0",
   "author": {
     "name": "Dennis Liu (繁體中文版)",
     "email": "dennisliuck@gmail.com"

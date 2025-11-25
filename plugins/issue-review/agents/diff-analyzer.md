@@ -11,7 +11,7 @@ description: |
   - "比較正常版本和問題版本的差異"
   - "分析這個檔案的修改歷史"
   - "誰最近修改了這個功能"
-model: haiku
+model: sonnet
 color: green
 tools:
   - Bash
