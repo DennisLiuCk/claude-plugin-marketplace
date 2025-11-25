@@ -21,11 +21,12 @@
 ```
 plugins/legacy-analyzer/
 ├── .claude-plugin/
-│   └── plugin.json            # 插件元數據
-├── README.md                  # 說明文件
+│   └── plugin.json                  # 插件元數據
+├── README.md                        # 說明文件
 └── commands/
-    ├── analyze-java.md        # 全專案分析（7-9 分鐘）
-    └── analyze-java-domain.md # 特定領域分析（3-5 分鐘）⭐ NEW
+    ├── analyze-java.md              # 全專案分析（7-9 分鐘）
+    ├── analyze-java-domain.md       # 特定領域分析（4-6 分鐘）
+    └── analyze-java-domain-flow.md  # 調用鏈流程圖分析（2-3 分鐘）⭐ NEW
 ```
 
 ### 2. 五階段流水線
@@ -131,7 +132,8 @@ cp -r /path/to/claude-plugin-marketplace/plugins/legacy-analyzer ~/.claude/plugi
 | 命令 | 用途 | 執行時間 |
 |------|------|----------|
 | `/legacy-analyzer:analyze-java` | 全專案分析，生成完整教學文件 | 7-9 分鐘 |
-| `/legacy-analyzer:analyze-java-domain` | 特定領域深度分析 | 4-6 分鐘 |
+| `/legacy-analyzer:analyze-java-domain` | 特定領域深度分析（6 個文件） | 4-6 分鐘 |
+| `/legacy-analyzer:analyze-java-domain-flow` | 調用鏈與流程圖分析（單一文件）⭐ NEW | 2-3 分鐘 |
 
 ### 基本用法：全專案分析
 
@@ -158,6 +160,60 @@ cp -r /path/to/claude-plugin-marketplace/plugins/legacy-analyzer ~/.claude/plugi
 - 只搜尋 `.java` 和 `.xml` 檔案（排除 pom.xml）
 - **分檔輸出**：生成 6 個獨立文件（索引、概述、調用鏈、資料模型、業務規則、新手指南）
 - 避免單一文件過大導致的 token 限制問題
+
+### 高效用法：調用鏈流程圖分析 ⭐ NEW
+
+當你只需要快速掌握調用流程，不需要完整領域文件時：
+
+```
+/legacy-analyzer:analyze-java-domain-flow 商品建立
+/legacy-analyzer:analyze-java-domain-flow 訂單處理
+/legacy-analyzer:analyze-java-domain-flow 用戶登入
+```
+
+**與 analyze-java-domain 的差異**：
+
+| 比較項目 | analyze-java-domain | analyze-java-domain-flow |
+|---------|---------------------|--------------------------|
+| 輸出檔案 | 6 個 Markdown 檔案 (~850行) | **單一檔案 (~300行)** |
+| 執行時間 | 4-6 分鐘 | **2-3 分鐘** |
+| 核心內容 | 完整領域文件 | **調用鏈 + Mermaid 流程圖** |
+| 資料模型 | 詳細 DTO/Entity 說明 | 僅列出涉及類別 |
+| 業務規則 | 完整規則文件 | 不包含 |
+| 適用場景 | 深度理解領域 | **快速掌握流程** |
+
+**特色**：
+- 🚀 **效率優先**：比 analyze-java-domain 快約 50%
+- 📊 **視覺化輸出**：每條調用鏈都有 Mermaid sequenceDiagram
+- 🏗️ **整體架構圖**：生成 flowchart 展示層級關係
+- ✅ **驗證評分**：每條調用鏈都經過準確性驗證
+- 📄 **單一檔案**：所有內容整合到 `DOMAIN-FLOW.md`
+
+**輸出範例**：
+
+```
+.legacy-analysis/flow-product-create-{timestamp}/
+└── DOMAIN-FLOW.md    # 單一輸出檔案 (~300行)
+    ├── 快速概覽表格
+    ├── 入口點總覽
+    ├── 調用鏈 1: Mermaid 序列圖 + 層級表格
+    ├── 調用鏈 2: ...
+    ├── 整體架構圖（flowchart）
+    ├── 涉及類別清單
+    └── 驗證摘要
+```
+
+**使用建議**：
+
+```
+場景 1: 快速了解流程（5 分鐘內）
+  → 使用 analyze-java-domain-flow
+  → 獲得調用鏈視覺化圖表
+
+場景 2: 深度了解領域（需要詳細文件）
+  → 先用 analyze-java-domain-flow 掌握流程
+  → 再用 analyze-java-domain 獲得完整文件
+```
 
 ### 執行流程示例
 
@@ -459,13 +515,29 @@ Claude:
 
 ## 📝 版本資訊
 
-- **版本**：1.3.0
+- **版本**：1.4.0
 - **作者**：Dennis Liu
 - **基於**：Code Review 插件方法論
 - **適用**：Java Spring Boot 2.x / 3.x
 - **最後更新**：2025-11-25
 
 ### 更新日誌
+
+**v1.4.0** (2025-11-25)
+- 新增 `analyze-java-domain-flow` 命令 - 高效調用鏈分析：
+  - **核心專注**：只分析調用鏈與流程，不包含資料模型、業務規則詳解
+  - **單一檔案輸出**：整合為 `DOMAIN-FLOW.md`（約 300 行），取代 6 個分檔
+  - **執行效率**：2-3 分鐘（比 analyze-java-domain 快約 50%）
+  - **視覺化強化**：
+    - 每條調用鏈自動生成 Mermaid sequenceDiagram
+    - 整體架構自動生成 Mermaid flowchart
+  - **驗證評分**：三維度評分（完整性、準確性、清晰度）
+  - **精簡內容**：
+    - 入口點總覽表格
+    - 調用層級表格（類別.方法 + 檔案位置）
+    - 涉及類別清單（僅列出，不詳述結構）
+    - 驗證摘要
+  - **使用場景**：快速掌握流程、Code Review 前準備、技術討論參考
 
 **v1.3.0** (2025-11-25)
 - `analyze-java-domain` 命令重大改進 - 精簡報告策略：
