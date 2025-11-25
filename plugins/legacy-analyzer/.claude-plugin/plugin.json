@@ -1,7 +1,7 @@
 {
   "name": "legacy-analyzer",
   "description": "Using multiple specialized agents with confidence-based scoring to analyze Legacy Java Spring Boot project and generate high-quality teaching documents",
-  "version": "1.2.0",
+  "version": "1.3.0",
   "author": {
     "name": "Dennis Liu",
     "email": "nossi1970@hotmail.com"
