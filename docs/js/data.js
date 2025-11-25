@@ -50,7 +50,7 @@ const pluginsData = {
             category: "development",
             sourceType: "official",
             icon: PLUGIN_ICONS['agent-sdk-dev'],
-            githubUrl: "https://github.com/DennisLiuCk/claude-plugin-marketplace/tree/main/./plugins/agent-sdk-dev"
+            githubUrl: "https://github.com/DennisLiuCk/claude-plugin-marketplace/tree/main/plugins/agent-sdk-dev"
         },
         {
             name: "feature-dev",
@@ -66,7 +66,7 @@ const pluginsData = {
             category: "development",
             sourceType: "official",
             icon: PLUGIN_ICONS['feature-dev'],
-            githubUrl: "https://github.com/DennisLiuCk/claude-plugin-marketplace/tree/main/./plugins/feature-dev"
+            githubUrl: "https://github.com/DennisLiuCk/claude-plugin-marketplace/tree/main/plugins/feature-dev"
         },
         {
             name: "frontend-design",
@@ -82,7 +82,7 @@ const pluginsData = {
             category: "development",
             sourceType: "official",
             icon: PLUGIN_ICONS['frontend-design'],
-            githubUrl: "https://github.com/DennisLiuCk/claude-plugin-marketplace/tree/main/./plugins/frontend-design"
+            githubUrl: "https://github.com/DennisLiuCk/claude-plugin-marketplace/tree/main/plugins/frontend-design"
         },
         {
             name: "ralph-wiggum",
@@ -98,23 +98,23 @@ const pluginsData = {
             category: "development",
             sourceType: "official",
             icon: PLUGIN_ICONS['ralph-wiggum'],
-            githubUrl: "https://github.com/DennisLiuCk/claude-plugin-marketplace/tree/main/./plugins/ralph-wiggum"
+            githubUrl: "https://github.com/DennisLiuCk/claude-plugin-marketplace/tree/main/plugins/ralph-wiggum"
         },
         {
             name: "plugin-dev",
             displayName: "Plugin Dev",
-            description: "開發 Claude Code 插件的綜合工具包。包含 7 個專家技能，涵蓋鉤子、MCP 整合、命令、代理和最佳實踐。AI 輔助的插件建立和驗證",
-            version: "0.1.0",
+            description: "Claude Code 插件開發工具包，包含專家技能涵蓋鉤子、MCP 整合、命令、代理和最佳實踐",
+            version: "1.0.0",
             author: {
-                name: "Daisy Hollman",
+                name: "Ashwin Bhat",
                 chineseName: "繁體中文版",
-                email: "daisy@anthropic.com"
+                email: "ashwin@anthropic.com"
             },
             source: "./plugins/plugin-dev",
             category: "development",
             sourceType: "official",
             icon: PLUGIN_ICONS['plugin-dev'],
-            githubUrl: "https://github.com/DennisLiuCk/claude-plugin-marketplace/tree/main/./plugins/plugin-dev"
+            githubUrl: "https://github.com/DennisLiuCk/claude-plugin-marketplace/tree/main/plugins/plugin-dev"
         },
         {
             name: "pr-review-toolkit",
@@ -130,7 +130,7 @@ const pluginsData = {
             category: "productivity",
             sourceType: "official",
             icon: PLUGIN_ICONS['pr-review-toolkit'],
-            githubUrl: "https://github.com/DennisLiuCk/claude-plugin-marketplace/tree/main/./plugins/pr-review-toolkit"
+            githubUrl: "https://github.com/DennisLiuCk/claude-plugin-marketplace/tree/main/plugins/pr-review-toolkit"
         },
         {
             name: "commit-commands",
@@ -146,7 +146,7 @@ const pluginsData = {
             category: "productivity",
             sourceType: "official",
             icon: PLUGIN_ICONS['commit-commands'],
-            githubUrl: "https://github.com/DennisLiuCk/claude-plugin-marketplace/tree/main/./plugins/commit-commands"
+            githubUrl: "https://github.com/DennisLiuCk/claude-plugin-marketplace/tree/main/plugins/commit-commands"
         },
         {
             name: "code-review",
@@ -162,7 +162,7 @@ const pluginsData = {
             category: "productivity",
             sourceType: "official",
             icon: PLUGIN_ICONS['code-review'],
-            githubUrl: "https://github.com/DennisLiuCk/claude-plugin-marketplace/tree/main/./plugins/code-review"
+            githubUrl: "https://github.com/DennisLiuCk/claude-plugin-marketplace/tree/main/plugins/code-review"
         },
         {
             name: "hookify",
@@ -178,7 +178,7 @@ const pluginsData = {
             category: "productivity",
             sourceType: "official",
             icon: PLUGIN_ICONS['hookify'],
-            githubUrl: "https://github.com/DennisLiuCk/claude-plugin-marketplace/tree/main/./plugins/hookify"
+            githubUrl: "https://github.com/DennisLiuCk/claude-plugin-marketplace/tree/main/plugins/hookify"
         },
         {
             name: "security-guidance",
@@ -194,7 +194,7 @@ const pluginsData = {
             category: "security",
             sourceType: "official",
             icon: PLUGIN_ICONS['security-guidance'],
-            githubUrl: "https://github.com/DennisLiuCk/claude-plugin-marketplace/tree/main/./plugins/security-guidance"
+            githubUrl: "https://github.com/DennisLiuCk/claude-plugin-marketplace/tree/main/plugins/security-guidance"
         },
         {
             name: "explanatory-output-style",
@@ -210,7 +210,7 @@ const pluginsData = {
             category: "learning",
             sourceType: "official",
             icon: PLUGIN_ICONS['explanatory-output-style'],
-            githubUrl: "https://github.com/DennisLiuCk/claude-plugin-marketplace/tree/main/./plugins/explanatory-output-style"
+            githubUrl: "https://github.com/DennisLiuCk/claude-plugin-marketplace/tree/main/plugins/explanatory-output-style"
         },
         {
             name: "learning-output-style",
@@ -226,7 +226,7 @@ const pluginsData = {
             category: "learning",
             sourceType: "official",
             icon: PLUGIN_ICONS['learning-output-style'],
-            githubUrl: "https://github.com/DennisLiuCk/claude-plugin-marketplace/tree/main/./plugins/learning-output-style"
+            githubUrl: "https://github.com/DennisLiuCk/claude-plugin-marketplace/tree/main/plugins/learning-output-style"
         },
         {
             name: "issue-review",
@@ -242,13 +242,13 @@ const pluginsData = {
             category: "productivity",
             sourceType: "community",
             icon: PLUGIN_ICONS['issue-review'],
-            githubUrl: "https://github.com/DennisLiuCk/claude-plugin-marketplace/tree/main/./plugins/issue-review"
+            githubUrl: "https://github.com/DennisLiuCk/claude-plugin-marketplace/tree/main/plugins/issue-review"
         },
         {
             name: "legacy-analyzer",
             displayName: "Legacy Analyzer",
-            description: "Using multiple specialized agents with confidence-based scoring to analyze Legacy Java Spring Boot project and generate high-quality teaching documents",
-            version: "1.0.0",
+            description: "使用多個專門代理配合基於置信度的評分系統，分析 Legacy Java Spring Boot 專案並產生高品質教學文件",
+            version: "1.4.0",
             author: {
                 name: "Dennis Liu",
                 chineseName: "繁體中文版",
@@ -258,7 +258,7 @@ const pluginsData = {
             category: "development",
             sourceType: "community",
             icon: PLUGIN_ICONS['legacy-analyzer'],
-            githubUrl: "https://github.com/DennisLiuCk/claude-plugin-marketplace/tree/main/./plugins/legacy-analyzer"
+            githubUrl: "https://github.com/DennisLiuCk/claude-plugin-marketplace/tree/main/plugins/legacy-analyzer"
         }
     ]
 };

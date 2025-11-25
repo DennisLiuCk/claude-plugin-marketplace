@@ -1,6 +1,6 @@
 ---
 description: 分析 Legacy Java Spring Boot 專案並生成教學文件
-allowed-tools:
+allowedTools:
   - Task
   - TodoWrite
   - Read

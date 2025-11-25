@@ -54,11 +54,11 @@
     },
     {
       "name": "plugin-dev",
-      "description": "開發 Claude Code 插件的綜合工具包。包含 7 個專家技能，涵蓋鉤子、MCP 整合、命令、代理和最佳實踐。AI 輔助的插件建立和驗證",
-      "version": "0.1.0",
+      "description": "Claude Code 插件開發工具包，包含專家技能涵蓋鉤子、MCP 整合、命令、代理和最佳實踐",
+      "version": "1.0.0",
       "author": {
-        "name": "Daisy Hollman (繁體中文版)",
-        "email": "daisy@anthropic.com"
+        "name": "Ashwin Bhat (繁體中文版)",
+        "email": "ashwin@anthropic.com"
       },
       "source": "./plugins/plugin-dev",
       "category": "development"
@@ -153,10 +153,10 @@
     },
     {
       "name": "legacy-analyzer",
-      "description": "Using multiple specialized agents with confidence-based scoring to analyze Legacy Java Spring Boot project and generate high-quality teaching documents",
-      "version": "1.0.0",
+      "description": "使用多個專門代理配合基於置信度的評分系統，分析 Legacy Java Spring Boot 專案並產生高品質教學文件",
+      "version": "1.4.0",
       "author": {
-        "name": "Dennis Liu",
+        "name": "Dennis Liu (繁體中文版)",
         "email": "nossi1970@hotmail.com"
       },
       "source": "./plugins/legacy-analyzer",

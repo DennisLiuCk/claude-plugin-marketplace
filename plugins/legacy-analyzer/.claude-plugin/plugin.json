@@ -1,9 +1,9 @@
 {
   "name": "legacy-analyzer",
-  "description": "Using multiple specialized agents with confidence-based scoring to analyze Legacy Java Spring Boot project and generate high-quality teaching documents",
+  "description": "使用多個專門代理配合基於置信度的評分系統，分析 Legacy Java Spring Boot 專案並產生高品質教學文件",
   "version": "1.4.0",
   "author": {
-    "name": "Dennis Liu",
+    "name": "Dennis Liu (繁體中文版)",
     "email": "nossi1970@hotmail.com"
   }
 }

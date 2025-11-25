@@ -1,9 +1,9 @@
 {
   "name": "explanatory-output-style",
   "version": "1.0.0",
-  "description": "添加關於實現選擇和代碼庫模式的教育性見解（模擬已棄用的解釋性輸出風格）",
+  "description": "添加關於實作選擇和程式碼庫模式的教育性見解（模擬已棄用的解釋性輸出風格）",
   "author": {
-    "name": "Dickson Tsai",
+    "name": "Dickson Tsai (繁體中文版)",
     "email": "dickson@anthropic.com"
   }
 }

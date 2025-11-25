@@ -1,9 +1,9 @@
 {
   "name": "agent-sdk-dev",
-  "description": "Claude Agent SDK 開發插件",
+  "description": "Claude Agent SDK 開發工具包，用於建立和驗證 Python 和 TypeScript 應用程式",
   "version": "1.0.0",
   "author": {
-    "name": "Ashwin Bhat",
+    "name": "Ashwin Bhat (繁體中文版)",
     "email": "ashwin@anthropic.com"
   }
 }
