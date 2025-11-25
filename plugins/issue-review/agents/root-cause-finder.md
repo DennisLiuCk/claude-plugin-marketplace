@@ -10,13 +10,14 @@ description: |
   - "深入分析這段程式碼的問題"
   - "找出這個問題的根本原因"
   - "確認這個 bug 是如何產生的"
-model: sonnet
+model: opus
 color: purple
 tools:
   - Read
   - Glob
   - Grep
   - Bash
+  - WebFetch
   - TodoWrite
 ---
 
@@ -140,6 +141,7 @@ git bisect (如果知道何時開始出問題)
 - 版本是否正確
 - 是否有已知問題
 - API 是否相容
+- 使用 WebFetch 查閱官方文檔確認 API 行為
 
 ### 階段四：假設驗證決策
 基於收集的證據，做出判斷：
