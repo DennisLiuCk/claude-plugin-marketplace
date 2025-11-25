@@ -844,7 +844,26 @@ root-cause-finder（迭代）
 
 ## 📝 版本資訊
 
-### v1.0.0（當前版本）
+### v1.1.0（當前版本）
+
+**新功能**：
+- ✅ 新增 `/analyze-issue` 命令 - 快速啟動完整分析流程
+- ✅ 新增 `/quick-analyze` 命令 - 快速診斷簡單問題
+- ✅ 新增 **diff-analyzer** 代理 - Git 歷史分析專家
+- ✅ 新增 **log-analyzer** 代理 - 日誌分析專家
+- ✅ 優化代理工具配置 - 各代理使用專門化的工具集
+- ✅ 優化模型選擇 - root-cause-finder 使用 opus 模型增強推理能力
+- ✅ 新增常見問題模式資料庫 - 加速已知問題的識別
+- ✅ 新增多技術棧範例參考 - 支援 Java/Node.js/Python 等
+
+**代理工具配置**：
+- problem-analyzer: Read, Grep, Bash, **WebSearch**, TodoWrite
+- codebase-investigator: Glob, Grep, Read, Bash, **Task**, TodoWrite
+- root-cause-finder: Read, Glob, Grep, Bash, **WebFetch**, TodoWrite
+- diff-analyzer (新): Bash, Read, Grep, TodoWrite
+- log-analyzer (新): Read, Grep, Bash, TodoWrite
+
+### v1.0.0
 
 **初始發布**：
 - ✅ 三個專門分析代理
@@ -859,7 +878,6 @@ root-cause-finder（迭代）
 - 評分系統基於啟發式規則，可能需要調整
 
 **未來規劃**：
-- [ ] 添加歷史問題資料庫，學習常見問題模式
 - [ ] 支援自動執行驗證測試
 - [ ] 整合監控系統資料
 - [ ] 支援團隊協作分析

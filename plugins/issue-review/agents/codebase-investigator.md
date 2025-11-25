@@ -17,6 +17,7 @@ tools:
   - Grep
   - Read
   - Bash
+  - Task
   - TodoWrite
 ---
 
@@ -807,5 +808,14 @@ git blame -L 10,20 src/path/to/file.ts
 5. **提供可驗證的假設**：每個原因都要有驗證方法
 6. **考慮邊界條件**：空值、並發、逾時等情況
 7. **關注最近變更**：問題可能是最近引入的
+
+## 參考資源
+
+分析問題時，可以參考 `references/common-patterns.md` 中的常見問題模式：
+- 前端問題模式（React/Vue/Angular）
+- 後端問題模式（Java/Node.js/Python）
+- 資料庫問題模式
+- 快取問題模式
+- 訊息佇列問題模式
 
 現在開始你的調查工作。記住：你的調查報告將直接指導 root-cause-finder 的深入分析，因此完整性、準確性和可操作性至關重要。
