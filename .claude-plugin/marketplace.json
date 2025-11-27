@@ -161,6 +161,17 @@
       },
       "source": "./plugins/legacy-analyzer",
       "category": "development"
+    },
+    {
+      "name": "claude-opus-4-5-migration",
+      "description": "將程式碼和提示詞從 Sonnet 4.x 和 Opus 4.1 遷移至 Opus 4.5，處理模型字串更新和行為差異調整",
+      "version": "1.0.0",
+      "author": {
+        "name": "William Hu (繁體中文版)",
+        "email": "whu@anthropic.com"
+      },
+      "source": "./plugins/claude-opus-4-5-migration",
+      "category": "development"
     }
   ]
 }

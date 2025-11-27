@@ -16,6 +16,7 @@ const PLUGIN_ICONS = {
     'learning-output-style': '📚',
     'issue-review': '🔬',
     'legacy-analyzer': '🎯',
+    'claude-opus-4-5-migration': '🔀',
 };
 
 const CATEGORY_NAMES = {
@@ -29,7 +30,7 @@ const pluginsData = {
     marketplace: {
         name: "claude-plugin-marketplace-zh-tw",
         version: "1.5.0",
-        description: "Claude Code 繁體中文插件市場 - 提供繁體中文版本的 Claude Code 插件，幫助中文使用者更容易學習和使用",
+        description: "Claude Code 繁體中文插件市場 - 提供繁體中文版本的 Claude Code 插件，幫助華語使用者更容易學習和使用",
         owner: {
             name: "Dennis Liu",
             email: "nossi1970@hotmail.com"
@@ -259,6 +260,22 @@ const pluginsData = {
             sourceType: "community",
             icon: PLUGIN_ICONS['legacy-analyzer'],
             githubUrl: "https://github.com/DennisLiuCk/claude-plugin-marketplace/tree/main/plugins/legacy-analyzer"
+        },
+        {
+            name: "claude-opus-4-5-migration",
+            displayName: "Claude Opus 4 5 Migration",
+            description: "將程式碼和提示詞從 Sonnet 4.x 和 Opus 4.1 遷移至 Opus 4.5，處理模型字串更新和行為差異調整",
+            version: "1.0.0",
+            author: {
+                name: "William Hu",
+                chineseName: "繁體中文版",
+                email: "whu@anthropic.com"
+            },
+            source: "./plugins/claude-opus-4-5-migration",
+            category: "development",
+            sourceType: "official",
+            icon: PLUGIN_ICONS['claude-opus-4-5-migration'],
+            githubUrl: "https://github.com/DennisLiuCk/claude-plugin-marketplace/tree/main/plugins/claude-opus-4-5-migration"
         }
     ]
 };

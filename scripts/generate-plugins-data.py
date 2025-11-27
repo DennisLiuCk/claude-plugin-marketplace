@@ -34,7 +34,8 @@ PLUGIN_ICONS = {
     'explanatory-output-style': '💡',
     'learning-output-style': '📚',
     'issue-review': '🔬',
-    'legacy-analyzer': '🎯'  # 基於 code-review 方法論：精準的置信度過濾分析
+    'legacy-analyzer': '🎯',  # 基於 code-review 方法論：精準的置信度過濾分析
+    'claude-opus-4-5-migration': '🔀'  # 模型遷移工具：從 Sonnet/Opus 4.x 遷移至 Opus 4.5
 }
 
 CATEGORY_NAMES = {
