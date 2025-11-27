@@ -3,7 +3,7 @@
   "description": "將您的程式碼和提示詞從 Sonnet 4.x 和 Opus 4.1 遷移至 Opus 4.5",
   "version": "1.0.0",
   "author": {
-    "name": "William Hu (繁體中文版)",
+    "name": "William Hu",
     "email": "whu@anthropic.com"
   }
 }
