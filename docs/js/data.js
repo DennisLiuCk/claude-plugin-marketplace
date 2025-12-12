@@ -17,6 +17,7 @@ const PLUGIN_ICONS = {
     'issue-review': '🔬',
     'legacy-analyzer': '🎯',
     'claude-opus-4-5-migration': '🔀',
+    'sql-to-osc': '🗃️',
 };
 
 const CATEGORY_NAMES = {
@@ -44,7 +45,6 @@ const pluginsData = {
             version: "1.0.0",
             author: {
                 name: "Ashwin Bhat",
-                chineseName: "繁體中文版",
                 email: "ashwin@anthropic.com"
             },
             source: "./plugins/agent-sdk-dev",
@@ -60,7 +60,6 @@ const pluginsData = {
             version: "1.0.0",
             author: {
                 name: "Siddharth Bidasaria",
-                chineseName: "繁體中文版",
                 email: "sbidasaria@anthropic.com"
             },
             source: "./plugins/feature-dev",
@@ -76,7 +75,6 @@ const pluginsData = {
             version: "1.0.0",
             author: {
                 name: "Prithvi Rajasekaran & Alexander Bricken",
-                chineseName: "繁體中文版",
                 email: "prithvi@anthropic.com"
             },
             source: "./plugins/frontend-design",
@@ -92,7 +90,6 @@ const pluginsData = {
             version: "1.0.0",
             author: {
                 name: "Daisy Hollman",
-                chineseName: "繁體中文版",
                 email: "daisy@anthropic.com"
             },
             source: "./plugins/ralph-wiggum",
@@ -108,7 +105,6 @@ const pluginsData = {
             version: "1.0.0",
             author: {
                 name: "Ashwin Bhat",
-                chineseName: "繁體中文版",
                 email: "ashwin@anthropic.com"
             },
             source: "./plugins/plugin-dev",
@@ -124,7 +120,6 @@ const pluginsData = {
             version: "1.0.0",
             author: {
                 name: "Daisy",
-                chineseName: "繁體中文版",
                 email: "daisy@anthropic.com"
             },
             source: "./plugins/pr-review-toolkit",
@@ -140,7 +135,6 @@ const pluginsData = {
             version: "1.0.0",
             author: {
                 name: "Anthropic",
-                chineseName: "繁體中文版",
                 email: "support@anthropic.com"
             },
             source: "./plugins/commit-commands",
@@ -156,7 +150,6 @@ const pluginsData = {
             version: "1.0.0",
             author: {
                 name: "Boris Cherny",
-                chineseName: "繁體中文版",
                 email: "boris@anthropic.com"
             },
             source: "./plugins/code-review",
@@ -172,7 +165,6 @@ const pluginsData = {
             version: "0.1.0",
             author: {
                 name: "Daisy Hollman",
-                chineseName: "繁體中文版",
                 email: "daisy@anthropic.com"
             },
             source: "./plugins/hookify",
@@ -188,7 +180,6 @@ const pluginsData = {
             version: "1.0.0",
             author: {
                 name: "David Dworken",
-                chineseName: "繁體中文版",
                 email: "dworken@anthropic.com"
             },
             source: "./plugins/security-guidance",
@@ -204,7 +195,6 @@ const pluginsData = {
             version: "1.0.0",
             author: {
                 name: "Dickson Tsai",
-                chineseName: "繁體中文版",
                 email: "dickson@anthropic.com"
             },
             source: "./plugins/explanatory-output-style",
@@ -220,7 +210,6 @@ const pluginsData = {
             version: "1.0.0",
             author: {
                 name: "Boris Cherny",
-                chineseName: "繁體中文版",
                 email: "boris@anthropic.com"
             },
             source: "./plugins/learning-output-style",
@@ -236,7 +225,6 @@ const pluginsData = {
             version: "1.0.0",
             author: {
                 name: "Dennis Liu",
-                chineseName: "繁體中文版",
                 email: "nossi1970@hotmail.com"
             },
             source: "./plugins/issue-review",
@@ -252,7 +240,6 @@ const pluginsData = {
             version: "1.4.0",
             author: {
                 name: "Dennis Liu",
-                chineseName: "繁體中文版",
                 email: "nossi1970@hotmail.com"
             },
             source: "./plugins/legacy-analyzer",
@@ -268,7 +255,6 @@ const pluginsData = {
             version: "1.0.0",
             author: {
                 name: "William Hu",
-                chineseName: "繁體中文版",
                 email: "whu@anthropic.com"
             },
             source: "./plugins/claude-opus-4-5-migration",
@@ -276,6 +262,21 @@ const pluginsData = {
             sourceType: "official",
             icon: PLUGIN_ICONS['claude-opus-4-5-migration'],
             githubUrl: "https://github.com/DennisLiuCk/claude-plugin-marketplace/tree/main/plugins/claude-opus-4-5-migration"
+        },
+        {
+            name: "sql-to-osc",
+            displayName: "Sql To Osc",
+            description: "將 Flyway SQL 遷移腳本轉換為 OSC (Online Schema Change) 格式，支援 ALTER TABLE 和 CREATE INDEX 語句的自動轉換",
+            version: "1.0.0",
+            author: {
+                name: "Dennis Liu",
+                email: "nossi1970@hotmail.com"
+            },
+            source: "./plugins/sql-to-osc",
+            category: "productivity",
+            sourceType: "community",
+            icon: PLUGIN_ICONS['sql-to-osc'],
+            githubUrl: "https://github.com/DennisLiuCk/claude-plugin-marketplace/tree/main/plugins/sql-to-osc"
         }
     ]
 };
