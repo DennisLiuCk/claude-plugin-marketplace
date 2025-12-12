@@ -172,6 +172,17 @@
       },
       "source": "./plugins/claude-opus-4-5-migration",
       "category": "development"
+    },
+    {
+      "name": "sql-to-osc",
+      "description": "將 Flyway SQL 遷移腳本轉換為 OSC (Online Schema Change) 格式，支援 ALTER TABLE 和 CREATE INDEX 語句的自動轉換",
+      "version": "1.0.0",
+      "author": {
+        "name": "Dennis Liu",
+        "email": "nossi1970@hotmail.com"
+      },
+      "source": "./plugins/sql-to-osc",
+      "category": "productivity"
     }
   ]
 }

@@ -1,0 +1,9 @@
+{
+  "name": "sql-to-osc",
+  "version": "1.0.0",
+  "description": "將 Flyway SQL 遷移腳本轉換為 OSC (Online Schema Change) 格式，支援 ALTER TABLE 和 CREATE INDEX 語句的自動轉換",
+  "author": {
+    "name": "Dennis Liu",
+    "email": "nossi1970@hotmail.com"
+  }
+}

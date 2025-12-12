@@ -17,6 +17,7 @@ const PLUGIN_ICONS = {
     'issue-review': '🔬',
     'legacy-analyzer': '🎯',
     'claude-opus-4-5-migration': '🔀',
+    'sql-to-osc': '🗃️',
 };
 
 const CATEGORY_NAMES = {
@@ -276,6 +277,22 @@ const pluginsData = {
             sourceType: "official",
             icon: PLUGIN_ICONS['claude-opus-4-5-migration'],
             githubUrl: "https://github.com/DennisLiuCk/claude-plugin-marketplace/tree/main/plugins/claude-opus-4-5-migration"
+        },
+        {
+            name: "sql-to-osc",
+            displayName: "Sql To Osc",
+            description: "將 Flyway SQL 遷移腳本轉換為 OSC (Online Schema Change) 格式，支援 ALTER TABLE 和 CREATE INDEX 語句的自動轉換",
+            version: "1.0.0",
+            author: {
+                name: "Dennis Liu",
+                chineseName: "繁體中文版",
+                email: "nossi1970@hotmail.com"
+            },
+            source: "./plugins/sql-to-osc",
+            category: "productivity",
+            sourceType: "community",
+            icon: PLUGIN_ICONS['sql-to-osc'],
+            githubUrl: "https://github.com/DennisLiuCk/claude-plugin-marketplace/tree/main/plugins/sql-to-osc"
         }
     ]
 };
