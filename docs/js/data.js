@@ -45,7 +45,6 @@ const pluginsData = {
             version: "1.0.0",
             author: {
                 name: "Ashwin Bhat",
-                chineseName: "繁體中文版",
                 email: "ashwin@anthropic.com"
             },
             source: "./plugins/agent-sdk-dev",
@@ -61,7 +60,6 @@ const pluginsData = {
             version: "1.0.0",
             author: {
                 name: "Siddharth Bidasaria",
-                chineseName: "繁體中文版",
                 email: "sbidasaria@anthropic.com"
             },
             source: "./plugins/feature-dev",
@@ -77,7 +75,6 @@ const pluginsData = {
             version: "1.0.0",
             author: {
                 name: "Prithvi Rajasekaran & Alexander Bricken",
-                chineseName: "繁體中文版",
                 email: "prithvi@anthropic.com"
             },
             source: "./plugins/frontend-design",
@@ -93,7 +90,6 @@ const pluginsData = {
             version: "1.0.0",
             author: {
                 name: "Daisy Hollman",
-                chineseName: "繁體中文版",
                 email: "daisy@anthropic.com"
             },
             source: "./plugins/ralph-wiggum",
@@ -109,7 +105,6 @@ const pluginsData = {
             version: "1.0.0",
             author: {
                 name: "Ashwin Bhat",
-                chineseName: "繁體中文版",
                 email: "ashwin@anthropic.com"
             },
             source: "./plugins/plugin-dev",
@@ -125,7 +120,6 @@ const pluginsData = {
             version: "1.0.0",
             author: {
                 name: "Daisy",
-                chineseName: "繁體中文版",
                 email: "daisy@anthropic.com"
             },
             source: "./plugins/pr-review-toolkit",
@@ -141,7 +135,6 @@ const pluginsData = {
             version: "1.0.0",
             author: {
                 name: "Anthropic",
-                chineseName: "繁體中文版",
                 email: "support@anthropic.com"
             },
             source: "./plugins/commit-commands",
@@ -157,7 +150,6 @@ const pluginsData = {
             version: "1.0.0",
             author: {
                 name: "Boris Cherny",
-                chineseName: "繁體中文版",
                 email: "boris@anthropic.com"
             },
             source: "./plugins/code-review",
@@ -173,7 +165,6 @@ const pluginsData = {
             version: "0.1.0",
             author: {
                 name: "Daisy Hollman",
-                chineseName: "繁體中文版",
                 email: "daisy@anthropic.com"
             },
             source: "./plugins/hookify",
@@ -189,7 +180,6 @@ const pluginsData = {
             version: "1.0.0",
             author: {
                 name: "David Dworken",
-                chineseName: "繁體中文版",
                 email: "dworken@anthropic.com"
             },
             source: "./plugins/security-guidance",
@@ -205,7 +195,6 @@ const pluginsData = {
             version: "1.0.0",
             author: {
                 name: "Dickson Tsai",
-                chineseName: "繁體中文版",
                 email: "dickson@anthropic.com"
             },
             source: "./plugins/explanatory-output-style",
@@ -221,7 +210,6 @@ const pluginsData = {
             version: "1.0.0",
             author: {
                 name: "Boris Cherny",
-                chineseName: "繁體中文版",
                 email: "boris@anthropic.com"
             },
             source: "./plugins/learning-output-style",
@@ -237,7 +225,6 @@ const pluginsData = {
             version: "1.0.0",
             author: {
                 name: "Dennis Liu",
-                chineseName: "繁體中文版",
                 email: "nossi1970@hotmail.com"
             },
             source: "./plugins/issue-review",
@@ -253,7 +240,6 @@ const pluginsData = {
             version: "1.4.0",
             author: {
                 name: "Dennis Liu",
-                chineseName: "繁體中文版",
                 email: "nossi1970@hotmail.com"
             },
             source: "./plugins/legacy-analyzer",
@@ -269,7 +255,6 @@ const pluginsData = {
             version: "1.0.0",
             author: {
                 name: "William Hu",
-                chineseName: "繁體中文版",
                 email: "whu@anthropic.com"
             },
             source: "./plugins/claude-opus-4-5-migration",
@@ -285,7 +270,6 @@ const pluginsData = {
             version: "1.0.0",
             author: {
                 name: "Dennis Liu",
-                chineseName: "繁體中文版",
                 email: "nossi1970@hotmail.com"
             },
             source: "./plugins/sql-to-osc",

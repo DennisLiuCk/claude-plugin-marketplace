@@ -107,7 +107,6 @@ def generate_plugin_data(marketplace_data):
             'version': plugin['version'],
             'author': {
                 'name': author_name,
-                'chineseName': '繁體中文版',
                 'email': plugin['author']['email']
             },
             'source': plugin['source'],
@@ -172,7 +171,6 @@ const pluginsData = {
             version: "{plugin['version']}",
             author: {{
                 name: "{plugin['author']['name']}",
-                chineseName: "{plugin['author']['chineseName']}",
                 email: "{plugin['author']['email']}"
             }},
             source: "{plugin['source']}",
