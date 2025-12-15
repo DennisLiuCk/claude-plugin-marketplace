@@ -18,6 +18,7 @@ const PLUGIN_ICONS = {
     'legacy-analyzer': '🎯',
     'claude-opus-4-5-migration': '🔀',
     'sql-to-osc': '🗃️',
+    'community-code-review': '🔎',
 };
 
 const CATEGORY_NAMES = {
@@ -277,6 +278,21 @@ const pluginsData = {
             sourceType: "community",
             icon: PLUGIN_ICONS['sql-to-osc'],
             githubUrl: "https://github.com/DennisLiuCk/claude-plugin-marketplace/tree/main/plugins/sql-to-osc"
+        },
+        {
+            name: "community-code-review",
+            displayName: "Community Code Review",
+            description: "社群版本的 Git 提交程式碼審查工具，使用多個專門代理進行自動化審查，配備驗證機制以過濾誤報",
+            version: "1.0.0",
+            author: {
+                name: "Dennis Liu",
+                email: "nossi1970@hotmail.com"
+            },
+            source: "./plugins/community-code-review",
+            category: "productivity",
+            sourceType: "community",
+            icon: PLUGIN_ICONS['community-code-review'],
+            githubUrl: "https://github.com/DennisLiuCk/claude-plugin-marketplace/tree/main/plugins/community-code-review"
         }
     ]
 };

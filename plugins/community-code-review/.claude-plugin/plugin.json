@@ -1,0 +1,9 @@
+{
+  "name": "community-code-review",
+  "description": "社群版本的 Git 提交程式碼審查工具，使用多個專門代理進行自動化審查，配備驗證機制以過濾誤報",
+  "version": "1.0.0",
+  "author": {
+    "name": "Dennis Liu",
+    "email": "nossi1970@hotmail.com"
+  }
+}
