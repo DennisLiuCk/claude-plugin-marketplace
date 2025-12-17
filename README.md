@@ -1,5 +1,8 @@
 # Claude Code 繁體中文插件市場
 
+[![Run in Smithery](https://smithery.ai/badge/skills/dennisliuck)](https://smithery.ai/skills?ns=dennisliuck&utm_source=github&utm_medium=badge)
+
+
 專為繁體中文使用者設計的 Claude Code 插件集合，提供開發、生產力、安全與學習等工具。
 
 ## 專案說明
