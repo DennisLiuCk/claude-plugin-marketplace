@@ -245,7 +245,7 @@ function createPluginCard(plugin, index) {
             </button>
             <button class="install-details-toggle" data-plugin-name="${plugin.name}">
                 <span class="toggle-icon">📋</span>
-                詳細說明
+                安裝方式
             </button>
         </div>
 
@@ -305,7 +305,7 @@ function createPluginCard(plugin, index) {
         <div class="plugin-footer">
             <span class="plugin-version">v${plugin.version}</span>
             <button class="plugin-readme-btn" data-plugin-name="${plugin.name}">
-                📖 查看說明
+                📖 查看 README
             </button>
         </div>
     `;
