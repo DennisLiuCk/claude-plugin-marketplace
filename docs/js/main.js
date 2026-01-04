@@ -329,11 +329,17 @@ function debounce(func, wait) {
     };
 }
 
-// Add smooth scroll for anchor links
+// Add smooth scroll for anchor links (only for internal page anchors)
 document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     anchor.addEventListener('click', function (e) {
+        const href = this.getAttribute('href');
+        // Skip if it's just "#" or if the href has been changed to an external URL
+        // Also skip if the anchor has target="_blank" (external links)
+        if (href === '#' || !href.startsWith('#') || this.target === '_blank') {
+            return;
+        }
         e.preventDefault();
-        const target = document.querySelector(this.getAttribute('href'));
+        const target = document.querySelector(href);
         if (target) {
             target.scrollIntoView({
                 behavior: 'smooth',
