@@ -194,6 +194,17 @@
       },
       "source": "./plugins/community-code-review",
       "category": "productivity"
+    },
+    {
+      "name": "code-simplifier",
+      "description": "簡化和優化程式碼以提升清晰度、一致性和可維護性，同時保持原有功能不變",
+      "version": "1.0.0",
+      "author": {
+        "name": "Anthropic (繁體中文版)",
+        "email": "support@anthropic.com"
+      },
+      "source": "./plugins/code-simplifier",
+      "category": "development"
     }
   ]
 }

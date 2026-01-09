@@ -37,7 +37,8 @@ PLUGIN_ICONS = {
     'legacy-analyzer': '🎯',  # 基於 code-review 方法論：精準的置信度過濾分析
     'claude-opus-4-5-migration': '🔀',  # 模型遷移工具：從 Sonnet/Opus 4.x 遷移至 Opus 4.5
     'sql-to-osc': '🗃️',  # SQL 轉 OSC：資料庫架構變更腳本轉換工具
-    'community-code-review': '🔎'  # 社群版程式碼審查：Git 提交審查工具
+    'community-code-review': '🔎',  # 社群版程式碼審查：Git 提交審查工具
+    'code-simplifier': '✨'  # 程式碼簡化專家：提升清晰度和可維護性
 }
 
 CATEGORY_NAMES = {

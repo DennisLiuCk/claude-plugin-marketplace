@@ -19,6 +19,7 @@ const PLUGIN_ICONS = {
     'claude-opus-4-5-migration': '🔀',
     'sql-to-osc': '🗃️',
     'community-code-review': '🔎',
+    'code-simplifier': '✨',
 };
 
 const CATEGORY_NAMES = {
@@ -293,6 +294,21 @@ const pluginsData = {
             sourceType: "community",
             icon: PLUGIN_ICONS['community-code-review'],
             githubUrl: "https://github.com/DennisLiuCk/claude-plugin-marketplace/tree/main/plugins/community-code-review"
+        },
+        {
+            name: "code-simplifier",
+            displayName: "Code Simplifier",
+            description: "簡化和優化程式碼以提升清晰度、一致性和可維護性，同時保持原有功能不變",
+            version: "1.0.0",
+            author: {
+                name: "Anthropic",
+                email: "support@anthropic.com"
+            },
+            source: "./plugins/code-simplifier",
+            category: "development",
+            sourceType: "official",
+            icon: PLUGIN_ICONS['code-simplifier'],
+            githubUrl: "https://github.com/DennisLiuCk/claude-plugin-marketplace/tree/main/plugins/code-simplifier"
         }
     ]
 };

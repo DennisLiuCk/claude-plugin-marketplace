@@ -1,0 +1,9 @@
+{
+  "name": "code-simplifier",
+  "version": "1.0.0",
+  "description": "簡化和優化程式碼以提升清晰度、一致性和可維護性，同時保持原有功能不變",
+  "author": {
+    "name": "Anthropic (繁體中文版)",
+    "email": "support@anthropic.com"
+  }
+}
