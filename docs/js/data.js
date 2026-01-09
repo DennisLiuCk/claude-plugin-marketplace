@@ -20,6 +20,7 @@ const PLUGIN_ICONS = {
     'sql-to-osc': '🗃️',
     'community-code-review': '🔎',
     'code-simplifier': '✨',
+    'ralph-loop': '♾️',
 };
 
 const CATEGORY_NAMES = {
@@ -103,17 +104,32 @@ const pluginsData = {
         {
             name: "plugin-dev",
             displayName: "Plugin Dev",
-            description: "Claude Code 插件開發工具包，包含專家技能涵蓋鉤子、MCP 整合、命令、代理和最佳實踐",
-            version: "1.0.0",
+            description: "Claude Code 插件開發工具包，提供七個專業技能、三個代理和完整的工作流程命令，用於構建高品質插件",
+            version: "1.1.0",
             author: {
-                name: "Ashwin Bhat",
-                email: "ashwin@anthropic.com"
+                name: "Daisy Hollman",
+                email: "daisy@anthropic.com"
             },
             source: "./plugins/plugin-dev",
             category: "development",
             sourceType: "official",
             icon: PLUGIN_ICONS['plugin-dev'],
             githubUrl: "https://github.com/DennisLiuCk/claude-plugin-marketplace/tree/main/plugins/plugin-dev"
+        },
+        {
+            name: "ralph-loop",
+            displayName: "Ralph Loop",
+            description: "連續自引用 AI 循環，用於互動式迭代開發。實現 Ralph Wiggum 技術，讓 Claude 在 while-true 循環中執行相同提示直到任務完成",
+            version: "1.0.0",
+            author: {
+                name: "Anthropic",
+                email: "support@anthropic.com"
+            },
+            source: "./plugins/ralph-loop",
+            category: "development",
+            sourceType: "official",
+            icon: PLUGIN_ICONS['ralph-loop'],
+            githubUrl: "https://github.com/DennisLiuCk/claude-plugin-marketplace/tree/main/plugins/ralph-loop"
         },
         {
             name: "pr-review-toolkit",
