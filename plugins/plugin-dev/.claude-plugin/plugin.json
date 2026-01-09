@@ -1,9 +1,9 @@
 {
   "name": "plugin-dev",
-  "version": "1.0.0",
-  "description": "Claude Code 插件開發工具包，包含專家技能涵蓋鉤子、MCP 整合、命令、代理和最佳實踐",
+  "version": "1.1.0",
+  "description": "Claude Code 插件開發工具包，提供七個專業技能、三個代理和完整的工作流程命令，用於構建高品質插件",
   "author": {
-    "name": "Ashwin Bhat (繁體中文版)",
-    "email": "ashwin@anthropic.com"
+    "name": "Daisy Hollman (繁體中文版)",
+    "email": "daisy@anthropic.com"
   }
 }

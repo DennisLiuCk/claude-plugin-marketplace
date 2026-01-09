@@ -1,0 +1,9 @@
+{
+  "name": "ralph-loop",
+  "version": "1.0.0",
+  "description": "連續自引用 AI 循環，用於互動式迭代開發。實現 Ralph Wiggum 技術，讓 Claude 在 while-true 循環中執行相同提示直到任務完成",
+  "author": {
+    "name": "Anthropic (繁體中文版)",
+    "email": "support@anthropic.com"
+  }
+}
