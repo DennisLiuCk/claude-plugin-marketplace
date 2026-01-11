@@ -216,6 +216,17 @@
       },
       "source": "./plugins/code-simplifier",
       "category": "development"
+    },
+    {
+      "name": "java-code-simplifier",
+      "description": "專為 Java/Spring Boot 專案設計的程式碼簡化專家，運用企業級最佳實踐提升程式碼品質",
+      "version": "1.0.0",
+      "author": {
+        "name": "DennisLiuCk",
+        "email": "nossi1970@hotmail.com"
+      },
+      "source": "./plugins/java-code-simplifier",
+      "category": "development"
     }
   ]
 }
