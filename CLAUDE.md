@@ -9,8 +9,8 @@ This repository is the **Claude Code Traditional Chinese Plugin Marketplace** (c
 - **Owner**: Dennis Liu
 - **Base**: Anthropic official plugins (translated)
 - **Language**: Traditional Chinese (繁體中文)
-- **Version**: 1.5.0
-- **Total Plugins**: 14 plugins across 4 categories
+- **Version**: 1.6.0
+- **Total Plugins**: 20 plugins across 4 categories
 
 ## Repository Structure
 
