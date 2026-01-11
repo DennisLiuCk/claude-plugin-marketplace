@@ -12,7 +12,7 @@
 **專案特點**
 - 完整繁體中文介面與說明文件
 - 基於 Anthropic 官方插件翻譯而成
-- 涵蓋 20 個精選插件，支援完整開發流程
+- 涵蓋 19 個精選插件，支援完整開發流程
 - 持續更新，跟隨官方版本同步
 
 ## 安裝方式
@@ -45,17 +45,16 @@ cp -r claude-plugin-marketplace/plugins/[插件名稱] ~/.claude/plugins/
 
 ## 插件列表
 
-本專案提供 20 個插件，分為四大類別：
+本專案提供 19 個插件，分為四大類別：
 
-### 開發工具（10 個）
+### 開發工具（9 個）
 
 | 插件名稱 | 說明 | 主要命令 |
 |---------|------|---------|
 | agent-sdk-dev | Agent SDK 開發工具，支援 Python 與 TypeScript | `/new-sdk-app` |
 | feature-dev | 七階段功能開發流程，包含程式碼探索、架構設計與審查代理程式 | `/feature-dev` |
 | frontend-design | 前端介面設計指引，提供專業的設計建議 | 自動啟用 |
-| ralph-wiggum | 互動式迭代開發循環，自動重複執行直到完成任務 | `/ralph-loop`, `/cancel-ralph` |
-| ralph-loop | 連續自引用 AI 循環，實現 Ralph Wiggum 技術 | `/ralph`, `/ralph-stop` |
+| ralph-loop | 連續自引用 AI 循環，實現 Ralph Wiggum 技術 | `/ralph-loop`, `/cancel-ralph` |
 | plugin-dev | 插件開發工具包，包含 7 個專業技能模組 | `/create-plugin` |
 | legacy-analyzer | 遺留專案分析工具，使用多代理置信度評分分析 Java Spring Boot 專案 | `/analyze-java-domain` |
 | claude-opus-4-5-migration | 將程式碼和提示詞從 Sonnet/Opus 4.x 遷移至 Opus 4.5 | `/migrate-to-opus-4-5` |
@@ -138,7 +137,6 @@ claude-plugin-marketplace/
 │   ├── plugin-dev/               # 插件開發
 │   ├── pr-review-toolkit/        # PR 審查
 │   ├── ralph-loop/               # Ralph Loop 迭代開發
-│   ├── ralph-wiggum/             # Ralph Wiggum 迭代開發
 │   ├── security-guidance/        # 安全檢測
 │   └── sql-to-osc/               # SQL 轉 OSC
 ├── README.md                      # 本檔案
@@ -190,8 +188,8 @@ claude-plugin-marketplace/
 - 新增 java-code-simplifier 插件：Java/Spring Boot 程式碼簡化專家
 - 新增 sql-to-osc 插件：將 Flyway SQL 遷移轉換為 OSC 格式
 - 新增 community-code-review 插件：社群版 Git 提交程式碼審查
-- 新增 ralph-loop 插件：連續自引用 AI 循環
-- 更新文件以反映 20 個插件
+- ralph-wiggum 重命名為 ralph-loop（依據官方更新）
+- 更新文件以反映 19 個插件
 
 ### v1.5.0（2025-11-25）
 - 移除已棄用插件：legacy-hero-java、legacy-hero-java-v2

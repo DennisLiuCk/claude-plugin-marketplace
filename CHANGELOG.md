@@ -76,7 +76,7 @@ legacy-hero-java 和 legacy-hero-java-v2 是早期開發的遺留專案分析工
     - agent-sdk-dev - Claude Agent SDK 開發工具包
     - feature-dev - 七階段功能開發流程
     - frontend-design - 前端介面設計指引
-    - ralph-wiggum - 互動式迭代開發循環
+    - ralph-loop - 互動式迭代開發循環
     - plugin-dev - 插件開發工具包
   - **生產力工具（4 個）**：
     - pr-review-toolkit - Pull Request 審查工具

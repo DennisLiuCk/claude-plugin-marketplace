@@ -5,7 +5,6 @@ const PLUGIN_ICONS = {
     'agent-sdk-dev': '🔧',
     'feature-dev': '🚀',
     'frontend-design': '🎨',
-    'ralph-wiggum': '🔄',
     'plugin-dev': '📦',
     'pr-review-toolkit': '👀',
     'commit-commands': '💾',
@@ -34,7 +33,7 @@ const CATEGORY_NAMES = {
 const pluginsData = {
     marketplace: {
         name: "claude-plugin-marketplace-zh-tw",
-        version: "1.5.0",
+        version: "1.6.0",
         description: "Claude Code 繁體中文插件市場 - 提供繁體中文版本的 Claude Code 插件，幫助華語使用者更容易學習和使用",
         owner: {
             name: "Dennis Liu",
@@ -86,21 +85,6 @@ const pluginsData = {
             sourceType: "official",
             icon: PLUGIN_ICONS['frontend-design'],
             githubUrl: "https://github.com/DennisLiuCk/claude-plugin-marketplace/tree/main/plugins/frontend-design"
-        },
-        {
-            name: "ralph-wiggum",
-            displayName: "Ralph Wiggum",
-            description: "互動式自我參照 AI 循環，用於迭代開發。Claude 反覆處理相同任務，觀察之前的工作，直到完成",
-            version: "1.0.0",
-            author: {
-                name: "Daisy Hollman",
-                email: "daisy@anthropic.com"
-            },
-            source: "./plugins/ralph-wiggum",
-            category: "development",
-            sourceType: "official",
-            icon: PLUGIN_ICONS['ralph-wiggum'],
-            githubUrl: "https://github.com/DennisLiuCk/claude-plugin-marketplace/tree/main/plugins/ralph-wiggum"
         },
         {
             name: "plugin-dev",
