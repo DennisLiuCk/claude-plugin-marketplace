@@ -9,7 +9,7 @@
 **專案特點**
 - 完整繁體中文介面與說明文件
 - 基於 Anthropic 官方插件翻譯而成
-- 涵蓋 14 個精選插件，支援完整開發流程
+- 涵蓋 20 個精選插件，支援完整開發流程
 - 持續更新，跟隨官方版本同步
 
 ## 安裝方式
@@ -42,9 +42,9 @@ cp -r claude-plugin-marketplace/plugins/[插件名稱] ~/.claude/plugins/
 
 ## 插件列表
 
-本專案提供 14 個插件，分為四大類別：
+本專案提供 20 個插件，分為四大類別：
 
-### 開發工具（6 個）
+### 開發工具（10 個）
 
 | 插件名稱 | 說明 | 主要命令 |
 |---------|------|---------|
@@ -52,10 +52,14 @@ cp -r claude-plugin-marketplace/plugins/[插件名稱] ~/.claude/plugins/
 | feature-dev | 七階段功能開發流程，包含程式碼探索、架構設計與審查代理程式 | `/feature-dev` |
 | frontend-design | 前端介面設計指引，提供專業的設計建議 | 自動啟用 |
 | ralph-wiggum | 互動式迭代開發循環，自動重複執行直到完成任務 | `/ralph-loop`, `/cancel-ralph` |
+| ralph-loop | 連續自引用 AI 循環，實現 Ralph Wiggum 技術 | `/ralph`, `/ralph-stop` |
 | plugin-dev | 插件開發工具包，包含 7 個專業技能模組 | `/create-plugin` |
 | legacy-analyzer | 遺留專案分析工具，使用多代理置信度評分分析 Java Spring Boot 專案 | `/analyze-java-domain` |
+| claude-opus-4-5-migration | 將程式碼和提示詞從 Sonnet/Opus 4.x 遷移至 Opus 4.5 | `/migrate-to-opus-4-5` |
+| code-simplifier | 簡化和優化程式碼以提升清晰度與可維護性 | 自動啟用 |
+| java-code-simplifier | Java/Spring Boot 程式碼簡化專家，運用企業級最佳實踐 | `/simplify-java` |
 
-### 生產力工具（5 個）
+### 生產力工具（7 個）
 
 | 插件名稱 | 說明 | 主要命令 |
 |---------|------|---------|
@@ -64,6 +68,8 @@ cp -r claude-plugin-marketplace/plugins/[插件名稱] ~/.claude/plugins/
 | code-review | 自動化程式碼審查，具備智慧過濾機制 | `/code-review` |
 | hookify | 自訂規則系統，可防止特定操作執行 | `/hookify`, `/list`, `/configure` |
 | issue-review | 專業的問題分析專家系統，深入分析問題並定位根本原因 | `/skill issue-review` |
+| sql-to-osc | 將 Flyway SQL 遷移腳本轉換為 OSC 格式 | `/sql-to-osc` |
+| community-code-review | 社群版 Git 提交程式碼審查工具，配備驗證機制 | `/community-code-review` |
 
 ### 安全工具（1 個）
 
@@ -113,19 +119,25 @@ claude-plugin-marketplace/
 │   └── marketplace.json          # 市場配置檔案
 ├── plugins/                       # 插件目錄
 │   ├── agent-sdk-dev/            # Agent SDK 開發
+│   ├── claude-opus-4-5-migration/ # Opus 4.5 遷移工具
 │   ├── code-review/              # 程式碼審查
+│   ├── code-simplifier/          # 程式碼簡化
 │   ├── commit-commands/          # Git 命令
+│   ├── community-code-review/    # 社群版程式碼審查
 │   ├── explanatory-output-style/ # 解釋性輸出
 │   ├── feature-dev/              # 功能開發
 │   ├── frontend-design/          # 前端設計
 │   ├── hookify/                  # 規則系統
 │   ├── issue-review/             # 問題分析（社群插件）
+│   ├── java-code-simplifier/     # Java 程式碼簡化
 │   ├── learning-output-style/    # 學習模式
 │   ├── legacy-analyzer/          # 遺留專案分析（社群插件）
 │   ├── plugin-dev/               # 插件開發
 │   ├── pr-review-toolkit/        # PR 審查
-│   ├── ralph-wiggum/             # 迭代開發
-│   └── security-guidance/        # 安全檢測
+│   ├── ralph-loop/               # Ralph Loop 迭代開發
+│   ├── ralph-wiggum/             # Ralph Wiggum 迭代開發
+│   ├── security-guidance/        # 安全檢測
+│   └── sql-to-osc/               # SQL 轉 OSC
 ├── README.md                      # 本檔案
 └── CLAUDE.md                      # AI 助手指南
 ```
@@ -168,6 +180,15 @@ claude-plugin-marketplace/
 4. 參考官方 Claude Code 文件
 
 ## 更新紀錄
+
+### v1.6.0（2026-01-11）
+- 新增 claude-opus-4-5-migration 插件：支援從 Sonnet/Opus 4.x 遷移至 Opus 4.5
+- 新增 code-simplifier 插件：簡化和優化程式碼
+- 新增 java-code-simplifier 插件：Java/Spring Boot 程式碼簡化專家
+- 新增 sql-to-osc 插件：將 Flyway SQL 遷移轉換為 OSC 格式
+- 新增 community-code-review 插件：社群版 Git 提交程式碼審查
+- 新增 ralph-loop 插件：連續自引用 AI 循環
+- 更新文件以反映 20 個插件
 
 ### v1.5.0（2025-11-25）
 - 移除已棄用插件：legacy-hero-java、legacy-hero-java-v2
