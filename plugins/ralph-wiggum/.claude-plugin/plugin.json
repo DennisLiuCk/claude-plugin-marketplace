@@ -1,9 +1,0 @@
-{
-  "name": "ralph-wiggum",
-  "version": "1.0.0",
-  "description": "互動式自我參照 AI 循環，用於迭代開發。Claude 反覆處理相同任務，觀察之前的工作，直到完成",
-  "author": {
-    "name": "Daisy Hollman (繁體中文版)",
-    "email": "daisy@anthropic.com"
-  }
-}

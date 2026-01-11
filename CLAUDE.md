@@ -10,7 +10,7 @@ This repository is the **Claude Code Traditional Chinese Plugin Marketplace** (c
 - **Base**: Anthropic official plugins (translated)
 - **Language**: Traditional Chinese (繁體中文)
 - **Version**: 1.6.0
-- **Total Plugins**: 20 plugins across 4 categories
+- **Total Plugins**: 19 plugins across 4 categories
 
 ## Repository Structure
 
@@ -51,7 +51,7 @@ claude-plugin-marketplace/
 │   ├── legacy-analyzer/          # Development: Legacy project analysis
 │   ├── plugin-dev/               # Development: Plugin development toolkit
 │   ├── pr-review-toolkit/        # Productivity: PR review agents
-│   ├── ralph-wiggum/             # Development: Iterative development loop
+│   ├── ralph-loop/               # Development: Iterative development loop
 │   └── security-guidance/        # Security: Security warnings hook
 │
 ├── README.md                      # Main repository documentation
@@ -60,20 +60,25 @@ claude-plugin-marketplace/
 
 ## Plugin Categories and Inventory
 
-### Development Tools (6 plugins)
+### Development Tools (9 plugins)
 1. **agent-sdk-dev**: Claude Agent SDK development toolkit for Python and TypeScript
 2. **feature-dev**: Seven-stage feature development workflow with specialized agents
 3. **frontend-design**: Production-grade frontend interface design guidance
-4. **ralph-wiggum**: Interactive self-referential AI loop for iterative development
+4. **ralph-loop**: Interactive self-referential AI loop for iterative development
 5. **plugin-dev**: Comprehensive Claude Code plugin development toolkit
 6. **legacy-analyzer**: Multi-agent confidence-based legacy Java project analysis
+7. **claude-opus-4-5-migration**: Code and prompt migration from Sonnet/Opus 4.x to Opus 4.5
+8. **code-simplifier**: Code simplification for improved clarity and maintainability
+9. **java-code-simplifier**: Java/Spring Boot code simplification expert
 
-### Productivity Tools (5 plugins)
+### Productivity Tools (7 plugins)
 1. **pr-review-toolkit**: Comprehensive PR review agents for code quality
 2. **commit-commands**: Simplified Git workflow commands
 3. **code-review**: Automated code review with confidence-based scoring
 4. **hookify**: Custom hook creator for preventing unwanted behaviors
 5. **issue-review**: Professional issue analysis expert system
+6. **sql-to-osc**: SQL to OSC migration script converter
+7. **community-code-review**: Community Git commit code review tool
 
 ### Security Tools (1 plugin)
 1. **security-guidance**: Security reminder hook for file edits

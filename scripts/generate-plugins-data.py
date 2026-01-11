@@ -24,7 +24,6 @@ PLUGIN_ICONS = {
     'agent-sdk-dev': '🔧',
     'feature-dev': '🚀',
     'frontend-design': '🎨',
-    'ralph-wiggum': '🔄',
     'plugin-dev': '📦',
     'pr-review-toolkit': '👀',
     'commit-commands': '💾',
