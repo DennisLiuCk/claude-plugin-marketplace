@@ -39,7 +39,8 @@ PLUGIN_ICONS = {
     'sql-to-osc': '🗃️',  # SQL 轉 OSC：資料庫架構變更腳本轉換工具
     'community-code-review': '🔎',  # 社群版程式碼審查：Git 提交審查工具
     'code-simplifier': '✨',  # 程式碼簡化專家：提升清晰度和可維護性
-    'ralph-loop': '♾️'  # Ralph Loop：自引用迭代開發循環
+    'ralph-loop': '♾️',  # Ralph Loop：自引用迭代開發循環
+    'java-code-simplifier': '☕'  # Java 程式碼簡化專家：專為 Java/Spring Boot 設計
 }
 
 CATEGORY_NAMES = {

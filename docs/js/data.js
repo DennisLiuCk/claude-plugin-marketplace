@@ -21,6 +21,7 @@ const PLUGIN_ICONS = {
     'community-code-review': '🔎',
     'code-simplifier': '✨',
     'ralph-loop': '♾️',
+    'java-code-simplifier': '☕',
 };
 
 const CATEGORY_NAMES = {
@@ -325,6 +326,21 @@ const pluginsData = {
             sourceType: "official",
             icon: PLUGIN_ICONS['code-simplifier'],
             githubUrl: "https://github.com/DennisLiuCk/claude-plugin-marketplace/tree/main/plugins/code-simplifier"
+        },
+        {
+            name: "java-code-simplifier",
+            displayName: "Java Code Simplifier",
+            description: "專為 Java/Spring Boot 專案設計的程式碼簡化專家，運用企業級最佳實踐提升程式碼品質",
+            version: "1.0.0",
+            author: {
+                name: "DennisLiuCk",
+                email: "nossi1970@hotmail.com"
+            },
+            source: "./plugins/java-code-simplifier",
+            category: "development",
+            sourceType: "community",
+            icon: PLUGIN_ICONS['java-code-simplifier'],
+            githubUrl: "https://github.com/DennisLiuCk/claude-plugin-marketplace/tree/main/plugins/java-code-simplifier"
         }
     ]
 };
