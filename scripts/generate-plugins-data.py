@@ -39,7 +39,8 @@ PLUGIN_ICONS = {
     'community-code-review': '🔎',  # 社群版程式碼審查：Git 提交審查工具
     'code-simplifier': '✨',  # 程式碼簡化專家：提升清晰度和可維護性
     'ralph-loop': '♾️',  # Ralph Loop：自引用迭代開發循環
-    'java-code-simplifier': '☕'  # Java 程式碼簡化專家：專為 Java/Spring Boot 設計
+    'java-code-simplifier': '☕',  # Java 程式碼簡化專家：專為 Java/Spring Boot 設計
+    'skill-creator': '🛠️'  # 技能建立器：來自 Anthropic 官方的技能開發工具
 }
 
 CATEGORY_NAMES = {

@@ -12,7 +12,7 @@
 **專案特點**
 - 完整繁體中文介面與說明文件
 - 基於 Anthropic 官方插件翻譯而成
-- 涵蓋 19 個精選插件，支援完整開發流程
+- 涵蓋 20 個精選插件，支援完整開發流程
 - 持續更新，跟隨官方版本同步
 
 ## 安裝方式
@@ -45,9 +45,9 @@ cp -r claude-plugin-marketplace/plugins/[插件名稱] ~/.claude/plugins/
 
 ## 插件列表
 
-本專案提供 19 個插件，分為四大類別：
+本專案提供 20 個插件，分為四大類別：
 
-### 開發工具（9 個）
+### 開發工具（10 個）
 
 | 插件名稱 | 說明 | 主要命令 |
 |---------|------|---------|
@@ -60,6 +60,7 @@ cp -r claude-plugin-marketplace/plugins/[插件名稱] ~/.claude/plugins/
 | claude-opus-4-5-migration | 將程式碼和提示詞從 Sonnet/Opus 4.x 遷移至 Opus 4.5 | `/migrate-to-opus-4-5` |
 | code-simplifier | 簡化和優化程式碼以提升清晰度與可維護性 | 自動啟用 |
 | java-code-simplifier | Java/Spring Boot 程式碼簡化專家，運用企業級最佳實踐 | `/simplify-java` |
+| skill-creator | 技能建立器，支援建立、測試、迭代與優化 Claude Code 技能 | 自動啟用 |
 
 ### 生產力工具（7 個）
 
@@ -138,6 +139,7 @@ claude-plugin-marketplace/
 │   ├── pr-review-toolkit/        # PR 審查
 │   ├── ralph-loop/               # Ralph Loop 迭代開發
 │   ├── security-guidance/        # 安全檢測
+│   ├── skill-creator/            # 技能建立器
 │   └── sql-to-osc/               # SQL 轉 OSC
 ├── README.md                      # 本檔案
 └── CLAUDE.md                      # AI 助手指南
@@ -181,6 +183,12 @@ claude-plugin-marketplace/
 4. 參考官方 Claude Code 文件
 
 ## 更新紀錄
+
+### v1.7.0（2026-03-08）
+- 新增 skill-creator 插件：來自 Anthropic 官方的技能建立器（繁體中文版）
+- 包含完整的技能開發工作流程、評估系統與描述優化工具
+- 新增 GitHub Pages 技能開發指南知識區塊
+- 更新文件以反映 20 個插件
 
 ### v1.6.0（2026-01-11）
 - 新增 claude-opus-4-5-migration 插件：支援從 Sonnet/Opus 4.x 遷移至 Opus 4.5

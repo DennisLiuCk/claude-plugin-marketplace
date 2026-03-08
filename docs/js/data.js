@@ -21,6 +21,7 @@ const PLUGIN_ICONS = {
     'code-simplifier': '✨',
     'ralph-loop': '♾️',
     'java-code-simplifier': '☕',
+    'skill-creator': '🛠️',
 };
 
 const CATEGORY_NAMES = {
@@ -325,6 +326,21 @@ const pluginsData = {
             sourceType: "community",
             icon: PLUGIN_ICONS['java-code-simplifier'],
             githubUrl: "https://github.com/DennisLiuCk/claude-plugin-marketplace/tree/main/plugins/java-code-simplifier"
+        },
+        {
+            name: "skill-creator",
+            displayName: "Skill Creator",
+            description: "建立新技能、修改和改進現有技能、衡量技能效能。包含完整的技能開發工作流程、評估系統與描述優化工具",
+            version: "1.0.0",
+            author: {
+                name: "Anthropic",
+                email: "skills@anthropic.com"
+            },
+            source: "./plugins/skill-creator",
+            category: "development",
+            sourceType: "official",
+            icon: PLUGIN_ICONS['skill-creator'],
+            githubUrl: "https://github.com/DennisLiuCk/claude-plugin-marketplace/tree/main/plugins/skill-creator"
         }
     ]
 };

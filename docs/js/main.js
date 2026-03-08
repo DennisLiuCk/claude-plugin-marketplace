@@ -726,3 +726,220 @@ function escapeHtml(text) {
     div.textContent = text;
     return div.innerHTML;
 }
+
+// ==========================================
+// Knowledge / Guides Section
+// ==========================================
+
+const guidesData = [
+    {
+        id: 'what-is-skill',
+        title: '什麼是 Skill？',
+        icon: '📖',
+        level: 'beginner',
+        levelLabel: '入門',
+        description: '了解 Claude Code 技能系統的核心概念，以及 Skill 與 Command、Agent、Hook 的差異。',
+        content: `<h3>四種插件組件比較</h3>
+<table>
+<thead><tr><th>組件</th><th>觸發方式</th><th>用途</th></tr></thead>
+<tbody>
+<tr><td><strong>Command</strong></td><td>使用者手動輸入 <code>/command</code></td><td>執行特定操作</td></tr>
+<tr><td><strong>Agent</strong></td><td>由 Claude 自動選擇</td><td>專門的 AI 助手</td></tr>
+<tr><td><strong>Hook</strong></td><td>事件觸發（如檔案編輯）</td><td>攔截和檢查操作</td></tr>
+<tr><td><strong>Skill</strong></td><td>Claude 根據描述自動啟用</td><td>提供領域專業知識和工作流程</td></tr>
+</tbody>
+</table>
+<h3>Skill 的獨特之處</h3>
+<p>Skill 最大的特點是<strong>自動觸發</strong>。當使用者的請求與技能描述匹配時，Claude 會自動讀取並運用該技能的指導。使用者不需要記住任何命令 — 技能會在需要時自然出現。</p>
+<p>想了解更多？安裝 <a href="https://github.com/DennisLiuCk/claude-plugin-marketplace/tree/main/plugins/skill-creator" target="_blank">skill-creator 插件</a> 查看完整的技能建立指南。</p>`
+    },
+    {
+        id: 'skill-architecture',
+        title: '三層載入架構',
+        icon: '🏗️',
+        level: 'beginner',
+        levelLabel: '入門',
+        description: '理解 Skill 的漸進式披露（Progressive Disclosure）設計，這是 Anthropic 的核心概念。',
+        content: `<h3>三層載入系統</h3>
+<p>Skill 使用漸進式披露，讓技能可以包含大量內容而不浪費上下文空間：</p>
+<pre><code>第一層：元資料（始終在 Claude 的上下文中）
+├── name: "skill-name"
+└── description: "何時觸發、做什麼"（約 100 字）
+     ↓ 當 Claude 決定使用此技能時
+第二層：SKILL.md 本文（載入到上下文中）
+├── 詳細指令和工作流程
+└── 理想控制在 500 行以內
+     ↓ 按需引用
+第三層：附帶資源（按需載入，無限制）
+├── scripts/    → 可執行的工具腳本
+├── references/ → 參考文件
+└── assets/     → 範本、圖示等</code></pre>
+<h3>為什麼這很重要？</h3>
+<p>Claude 的上下文視窗是有限的。第一層（描述）始終存在，所以要精簡但足夠觸發。第二層只在技能啟用時載入。第三層只在需要時讀取。</p>`
+    },
+    {
+        id: 'skill-anatomy',
+        title: 'Skill 結構剖析',
+        icon: '🔬',
+        level: 'intermediate',
+        levelLabel: '進階',
+        description: '深入理解 SKILL.md 的組成：YAML frontmatter、指令主體與附帶資源。',
+        content: `<h3>YAML Frontmatter</h3>
+<p>每個 SKILL.md 必須以 YAML frontmatter 開頭：</p>
+<pre><code>---
+name: my-skill
+description: >
+  這個描述決定了 Claude 何時會啟用此技能。
+  要包含具體的觸發情境，而不只是功能描述。
+---</code></pre>
+<h3>重點：description 是觸發機制</h3>
+<p>Claude 看到所有已安裝技能的名稱和描述。當使用者的請求與描述匹配時，Claude 才會讀取技能的完整內容。因此：</p>
+<ul>
+<li>描述要「積極」— Anthropic 發現 Claude 傾向於「觸發不足」</li>
+<li>包含具體的使用情境</li>
+<li>控制在 1024 字元以內（硬限制）</li>
+</ul>
+<h3>附帶資源結構</h3>
+<pre><code>my-skill/
+├── SKILL.md
+├── scripts/        ← 可程式化執行的工具
+├── references/     ← 需要時讀取的參考文件
+└── assets/         ← 範本、圖示等</code></pre>`
+    },
+    {
+        id: 'skill-best-practices',
+        title: '撰寫最佳實踐',
+        icon: '✅',
+        level: 'intermediate',
+        levelLabel: '進階',
+        description: '從 Anthropic 官方指南學習：描述優化、漸進式披露、解釋優於規則。',
+        content: `<h3>1. 解釋「為什麼」而非強制「必須」</h3>
+<p>LLM 是聰明的。當你解釋原因時，它們能夠泛化到新的情境。</p>
+<pre><code># 不好的寫法
+ALWAYS use kebab-case for file names.
+
+# 好的寫法
+使用 kebab-case 命名檔案（如 my-skill.md），因為這與
+Claude Code 的插件系統一致，也避免了不同作業系統
+對大小寫敏感度的差異。</code></pre>
+<h3>2. 保持精簡</h3>
+<p>SKILL.md 理想控制在 500 行以內。需要更多內容時使用 <code>references/</code> 目錄。</p>
+<h3>3. 使用祈使語氣</h3>
+<p>直接說「讀取使用者的輸入檔案」而非「你應該讀取使用者的輸入檔案」。</p>
+<h3>4. 迭代改進</h3>
+<p>不要期望一次就寫出完美的技能。好的技能是通過寫草稿 → 測試 → 評估 → 改進循環迭代出來的。</p>
+<h3>5. 避免過擬合</h3>
+<p>從具體的回饋中概括出通用的原則，而非為每個測試案例寫特殊規則。</p>`
+    },
+    {
+        id: 'skill-eval-system',
+        title: '評估與基準測試',
+        icon: '📊',
+        level: 'advanced',
+        levelLabel: '高級',
+        description: '了解如何使用評估系統驗證技能品質，包含三個代理的協作流程。',
+        content: `<h3>評估流程</h3>
+<pre><code>1. 建立測試案例 (evals.json)
+     ↓
+2. 並行執行：有技能 vs 無技能（基線）
+     ↓
+3. 評分代理 (Grader) 驗證斷言
+     ↓
+4. 彙總為基準測試 (benchmark.json)
+     ↓
+5. 分析代理 (Analyzer) 發現模式
+     ↓
+6. 檢視器展示結果給使用者審查
+     ↓
+7. 使用者回饋 → 改進技能 → 重複</code></pre>
+<h3>三個專門代理</h3>
+<table>
+<thead><tr><th>代理</th><th>角色</th><th>說明</th></tr></thead>
+<tbody>
+<tr><td><strong>Grader</strong></td><td>評分者</td><td>檢查每個斷言是否通過，提供證據</td></tr>
+<tr><td><strong>Comparator</strong></td><td>比較者</td><td>盲測比較兩個輸出的優劣</td></tr>
+<tr><td><strong>Analyzer</strong></td><td>分析者</td><td>分析結果模式，生成改進建議</td></tr>
+</tbody>
+</table>
+<p>完整的評估工具包含在 <a href="https://github.com/DennisLiuCk/claude-plugin-marketplace/tree/main/plugins/skill-creator" target="_blank">skill-creator 插件</a> 中。</p>`
+    },
+    {
+        id: 'skill-trigger-optimization',
+        title: '觸發描述優化',
+        icon: '🎯',
+        level: 'advanced',
+        levelLabel: '高級',
+        description: '學習如何優化技能描述以提高觸發準確度，避免 undertriggering 問題。',
+        content: `<h3>描述優化流程</h3>
+<ol>
+<li>生成 20 個測試查詢（混合應觸發和不應觸發的）</li>
+<li>將查詢分為訓練集和測試集（避免過擬合）</li>
+<li>自動化循環測試不同的描述版本</li>
+<li>選擇在保留測試集上表現最好的描述</li>
+</ol>
+<h3>好的描述範例</h3>
+<pre><code>建立新技能、修改和改進現有技能、衡量技能效能。
+當使用者想要建立技能、撰寫 skill、技能開發、技能測試、
+或想要將工作流程轉換為可重複使用的技能時使用此技能。</code></pre>
+<h3>不好的描述範例</h3>
+<pre><code>一個用於建立技能的工具。</code></pre>
+<h3>關鍵原則</h3>
+<ul>
+<li>描述要「積極」— Claude 傾向於觸發不足</li>
+<li>聚焦使用者意圖而非實作細節</li>
+<li>控制在 100-200 字（硬限制 1024 字元）</li>
+<li>與其他技能的描述有所區別</li>
+</ul>`
+    }
+];
+
+// Render knowledge cards
+function renderKnowledgeCards() {
+    const grid = document.getElementById('knowledge-grid');
+    if (!grid) return;
+
+    grid.innerHTML = '';
+    guidesData.forEach((guide, index) => {
+        const card = document.createElement('div');
+        card.className = 'knowledge-card';
+        card.style.animationDelay = `${index * 0.05}s`;
+        card.innerHTML = `
+            <span class="knowledge-card-icon">${guide.icon}</span>
+            <h3 class="knowledge-card-title">${guide.title}</h3>
+            <p class="knowledge-card-description">${guide.description}</p>
+            <span class="knowledge-card-level ${guide.level}">${guide.levelLabel}</span>
+        `;
+        card.addEventListener('click', () => openKnowledgeModal(guide));
+        grid.appendChild(card);
+    });
+}
+
+// Open knowledge detail modal
+function openKnowledgeModal(guide) {
+    const kModal = document.getElementById('knowledge-modal');
+    if (!kModal) return;
+
+    document.getElementById('knowledge-modal-icon').textContent = guide.icon;
+    document.getElementById('knowledge-modal-title').textContent = guide.title;
+    document.getElementById('knowledge-modal-meta').innerHTML = `
+        <span class="knowledge-card-level ${guide.level}">${guide.levelLabel}</span>
+    `;
+    document.getElementById('knowledge-modal-content').innerHTML = guide.content;
+
+    kModal.classList.add('show');
+    document.body.style.overflow = 'hidden';
+
+    // Close handlers
+    const closeBtn = document.getElementById('knowledge-modal-close');
+    const closeHandler = () => {
+        kModal.classList.remove('show');
+        document.body.style.overflow = '';
+    };
+    closeBtn.onclick = closeHandler;
+    kModal.onclick = (e) => { if (e.target === kModal) closeHandler(); };
+}
+
+// Initialize knowledge section on DOM ready
+document.addEventListener('DOMContentLoaded', () => {
+    renderKnowledgeCards();
+});
