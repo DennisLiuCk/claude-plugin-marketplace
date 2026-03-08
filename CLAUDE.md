@@ -9,8 +9,8 @@ This repository is the **Claude Code Traditional Chinese Plugin Marketplace** (c
 - **Owner**: Dennis Liu
 - **Base**: Anthropic official plugins (translated)
 - **Language**: Traditional Chinese (繁體中文)
-- **Version**: 1.6.0
-- **Total Plugins**: 19 plugins across 4 categories
+- **Version**: 1.7.0
+- **Total Plugins**: 20 plugins across 4 categories
 
 ## Repository Structure
 
@@ -52,7 +52,8 @@ claude-plugin-marketplace/
 │   ├── plugin-dev/               # Development: Plugin development toolkit
 │   ├── pr-review-toolkit/        # Productivity: PR review agents
 │   ├── ralph-loop/               # Development: Iterative development loop
-│   └── security-guidance/        # Security: Security warnings hook
+│   ├── security-guidance/        # Security: Security warnings hook
+│   └── skill-creator/            # Development: Skill creation toolkit
 │
 ├── README.md                      # Main repository documentation
 └── CLAUDE.md                      # This file - AI assistant guide
@@ -60,7 +61,7 @@ claude-plugin-marketplace/
 
 ## Plugin Categories and Inventory
 
-### Development Tools (9 plugins)
+### Development Tools (10 plugins)
 1. **agent-sdk-dev**: Claude Agent SDK development toolkit for Python and TypeScript
 2. **feature-dev**: Seven-stage feature development workflow with specialized agents
 3. **frontend-design**: Production-grade frontend interface design guidance
@@ -70,6 +71,7 @@ claude-plugin-marketplace/
 7. **claude-opus-4-5-migration**: Code and prompt migration from Sonnet/Opus 4.x to Opus 4.5
 8. **code-simplifier**: Code simplification for improved clarity and maintainability
 9. **java-code-simplifier**: Java/Spring Boot code simplification expert
+10. **skill-creator**: Skill creation, testing, iteration and optimization toolkit from Anthropic
 
 ### Productivity Tools (7 plugins)
 1. **pr-review-toolkit**: Comprehensive PR review agents for code quality

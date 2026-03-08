@@ -39,6 +39,10 @@
                 </div>
 
                 <nav class="nav">
+                    <a href="#knowledge-section" class="nav-link">
+                        <span class="nav-icon">🎓</span>
+                        指南
+                    </a>
                     <a href="https://github.com/DennisLiuCk/claude-plugin-marketplace" target="_blank" class="nav-link">
                         <span class="nav-icon">🔗</span>
                         GitHub
@@ -148,6 +152,45 @@
             </div>
         </div>
     </section>
+
+    <!-- Knowledge Section -->
+    <section class="knowledge" id="knowledge-section">
+        <div class="container">
+            <div class="knowledge-header">
+                <h2 class="knowledge-title">技能開發<span class="highlight">指南</span></h2>
+                <p class="knowledge-description">學習如何建立高品質的 Claude Code 技能（Skill）</p>
+            </div>
+            <div id="knowledge-grid" class="knowledge-grid">
+                <!-- Knowledge cards will be dynamically inserted here -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Knowledge Detail Modal -->
+    <div id="knowledge-modal" class="modal-overlay">
+        <div class="modal-container">
+            <div class="modal-header">
+                <div class="modal-title-section">
+                    <span id="knowledge-modal-icon" class="modal-icon"></span>
+                    <div class="modal-title-text">
+                        <h2 id="knowledge-modal-title"></h2>
+                        <div id="knowledge-modal-meta" class="modal-meta"></div>
+                    </div>
+                </div>
+                <button id="knowledge-modal-close" class="modal-close" aria-label="關閉">
+                    <span>&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div id="knowledge-modal-content" class="modal-content markdown-body"></div>
+            </div>
+            <div class="modal-footer">
+                <a href="https://github.com/DennisLiuCk/claude-plugin-marketplace/tree/main/plugins/skill-creator" target="_blank" class="modal-btn secondary">
+                    <span>📂</span> 查看 skill-creator 插件
+                </a>
+            </div>
+        </div>
+    </div>
 
     <!-- Footer -->
     <footer class="footer">

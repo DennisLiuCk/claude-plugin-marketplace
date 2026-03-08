@@ -1747,3 +1747,124 @@ body {
         justify-content: center;
     }
 }
+
+/* ==========================================
+   Knowledge Section
+   ========================================== */
+.knowledge {
+    padding: var(--spacing-2xl) 0;
+    position: relative;
+}
+
+.knowledge-header {
+    text-align: center;
+    margin-bottom: var(--spacing-xl);
+}
+
+.knowledge-title {
+    font-family: var(--font-primary);
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--color-text-primary);
+    margin-bottom: var(--spacing-xs);
+}
+
+.knowledge-description {
+    font-family: var(--font-body);
+    color: var(--color-text-secondary);
+    font-size: 1rem;
+}
+
+.knowledge-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: var(--spacing-md);
+}
+
+.knowledge-card {
+    background: var(--color-bg-secondary);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    padding: var(--spacing-lg);
+    cursor: pointer;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.knowledge-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: var(--gradient-primary);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.knowledge-card:hover {
+    border-color: var(--color-accent-primary);
+    transform: translateY(-4px);
+    box-shadow: var(--glow-primary);
+}
+
+.knowledge-card:hover::before {
+    opacity: 1;
+}
+
+.knowledge-card-icon {
+    font-size: 2rem;
+    margin-bottom: var(--spacing-sm);
+    display: block;
+}
+
+.knowledge-card-title {
+    font-family: var(--font-primary);
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--color-text-primary);
+    margin-bottom: var(--spacing-xs);
+}
+
+.knowledge-card-description {
+    font-family: var(--font-body);
+    font-size: 0.875rem;
+    color: var(--color-text-secondary);
+    line-height: 1.6;
+}
+
+.knowledge-card-level {
+    display: inline-block;
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    padding: 2px 8px;
+    border-radius: var(--radius-sm);
+    margin-top: var(--spacing-sm);
+}
+
+.knowledge-card-level.beginner {
+    background: rgba(0, 212, 170, 0.15);
+    color: var(--color-accent-primary);
+}
+
+.knowledge-card-level.intermediate {
+    background: rgba(255, 184, 77, 0.15);
+    color: var(--color-accent-secondary);
+}
+
+.knowledge-card-level.advanced {
+    background: rgba(255, 107, 157, 0.15);
+    color: var(--color-accent-tertiary);
+}
+
+@media (max-width: 768px) {
+    .knowledge-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .knowledge-title {
+        font-size: 1.5rem;
+    }
+}

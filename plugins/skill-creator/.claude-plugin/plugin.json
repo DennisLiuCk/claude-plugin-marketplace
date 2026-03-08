@@ -1,0 +1,9 @@
+{
+  "name": "skill-creator",
+  "version": "1.0.0",
+  "description": "建立新技能、修改和改進現有技能、衡量技能效能。用於從零開始建立技能、編輯或優化現有技能、執行評估測試、基準測試效能分析、或優化技能描述以提升觸發準確度",
+  "author": {
+    "name": "Anthropic (繁體中文版)",
+    "email": "skills@anthropic.com"
+  }
+}
